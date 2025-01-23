@@ -122,7 +122,7 @@ function Managestaff() {
   return (
     <>
       <NavBar />
-      <div className="flex">
+      <div className="flex mt-16">
         {/* Left side navigation bar */}
         <LeftSideNavBar setActiveTab={setActiveTab} activeTab={activeTab} />
 

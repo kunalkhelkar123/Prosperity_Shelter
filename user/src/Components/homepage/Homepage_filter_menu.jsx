@@ -1,41 +1,37 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import { useCallback, useLayoutEffect, useState, useEffect } from 'react';
-import City from '../homepage/city.jpeg';
-import Homepage_google_reviews from './Homepage_google_reviews';
-import Homepage_latest_blog from './Homepage_latest_blog';
-import Homepage_investmentProperty from './Homepage_investmentProperty';
-import Homepage_staticGrid_Info from './Homepage_staticGrid_Info';
-import DummyTest from './DummyTest';
-import Homepage_Brands from './Homepage_Brands';
-import LoginForm from './LoginForm';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import Corespace_footer from '../Corespace_footer/Corespace_footer';
+import { useCallback, useLayoutEffect, useState, useEffect } from "react";
+import City from "../homepage/city.jpeg";
+import Homepage_google_reviews from "./Homepage_google_reviews";
+import Homepage_latest_blog from "./Homepage_latest_blog";
+import Homepage_investmentProperty from "./Homepage_investmentProperty";
+import Homepage_staticGrid_Info from "./Homepage_staticGrid_Info";
+import DummyTest from "./DummyTest";
+import Homepage_Brands from "./Homepage_Brands";
+import LoginForm from "./LoginForm";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Corespace_footer from "../Corespace_footer/Corespace_footer";
 import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
-import PopupForm from '../PopupForm';
+import PopupForm from "../PopupForm";
+import Homepage_Banks from "./Homepage_Banks";
 // import PopupForm from "./Components/PopupForm";
 // import ScratchCardPopup from '../ScratchCardPopup/ScratchCardPopup';
 
-
-
-
-
 function Homepage_filter_menu() {
   const [showLoginForm, setShowLoginForm] = useState(false);
-  const [selectedoption, setSelectedoption] = useState('');
-  const [selectedArea, setSelectedArea] = useState('');
-  const [selectedConfiguration, setSelectedConfiguration] = useState('');
-  const [selectedBudget, setSelectedBudget] = useState('');
-  const [filterData, setFilterData] = useState('');
+  const [selectedoption, setSelectedoption] = useState("");
+  const [selectedArea, setSelectedArea] = useState("");
+  const [selectedConfiguration, setSelectedConfiguration] = useState("");
+  const [selectedBudget, setSelectedBudget] = useState("");
+  const [filterData, setFilterData] = useState("");
 
   const [isSearchEnabled, setIsSearchEnabled] = useState(false);
   const navigate = useNavigate();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isPopupFill, setIsPopupFill] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
-
 
   useEffect(() => {
     setIsPopupOpen(true);
@@ -45,36 +41,36 @@ function Homepage_filter_menu() {
     setIsPopupOpen(false);
   };
   const puneAreas = [
-    'Shivaji Nagar',
-    'Kothrud',
-    'Baner',
-    'Aundh',
-    'Viman Nagar',
-    'Koregaon Park',
-    'Hadapsar',
-    'Pimpri',
-    'Chinchwad',
-    'Wakad',
-    'Kalyani Nagar',
-    'Hinjewadi',
-    'Bavdhan',
-    'Pashan',
-    'Kharadi',
-    'Magarpatta',
-    'Camp',
-    'Deccan',
-    'Pune University',
-    'Yerwada',
-    'Swargate',
-    'Karve Nagar',
-    'Dhanori',
-    'Wanowrie',
-    'Nigdi',
-    'Tathawade',
-    'Warje',
-    'Lohegaon',
-    'Sahakar Nagar',
-    'Balewadi',
+    "Shivaji Nagar",
+    "Kothrud",
+    "Baner",
+    "Aundh",
+    "Viman Nagar",
+    "Koregaon Park",
+    "Hadapsar",
+    "Pimpri",
+    "Chinchwad",
+    "Wakad",
+    "Kalyani Nagar",
+    "Hinjewadi",
+    "Bavdhan",
+    "Pashan",
+    "Kharadi",
+    "Magarpatta",
+    "Camp",
+    "Deccan",
+    "Pune University",
+    "Yerwada",
+    "Swargate",
+    "Karve Nagar",
+    "Dhanori",
+    "Wanowrie",
+    "Nigdi",
+    "Tathawade",
+    "Warje",
+    "Lohegaon",
+    "Sahakar Nagar",
+    "Balewadi",
   ];
 
   useLayoutEffect(() => {
@@ -123,10 +119,10 @@ function Homepage_filter_menu() {
       budget: selectedBudget,
     };
 
-    fetch('/api/property/filter_properties', {
-      method: 'POST',
+    fetch("/api/property/filter_properties", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
@@ -135,16 +131,15 @@ function Homepage_filter_menu() {
         // Handle response from the backend
         // setFilterData(data);
 
-        navigate('/Searchapp', { state: { data } });
+        navigate("/Searchapp", { state: { data } });
 
         // console.log("data ", data);
         // console.log("filter data console", filterData);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
-
 
   useEffect(() => {
     setIsPopupOpen2(true);
@@ -159,19 +154,24 @@ function Homepage_filter_menu() {
       <Corespace_navbar />
       <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
 
-      <div style={{ '--image-url': `url(${City})` }} className="h-[600px] w-[100%] bg-cover bg-repeat-round relative bg-[image:var(--image-url)]"></div>
+      <div
+        style={{ "--image-url": `url(${City})` }}
+        className="h-[600px] w-[100%] bg-cover bg-repeat-round relative bg-[image:var(--image-url)]"
+      ></div>
 
       {/* <img className='relative w-full h-[550px] bg-cover bg-center bg-no-repeat mb-8 md:h-[550px]' src={City} alt="City"></img> */}
 
       <div className="flex flex-col absolute w-full  justify-center  items-center top-0 md:mt-40   mt-28 sm:mt-36">
         <div className="mb-5 text-center">
-          <h1 className=" text-4xl sm:text-6xl font-semibold text-[#fff848] hover:text-white  tracking-wider">Prosperity Shelters </h1>
+          <h1 className=" text-4xl sm:text-6xl font-semibold text-[#fff848] hover:text-white  tracking-wider">
+            Prosperity Shelters{" "}
+          </h1>
         </div>
 
         <div className="bg-gray-800  w-[50%] grid grid-cols-0 sm:grid-cols-3 grid-row-4  bg-opacity-90 grid-flow-row p-3  gap-1 rounded-md  items-center sm:grid-col-2 ">
           <Link to="/Investmentapp">
             <button
-              onClick={() => handleSelectoptions('Investment')}
+              onClick={() => handleSelectoptions("Investment")}
               className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm w-full px-5 py-2.5  mb-2"
             >
               Investment
@@ -179,7 +179,7 @@ function Homepage_filter_menu() {
           </Link>
           <Link to="/Commertialapp">
             <button
-              onClick={() => handleSelectoptions('Commercial')}
+              onClick={() => handleSelectoptions("Commercial")}
               className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 w-full mb-2"
             >
               Commercial
@@ -196,7 +196,10 @@ function Homepage_filter_menu() {
           {/* <Link to="/">
             <button className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 w-full mb-2">Managed Offices</button>
           </Link> */}
-          <button onClick={handleToggleLoginForm} className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 w-full mb-2">
+          <button
+            onClick={handleToggleLoginForm}
+            className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 w-full mb-2"
+          >
             Post Your Property
           </button>
           {showLoginForm && (
@@ -268,16 +271,28 @@ function Homepage_filter_menu() {
             </button>
             {/* </Link> */}
           </div>
-
-
         </div>
       </div>
       <DummyTest />
       {/* <Homepage_staticGrid_Info /> */}
       {/* <Homepage_investmentProperty /> */}
-      <Homepage_Brands />
-      {/* <Homepage_latest_blog /> */}
-      {/* <Homepage_google_reviews/> */}
+      <div className="bg-gray-50 py-10 min-h-screen">
+        <div className="w-full px-4">
+          <div className="mb-10 w-full">
+            <div className="shadow-md p-8 w-full rounded-lg bg-gray-100 flex flex-col items-center justify-center gap-[75px]">
+              <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
+              Our Partners <br /> (Builder)
+              </h2>
+              <Homepage_Brands />
+              <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
+                Partnered Banks
+              </h2>
+              <Homepage_Banks />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <Corespace_footer />
     </>
   );

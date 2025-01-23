@@ -68,18 +68,10 @@ function App() {
   // }, [pathname]);
   // const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  // useEffect(() => {
-  //   setIsPopupOpen(true);
-  // }, []);
-
-  // const closePopup = () => {
-  //   setIsPopupOpen(false);
-  // };
   return (
     <>
       <BrowserRouter>
         {/* <Corespace_navbar /> */}
-        {/* {isPopupOpen && <ScratchCardPopup onClose={closePopup} />} */}
         <Routes>
 
 

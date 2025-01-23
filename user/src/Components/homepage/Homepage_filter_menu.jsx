@@ -16,7 +16,7 @@ import Corespace_footer from '../Corespace_footer/Corespace_footer';
 import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
 import PopupForm from '../PopupForm';
 // import PopupForm from "./Components/PopupForm";
-import ScratchCardPopup from '../ScratchCardPopup/ScratchCardPopup';
+// import ScratchCardPopup from '../ScratchCardPopup/ScratchCardPopup';
 
 
 
@@ -155,7 +155,7 @@ function Homepage_filter_menu() {
   };
   return (
     <>
-      {isPopupOpen2 && <ScratchCardPopup onClose={closePopup2} />}
+      {/* {isPopupOpen2 && <ScratchCardPopup onClose={closePopup2} />} */}
       <Corespace_navbar />
       <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
 
@@ -165,7 +165,7 @@ function Homepage_filter_menu() {
 
       <div className="flex flex-col absolute w-full  justify-center  items-center top-0 md:mt-40   mt-28 sm:mt-36">
         <div className="mb-5 text-center">
-          <h1 className=" text-4xl sm:text-6xl font-semibold text-[#fff848] hover:text-white  tracking-wider">HomiGrow </h1>
+          <h1 className=" text-4xl sm:text-6xl font-semibold text-[#fff848] hover:text-white  tracking-wider">Prosperity Shelters </h1>
         </div>
 
         <div className="bg-gray-800  w-[50%] grid grid-cols-0 sm:grid-cols-3 grid-row-4  bg-opacity-90 grid-flow-row p-3  gap-1 rounded-md  items-center sm:grid-col-2 ">

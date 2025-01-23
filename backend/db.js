@@ -9,6 +9,15 @@ const connection = mysql.createPool({
   database: "homi_grow",
 });
 
+
+// const connection = mysql.createPool({
+//   host: "localhost",
+//   user: "root",
+//   // password: "admin",
+//   password: "Kunal@123",
+//   database: "homi_grow",
+// });
+
 // Test the connection
 async function testConnection() {
   try {

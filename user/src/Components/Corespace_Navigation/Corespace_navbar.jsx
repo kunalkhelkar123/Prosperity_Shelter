@@ -1,5 +1,5 @@
 import  { useEffect, useRef, useState } from "react";
-import CORESPACE_LOGO from "./Asset/CORESPACE_LOGO.png";
+import LOGO from "./Asset/logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 function Corespace_navbar() {
@@ -78,7 +78,7 @@ function Corespace_navbar() {
           <div>
             <button>
               <img
-                src={CORESPACE_LOGO}
+                src={LOGO}
                 className="sm:p-1 p-0.5 h-[4rem] w-[5rem] ml-[3rem] md:w-[4rem] md:h-[3rem] md:ml-[3rem] md:text-[14px] lg:w-[6rem] lg:h-[5rem] lg:ml-[6rem] sm:w-[5rem] sm:h-[4rem] sm:ml-[3rem]"
               />
             </button>

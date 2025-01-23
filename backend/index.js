@@ -7,9 +7,6 @@ const staff = require("./routes/staff");
 const visitesadmin = require("./routes/visitesadmin");
 const dailyscrum = require("./routes/dailyscrum")
 const client = require("./routes/client")
-
-
-
 const otpRoute = require("./routes/user");
 const propertyDetails = require("./routes/propertyDetails");
 const verifyToken = require("./middleware/verifyToken")
@@ -20,16 +17,16 @@ const bodyParser = require("body-parser");
 dotenv.config();
 
 // ----- Mongoose connection ------
-// mongoose
-//   .connect(
-//     `mongodb+srv://kunalkhelkar2000:ch6YFrttRUfOgyKP@cluster01.ftbc18n.mongodb.net/`
-//   )
-//   .then(() => {
-//     console.log("MongoDB connected Successfully");
-//   })
-//   .catch((err) => {
-//     console.log("Error", err);
-//   });
+mongoose
+  .connect(
+    `mongodb+srv://kunalkhelkar2000:ch6YFrttRUfOgyKP@cluster01.ftbc18n.mongodb.net/`
+  )
+  .then(() => {
+    console.log("MongoDB connected Successfully");
+  })
+  .catch((err) => {
+    console.log("Error", err);
+  });
 
 app.use(cors());
 app.use(express.json());

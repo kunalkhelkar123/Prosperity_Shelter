@@ -1,0 +1,286 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-key */
+/* eslint-disable no-unused-vars */
+import { useCallback, useLayoutEffect, useState, useEffect } from 'react';
+import City from '../homepage/city.jpeg';
+import Homepage_google_reviews from './Homepage_google_reviews';
+import Homepage_latest_blog from './Homepage_latest_blog';
+import Homepage_investmentProperty from './Homepage_investmentProperty';
+import Homepage_staticGrid_Info from './Homepage_staticGrid_Info';
+import DummyTest from './DummyTest';
+import Homepage_Brands from './Homepage_Brands';
+import LoginForm from './LoginForm';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Corespace_footer from '../Corespace_footer/Corespace_footer';
+import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
+import PopupForm from '../PopupForm';
+// import PopupForm from "./Components/PopupForm";
+import ScratchCardPopup from '../ScratchCardPopup/ScratchCardPopup';
+
+
+
+
+
+function Homepage_filter_menu() {
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [selectedoption, setSelectedoption] = useState('');
+  const [selectedArea, setSelectedArea] = useState('');
+  const [selectedConfiguration, setSelectedConfiguration] = useState('');
+  const [selectedBudget, setSelectedBudget] = useState('');
+  const [filterData, setFilterData] = useState('');
+
+  const [isSearchEnabled, setIsSearchEnabled] = useState(false);
+  const navigate = useNavigate();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupFill, setIsPopupFill] = useState(false);
+  const [isPopupOpen2, setIsPopupOpen2] = useState(false);
+
+
+  useEffect(() => {
+    setIsPopupOpen(true);
+  }, []);
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+  const puneAreas = [
+    'Shivaji Nagar',
+    'Kothrud',
+    'Baner',
+    'Aundh',
+    'Viman Nagar',
+    'Koregaon Park',
+    'Hadapsar',
+    'Pimpri',
+    'Chinchwad',
+    'Wakad',
+    'Kalyani Nagar',
+    'Hinjewadi',
+    'Bavdhan',
+    'Pashan',
+    'Kharadi',
+    'Magarpatta',
+    'Camp',
+    'Deccan',
+    'Pune University',
+    'Yerwada',
+    'Swargate',
+    'Karve Nagar',
+    'Dhanori',
+    'Wanowrie',
+    'Nigdi',
+    'Tathawade',
+    'Warje',
+    'Lohegaon',
+    'Sahakar Nagar',
+    'Balewadi',
+  ];
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
+  useEffect(() => {
+    // Enable search button if all fields are filled
+    if (selectedArea || selectedConfiguration || selectedBudget) {
+      setIsSearchEnabled(true);
+    } else {
+      setIsSearchEnabled(false);
+    }
+  }, [selectedArea, selectedConfiguration, selectedBudget]);
+
+  const handleAreaChange = (e) => {
+    setSelectedArea(e.target.value);
+  };
+
+  const handleConfigurationChange = (e) => {
+    setSelectedConfiguration(e.target.value);
+  };
+
+  const handleBudgetChange = (e) => {
+    setSelectedBudget(e.target.value);
+  };
+  const handleSelectoptions = (optionSel) => {
+    setSelectedoption(optionSel);
+    selArr = properties.filter(function (selopt) {
+      if (selopt.categories == optionSel) return selopt;
+    });
+  };
+
+  const handleToggleLoginForm = () => {
+    setShowLoginForm(!showLoginForm);
+  };
+
+  // const chooseAreaOption=()=>{
+  //   let uniqueArea=[...new set(selArr.location)];
+  //   console.log(uniqueArea);
+  // }
+  const handleSearching = () => {
+    const data = {
+      area: selectedArea,
+      configuration: selectedConfiguration,
+      budget: selectedBudget,
+    };
+
+    fetch('/api/property/filter_properties', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle response from the backend
+        // setFilterData(data);
+
+        navigate('/Searchapp', { state: { data } });
+
+        // console.log("data ", data);
+        // console.log("filter data console", filterData);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+
+  useEffect(() => {
+    setIsPopupOpen2(true);
+  }, []);
+
+  const closePopup2 = () => {
+    setIsPopupOpen2(false);
+  };
+  return (
+    <>
+      {isPopupOpen2 && <ScratchCardPopup onClose={closePopup2} />}
+      <Corespace_navbar />
+      <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
+
+      <div style={{ '--image-url': `url(${City})` }} className="h-[600px] w-[100%] bg-cover bg-repeat-round relative bg-[image:var(--image-url)]"></div>
+
+      {/* <img className='relative w-full h-[550px] bg-cover bg-center bg-no-repeat mb-8 md:h-[550px]' src={City} alt="City"></img> */}
+
+      <div className="flex flex-col absolute w-full  justify-center  items-center top-0 md:mt-40   mt-28 sm:mt-36">
+        <div className="mb-5 text-center">
+          <h1 className=" text-4xl sm:text-6xl font-semibold text-[#fff848] hover:text-white  tracking-wider">HomiGrow </h1>
+        </div>
+
+        <div className="bg-gray-800  w-[50%] grid grid-cols-0 sm:grid-cols-3 grid-row-4  bg-opacity-90 grid-flow-row p-3  gap-1 rounded-md  items-center sm:grid-col-2 ">
+          <Link to="/Investmentapp">
+            <button
+              onClick={() => handleSelectoptions('Investment')}
+              className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm w-full px-5 py-2.5  mb-2"
+            >
+              Investment
+            </button>
+          </Link>
+          <Link to="/Commertialapp">
+            <button
+              onClick={() => handleSelectoptions('Commercial')}
+              className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 w-full mb-2"
+            >
+              Commercial
+            </button>
+          </Link>
+          {/* <Link to="/Appresidential">
+            <button
+              onClick={() => handleSelectoptions('Residential')}
+              className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm w-full px-5 py-2.5  mb-2"
+            >
+              Residential
+            </button>
+          </Link> */}
+          {/* <Link to="/">
+            <button className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 w-full mb-2">Managed Offices</button>
+          </Link> */}
+          <button onClick={handleToggleLoginForm} className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 w-full mb-2">
+            Post Your Property
+          </button>
+          {showLoginForm && (
+            <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-70 flex justify-center items-center">
+              <LoginForm onClose={handleToggleLoginForm} />
+            </div>
+          )}
+
+          <div className="flex flex-row sm:col-span-3 flex-wrap justify-start gap-1 bg-slate-300 p-2 rounded-md  w-ful ">
+            <select
+              id="area"
+              value={selectedArea}
+              onChange={handleAreaChange}
+              className="bg-gray-50 border w-full sm:w-fit border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mb-2"
+            >
+              <option value="" disabled hidden>
+                Choose an Area
+              </option>
+              {puneAreas.map((area) => (
+                <option value={area}>{area}</option>
+              ))}
+            </select>
+
+            <select
+              id="configuration"
+              value={selectedConfiguration}
+              onChange={handleConfigurationChange}
+              className="bg-gray-50 border w-full sm:w-fit border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mb-2"
+            >
+              <option value="" disabled hidden>
+                Choose a Configuration
+              </option>
+              <option value="RK">RK</option>
+              <option value="1 BHK">1 BHK</option>
+              <option value="2 BHK">2 BHK</option>
+              <option value="3 BHK">3 BHK</option>
+              <option value="4 BHK">4 BHK</option>
+              <option value="5 BHK">5 BHK</option>
+              <option value="OFFICE">OFFICE</option>
+              <option value="PENTHOUSE">PENTHOUSE</option>
+              <option value="OPENCSPACE">OPEN SPACE</option>
+              <option value="GARAGE">GARAGE</option>
+            </select>
+
+            <select
+              id="budget"
+              value={selectedBudget}
+              onChange={handleBudgetChange}
+              className="bg-gray-50 border w-full sm:w-fit border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mb-2"
+            >
+              <option value="" disabled hidden>
+                Choose a Budget
+              </option>
+              <option value="DE">below 50L</option>
+              <option value="US">50L - 99L </option>
+              <option value="CA">1Cr - 1.99Cr</option>
+              <option value="FR">2Cr - 2.99Cr</option>
+              <option value="DE">3Cr - 3.99Cr</option>
+              <option value="DE">4Cr - 6Cr</option>
+              <option value="DE">above 6Cr</option>
+            </select>
+            {/* <Link to={{ pathname: "/Searchapp", filterData }}> */}
+            <button
+              className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5  mb-2"
+              onClick={handleSearching}
+              disabled={!isSearchEnabled}
+            >
+              Search
+            </button>
+            {/* </Link> */}
+          </div>
+
+
+        </div>
+      </div>
+      <DummyTest />
+      {/* <Homepage_staticGrid_Info /> */}
+      {/* <Homepage_investmentProperty /> */}
+      <Homepage_Brands />
+      {/* <Homepage_latest_blog /> */}
+      {/* <Homepage_google_reviews/> */}
+      <Corespace_footer />
+    </>
+  );
+}
+
+export default Homepage_filter_menu;

@@ -16,21 +16,21 @@ function GetAllProperty() {
   const propertiesPerPage = 12;
 
 
-    useEffect(() => {
-        try {
-          const token = sessionStorage.getItem("token");
-          const admin = JSON.parse(sessionStorage.getItem("admin"));
-        
-          console.log("admin ==> ", admin)
-          if (!token || !admin || admin.role !== "admin") {
-            navigate("/admin");
-          }
-        }
-        catch (error) {
-          navigate("/admin");
-    
-        }
-      }, [navigate]);
+  useEffect(() => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const admin = JSON.parse(sessionStorage.getItem("admin"));
+
+      console.log("admin ==> ", admin)
+      if (!token || !admin || admin.role !== "admin") {
+        navigate("/admin");
+      }
+    }
+    catch (error) {
+      navigate("/admin");
+
+    }
+  }, [navigate]);
 
 
 
@@ -181,11 +181,10 @@ function GetAllProperty() {
           }).map((_, index) => (
             <li key={index}>
               <button
-                className={`px-3 py-1 ${
-                  currentPage === index + 1
+                className={`px-3 py-1 ${currentPage === index + 1
                     ? "bg-red-400 text-white"
                     : "bg-red-500"
-                } mr-1 rounded-full`}
+                  } mr-1 rounded-full`}
                 onClick={() => paginate(index + 1)}
               >
                 {index + 1}
@@ -203,11 +202,11 @@ function GetAllProperty() {
       </button> */}
 
       <button
-                    className="rounded-md p-2 bg-purple-950 text-white fixed bottom-4 right-4 shadow-md hover:bg-purple-800"
-                    onClick={() => navigate(-1)} // Navigate to the previous page
-                >
-                    <span className="material-symbols-outlined font-extrabold text-3xl">arrow_circle_left</span>
-                </button>
+        className="rounded-md p-2 bg-purple-950 text-white fixed bottom-4 right-4 shadow-md hover:bg-purple-800"
+        onClick={() => navigate(-1)} // Navigate to the previous page
+      >
+        <span className="material-symbols-outlined font-extrabold text-3xl">arrow_circle_left</span>
+      </button>
     </div>
   );
 }

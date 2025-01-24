@@ -24,7 +24,7 @@ export default function DeleteProperty({ propertyId, onDelete }) {
       const response = await axiosinstance.delete(`/api/property/deletepropertyDetails/${propertyId}`);
       console.log("Response from delete property:", response);
 
-      if (response.status === 200) {
+      if (response.status == "200") {
         toast.success("Property deleted successfully");
         onDelete(propertyId); // Trigger the parent component's callback
       } else {

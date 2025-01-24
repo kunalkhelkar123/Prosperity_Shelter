@@ -23,7 +23,7 @@ import brand16 from "./photo/Vilas-Javdekar.png"
 import brand17 from "./photo/VTP.png"
 
 function Homepage_Brands() {
-  let dummyArr =[{img:brand1},{img:brand2},{img:brand3},{img:brand4},{img:brand5},{img:brand6},{img:brand7},{img:brand8},{img:brand9},{img:brand10},{img:brand11},{img:brand12},{img:brand13},{img:brand14},{img:brand15},{img:brand16},{img:brand17}];
+  let dummyArr = [{ img: brand1 }, { img: brand2 }, { img: brand3 }, { img: brand4 }, { img: brand5 }, { img: brand6 }, { img: brand7 }, { img: brand8 }, { img: brand9 }, { img: brand10 }, { img: brand11 }, { img: brand12 }, { img: brand13 }, { img: brand14 }, { img: brand15 }, { img: brand16 }, { img: brand17 }];
 
 
 
@@ -64,21 +64,25 @@ function Homepage_Brands() {
   };
   return (
     <>
-    {/* <h1 className=' text-center font-sans text-4xl sm:text-5xl font-bold mb-8 mt-12'>Brands we work with</h1> */}
-    <div className=" md:w-[100%] w-[100%] container mx-auto px-4 ">
-      <Slider {...settings}>
-      {
-  dummyArr.map((ele)=>{
-    return(
-      <div key={ele} className=''>
-     <img src={ele.img} className='w-[60%] h-[130px] ml-[90px]' />
-     </div>
-    )
-  })
-}
-      </Slider>
-    </div>
-    
+      {/* <h1 className=' text-center font-sans text-4xl sm:text-5xl font-bold mb-8 mt-12'>Brands we work with</h1> */}
+      <div className=" md:w-[100%] w-[100%] container mx-auto px-4 ">
+        <Slider {...settings}>
+          {
+            dummyArr.map((ele) => {
+              return (
+                <div key={ele} className=''>
+                  <img
+                    src={ele.img}
+                    className='w-[90%] h-[100px] ml-[90px] p-[10px] border border-gray-300 rounded-lg'
+                  />
+
+                </div>
+              )
+            })
+          }
+        </Slider>
+      </div>
+
     </>
   )
 }

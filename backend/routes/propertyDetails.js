@@ -125,38 +125,34 @@ router.get('/property-count', async (req, res) => {
   }
 });
 
-
-
-
-
 //// get all property details in mongodb 
 
-router.get('/properties', async (req, res) => {
-  try {
-    const property = await PropertyDetails.find();
-    res.status(200).json(property);
-    console.log('ok');
-  } catch (error) {
-    console.log('error');
+// router.get('/properties', async (req, res) => {
+//   try {
+//     const property = await PropertyDetails.find();
+//     res.status(200).json(property);
+//     console.log('ok');
+//   } catch (error) {
+//     console.log('error');
 
-    res.status(500).json({ message: error.message });
-  }
-});
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
 
 
 // get all property details in mysql 
-// router.get('/properties', async (req, res) => {
-//   const query = 'SELECT * FROM property_details'; // SQL query to fetch all properties
-//   try {
-//     const [properties] = await db.query(query); // Execute the query
-//     res.status(200).json(properties); // Send the fetched data as a JSON response
-//     console.log('Fetched properties successfully');
-//   } catch (error) {
-//     console.error('Error fetching properties:', error);
-//     res.status(500).json({ message: error.message });
-//   }
-// });
+router.get('/properties', async (req, res) => {
+  const query = 'SELECT * FROM property_details'; // SQL query to fetch all properties
+  try {
+    const [properties] = await db.query(query); // Execute the query
+    res.status(200).json(properties); // Send the fetched data as a JSON response
+    console.log('Fetched properties successfully');
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    res.status(500).json({ message: error.message });
+  }
+});
 
 
 
@@ -274,6 +270,8 @@ router.get('/properties/:id', async (req, res) => {
 //     res.status(500).json(error);
 //   }
 // });
+
+
 
 // Edit Properties using mysql     upload.single('featureImage')
 router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, res) => {
@@ -421,8 +419,8 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
     values.push(propertyId);
 
 
-    console.log("query ==> ", query);
-    console.log("values ==> ", values);
+    // console.log("query ==> ", query);
+    // console.log("values ==> ", values);
 
 
     await db.query(`UPDATE property_details SET ${query.join(', ')} WHERE _id = ?`,
@@ -442,110 +440,126 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
 
 
 // Delete Property using mongoes
-router.delete('/deletepropertyDetails/:id', async (req, res) => {
-  try {
-    const propertyID = req.params.id; // Extract the property ID from the request params
-    console.log("Property ID from request:", propertyID);
-
-    // Find the property by ID
-    const property = await PropertyDetails.findById(propertyID);
-    console.log("Property details:", property);
-
-    // If property not found, return 404
-    if (!property) {
-      return res.status(404).json({ message: 'Property not found' });
-    }
-
-    // Delete the associated feature image from the file system (if exists)
-    if (property.featureImage) {
-      const imagePath = path.join(__dirname, '../uploads', property.featureImage);
-      fs.unlink(imagePath, (err) => {
-        if (err) {
-          console.error(`Error deleting feature image: ${imagePath}`, err);
-        } else {
-          console.log(`Feature image deleted: ${imagePath}`);
-        }
-      });
-    }
-
-    // Delete the property record from the database
-    await PropertyDetails.findByIdAndDelete(propertyID);
-
-    // Respond with a success message
-    res.status(200).json({ message: 'Property deleted successfully' });
-  } catch (error) {
-    console.error("Error in deleting property:", error);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
-  }
-});
-
-// // Delete Property using mysql
-// router.delete('/propertyDetails/:id', async (req, res) => {
-//   const propertyId = req.params.id;
-
+// router.delete('/deletepropertyDetails/:id', async (req, res) => {
 //   try {
-//     // Fetch the existing property details
-//     const [property] = await db.query('SELECT * FROM property_details WHERE id = ?', [propertyId]);
+//     const propertyID = req.params.id; // Extract the property ID from the request params
+//     console.log("Property ID from request:", propertyID);
 
-//     if (property.length === 0) {
+//     // Find the property by ID
+//     const property = await PropertyDetails.findById(propertyID);
+//     console.log("Property details:", property);
+
+//     // If property not found, return 404
+//     if (!property) {
 //       return res.status(404).json({ message: 'Property not found' });
 //     }
 
-//     // Delete the feature image from the file system if it exists
-//     if (property[0].featureImage) {
-//       const imagePath = path.join(__dirname, '../uploads', property[0].featureImage);
+//     // Delete the associated feature image from the file system (if exists)
+//     if (property.featureImage) {
+//       const imagePath = path.join(__dirname, '../uploads', property.featureImage);
 //       fs.unlink(imagePath, (err) => {
-//         if (err) console.error(`Failed to delete image: ${err.message}`);
+//         if (err) {
+//           console.error(`Error deleting feature image: ${imagePath}`, err);
+//         } else {
+//           console.log(`Feature image deleted: ${imagePath}`);
+//         }
 //       });
 //     }
 
-//     // Delete the property from the database
-//     await db.query('DELETE FROM property_details WHERE id = ?', [propertyId]);
+//     // Delete the property record from the database
+//     await PropertyDetails.findByIdAndDelete(propertyID);
 
-//     res.status(204).send(); // Successfully deleted
+//     // Respond with a success message
+//     res.status(200).json({ message: 'Property deleted successfully' });
 //   } catch (error) {
-//     console.error('Error deleting property:', error);
-//     res.status(500).json({ error: 'Failed to delete property' });
+//     console.error("Error in deleting property:", error);
+//     res.status(500).json({ message: 'Internal server error', error: error.message });
 //   }
 // });
 
 
+// // Delete Property using mysql
+router.delete('/deletepropertyDetails/:id', async (req, res) => {
+  const propertyId = req.params.id;
+
+  try {
+    console.log("here")
+    // Fetch the existing property details
+    const query = `SELECT * FROM property_details WHERE _id = ?`
+    const [property] = await db.execute(query, [propertyId]);
+
+    if (property.length === 0) {
+      return res.status(404).json({ message: 'Property not found' });
+    }
+
+    // Delete the feature image from the file system if it exists
+    if (property[0].featureImage) {
+      const imagePath = path.join(__dirname, '../uploads', property[0].featureImage);
+      fs.unlink(imagePath, (err) => {
+        if (err) console.error(`Failed to delete image: ${err.message}`);
+      });
+    }
+
+    // Delete the property from the database
+    try {
+      const result = await db.query('DELETE FROM property_details WHERE _id = ?', [propertyId]);
+
+      if (result) {
+        res.status(200).send(); // Successfully deleted
+      }
+    }
+    catch (err) {
+      res.status(500).json({ error: 'Failed to delete property' });
 
 
+    }
 
+
+  } catch (error) {
+    console.error('Error deleting property:', error);
+    res.status(500).json({ error: 'Failed to delete property' });
+  }
+});
 
 
 
 //// get only residential  property details using mongoes
-router.get('/residential_properties', async (req, res) => {
-  try {
-    console.log("inside residential")
-    const residentialProperties = await PropertyDetails.find({
-      propertyType: 'Resedentil',
-    });
-    res.status(200).json(residentialProperties);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// Get only residential property details using mysql
 // router.get('/residential_properties', async (req, res) => {
 //   try {
-//     // Query to fetch only residential properties
-//     const [residentialProperties] = await db.query('SELECT * FROM property_details WHERE propertyType = ?', ['Residential']);
-
-//     // Check if any properties are found
-//     if (residentialProperties.length === 0) {
-//       return res.status(404).json({ message: 'No residential properties found' });
-//     }
-
-//     res.status(200).json(residentialProperties); // Send the residential properties as the response
+//     console.log("inside residential")
+//     const residentialProperties = await PropertyDetails.find({
+//       propertyType: 'Resedentil',
+//     });
+//     res.status(200).json(residentialProperties);
 //   } catch (error) {
-//     console.error('Error fetching residential properties:', error);
-//     res.status(500).json({ error: 'Failed to fetch residential properties' });
+//     res.status(500).json({ message: error.message });
 //   }
 // });
+
+
+
+
+
+
+
+
+// Get only residential property details using mysql
+router.get('/residential_properties', async (req, res) => {
+  try {
+    // Query to fetch only residential properties
+    const [residentialProperties] = await db.query('SELECT * FROM property_details WHERE propertyType = ?', ['Residential']);
+
+    // Check if any properties are found
+    if (residentialProperties.length === 0) {
+      return res.status(404).json({ message: 'No residential properties found' });
+    }
+
+    res.status(200).json(residentialProperties); // Send the residential properties as the response
+  } catch (error) {
+    console.error('Error fetching residential properties:', error);
+    res.status(500).json({ error: 'Failed to fetch residential properties' });
+  }
+});
 
 router.post('/leads', async (req, res) => {
   console.log("Inside leads");
@@ -594,7 +608,7 @@ router.post('/leads', async (req, res) => {
 router.delete("/deleteLead", async (req, res) => {
   const { leadId } = req.body;
 
-  console.log("id ==>",leadId)
+  console.log("id ==>", leadId)
   if (!leadId) {
     return res.status(400).json({ success: false, message: "Lead ID is required." });
   }
@@ -987,51 +1001,42 @@ router.post("/submit-google-form", async (req, res) => {
 });
 
 
-
-
-
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //// get only Commercial property details using mongoes
-router.get('/Commercial_properties', async (req, res) => {
-  try {
-    const residentialProperties = await PropertyDetails.find({
-      propertyType: 'Commercial',
-    });
-    res.status(200).json(residentialProperties);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// // Get only Commercial property details using mysql
 // router.get('/Commercial_properties', async (req, res) => {
 //   try {
-//     // Query to fetch only commercial properties
-//     const [commercialProperties] = await db.query('SELECT * FROM property_details WHERE propertyType = ?', ['Commercial']);
-
-//     // Check if any properties are found
-//     if (commercialProperties.length === 0) {
-//       return res.status(404).json({ message: 'No commercial properties found' });
-//     }
-
-//     res.status(200).json(commercialProperties); // Send the commercial properties as the response
+//     const residentialProperties = await PropertyDetails.find({
+//       propertyType: 'Commercial',
+//     });
+//     res.status(200).json(residentialProperties);
 //   } catch (error) {
-//     console.error('Error fetching commercial properties:', error);
-//     res.status(500).json({ error: 'Failed to fetch commercial properties' });
+//     res.status(500).json({ message: error.message });
 //   }
 // });
 
+// Get only Commercial property details using mysql
+router.get('/Commercial_properties', async (req, res) => {
+  try {
+    // Query to fetch only commercial properties
+    const [commercialProperties] = await db.query('SELECT * FROM property_details WHERE propertyType = ?', ['Commercial']);
+
+    // Check if any properties are found
+    if (commercialProperties.length === 0) {
+      return res.status(404).json({ message: 'No commercial properties found' });
+    }
+
+    res.status(200).json(commercialProperties); // Send the commercial properties as the response
+  } catch (error) {
+    console.error('Error fetching commercial properties:', error);
+    res.status(500).json({ error: 'Failed to fetch commercial properties' });
+  }
+});
+
+
+// get all property details with filters using search button using mongoes
 
 
 
-
-
-
-
-
-//// get all property details with filters using search button using mongoes
 router.post('/filter_properties', async (req, res) => {
   try {
     const { area, bhk, price } = req.body;

@@ -1,33 +1,33 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import axiosinstance from '../../../axiosConfig';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Aminities from "./Aminities";
 
 function EditProperty() {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
-     useEffect(() => {
-         try {
-           const token = sessionStorage.getItem("token");
-           const admin = JSON.parse(sessionStorage.getItem("admin"));
-         
-           console.log("admin ==> ", admin)
-           if (!token || !admin || admin.role !== "admin") {
-             navigate("/admin");
-           }
-         }
-         catch (error) {
-           navigate("/admin");
-     
-         }
-       }, [navigate]);
+  useEffect(() => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const admin = JSON.parse(sessionStorage.getItem("admin"));
 
-  
-const [formData,setFormData]=useState({
-  propertyTitle: "",
+      console.log("admin ==> ", admin)
+      if (!token || !admin || admin.role !== "admin") {
+        navigate("/admin");
+      }
+    }
+    catch (error) {
+      navigate("/admin");
+
+    }
+  }, [navigate]);
+
+
+  const [formData, setFormData] = useState({
+    propertyTitle: "",
     propertyType: [],
     propertyDescription: "",
     propertyID: "",
@@ -41,126 +41,142 @@ const [formData,setFormData]=useState({
     bhk: 0,
     yearBuilt: 0,
     totalhomeArea: "",
-    builtDimentions:"",
-    openArea:"",
-    price:"",
-   featureImage:null,
-    location:"",
-    area :"",
-    pinCode:"",
-    amenities:[]
-});
+    builtDimentions: "",
+    openArea: "",
+    price: "",
+    featureImage: null,
+    location: "",
+    area: "",
+    pinCode: "",
+    amenities: []
+  });
 
-const puneAreas = [
-  "Shivaji Nagar",
-  "Kothrud",
-  "Baner",
-  "Aundh",
-  "Viman Nagar",
-  "Koregaon Park",
-  "Hadapsar",
-  "Pimpri",
-  "Chinchwad",
-  "Wakad",
-  "Kalyani Nagar",
-  "Hinjewadi",
-  "Bavdhan",
-  "Pashan",
-  "Kharadi",
-  "Magarpatta",
-  "Camp",
-  "Deccan",
-  "Pune University",
-  "Yerwada",
-  "Swargate",
-  "Karve Nagar",
-  "Dhanori",
-  "Wanowrie",
-  "Nigdi",
-  "Tathawade",
-  "Warje",
-  "Lohegaon",
-  "Sahakar Nagar",
-  "Balewadi"
-];
+  const puneAreas = [
+    "Shivaji Nagar",
+    "Kothrud",
+    "Baner",
+    "Aundh",
+    "Viman Nagar",
+    "Koregaon Park",
+    "Hadapsar",
+    "Pimpri",
+    "Chinchwad",
+    "Wakad",
+    "Kalyani Nagar",
+    "Hinjewadi",
+    "Bavdhan",
+    "Pashan",
+    "Kharadi",
+    "Magarpatta",
+    "Camp",
+    "Deccan",
+    "Pune University",
+    "Yerwada",
+    "Swargate",
+    "Karve Nagar",
+    "Dhanori",
+    "Wanowrie",
+    "Nigdi",
+    "Tathawade",
+    "Warje",
+    "Lohegaon",
+    "Sahakar Nagar",
+    "Balewadi"
+  ];
 
-const {id} = useParams()
-console.log("idddd==> ",id)
+  const { id } = useParams()
+  console.log("idddd==> ", id)
 
-useEffect(() => {
-  const fetchPropertyDetails = async () => {
+  useEffect(() => {
+    const fetchPropertyDetails = async () => {
+      try {
+        const response = await axiosinstance.get(`/api/property/properties/${id}`);
+        const propertyDetails = response.data;
+
+        console.log("fetch data ==> ", propertyDetails)
+        setFormData(propertyDetails);
+      } catch (error) {
+        console.error("Error fetching property details:", error);
+      }
+    };
+
+    fetchPropertyDetails();
+  }, [id]);
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axiosinstance.get(`/api/property/properties/${id}`);
-      const propertyDetails = response.data;
+      const response = await axiosinstance.put(`/api/property/propertyDetails/${id}`, formData)
 
-      console.log("fetch data ==> ", propertyDetails)
-      setFormData(propertyDetails);
+      toast.success("Property updated Successfully", response.data);
+      console.log(response.data);
+      navigate("/admin/myProperties")
+
+
+
     } catch (error) {
-      console.error("Error fetching property details:", error);
+      console.log("Error updating property:", error);
+      toast.error("Error updating property")
+
     }
   };
 
-  fetchPropertyDetails();
-}, [id]);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-const handleUpdate= async(e)=>{
-  e.preventDefault();
-  try{
-    const response=await axiosinstance.put(`/api/property/propertyDetails/${id}`,formData)
-   
-    toast.success("Property updated Successfully",response.data);
-    console.log(response.data);
-    navigate("/admin/myProperties")
-  
-    
-
-  }catch(error){
-    console.log("Error updating property:",error);
-    toast.error("Error updating property")
-
-  }
-};
-
-const handleChange=(e)=>{
-  setFormData({...formData,[e.target.name]:e.target.value});
-};
-
-const handleAmenityChange = (amenityName, isChecked) => {
-  if (isChecked) {
-    setFormData({
-      ...formData,
-      amenities: [...formData.amenities, amenityName],
-    });
-  } else {
-    setFormData({
-      ...formData,
-      amenities: formData.amenities.filter(
-        (amenity) => amenity !== amenityName
-      ),
-    });
-  }
-};
+  const handleAmenityChange = (amenityName, isChecked) => {
+    if (isChecked) {
+      setFormData({
+        ...formData,
+        amenities: [...formData.amenities, amenityName],
+      });
+    } else {
+      setFormData({
+        ...formData,
+        amenities: formData.amenities.filter(
+          (amenity) => amenity !== amenityName
+        ),
+      });
+    }
+  };
 
 
 
-    const amenities = [
-        { name: 'Air Conditioning' },
-        { name: 'Barbequem' },
-        { name: 'Gym' },
-        { name: 'Laundry' },
-        { name: 'Lawn' },
-        { name: 'Microwave' },
-        { name: 'Outdoor Shower' },
-        { name: 'Refrigerator' },{ name: 'Sauna' },
-        { name: 'Swimming Pool' },
-        { name: 'TV Cable' },
-        { name: 'Washer' },{ name: 'WiFi' },
-        { name: 'Window Coverings' },
-      
-      ];
+  const amenities = [
+    { name: 'Air_Conditioning' },
+    { name: 'Barbequem' },
+    { name: 'Gym' },
+    { name: 'Laundry' },
+    { name: 'Lawn' },
+    { name: 'Microwave' },
+    // { name: 'Outdoor_Shower' },
+    // { name: 'Refrigerator' }, 
+    // { name: 'Sauna' },
+    // { name: 'Swimming Pool' },
+    // { name: 'TV Cable' },
+    // { name: 'Washer' }, 
+    // { name: 'WiFi' },
+    // { name: 'Window_Coverings(Curtains)' },
+    // { name: 'Solar Panel' },
+    // { name: 'EV_Bike/Car_Charging' },
+    // { name: 'Roof_top_terrace_garden' },
+    // { name: 'Senior_citizen_area' },
+    // { name: `Childern's_play_area` },
+    // { name: 'Pergola_sitouts_(Gazibo)' },
+    // { name: '24hr_CCTV' },
+    // { name: 'Solar_water_heater' },
+    // { name: 'Lift_with_generator_Backup' },
+    // { name: 'Corporation_water_supply' },
+    // { name: 'Rain_water_harvesting_system ' },
+    // { name: 'Power_backup_for_lifts_and_pumps ' },
+    { name: 'Security_Cabinet' },
+
+
+  ];
   return (
     <div className="flex justify-center items-center bg-slate-50">
-            <ToastContainer/>
+      <ToastContainer />
       <div className=" ">
         <div>
           <h1 className="text-4xl pl-10 font-black text-gray-900 dark:text-black mb-8 mt-4">
@@ -184,7 +200,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                   name="propertyTitle"
                   value={formData.propertyTitle}
                   onChange={handleChange}
-                  
+
                 />
                 <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                   Type
@@ -198,10 +214,15 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 >
                   <option value="">Select Property Type</option>
                   <option value="Apartment">Apartment</option>
-                  <option value="Condo">Condo</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="Residential">Residential </option>
+                  <option value="Office">Office</option>
+                  <option value="OpenSpace">Open Space</option>
+                  <option value="Plots">Plots</option>
+                  <option value="PentHouse">PentHouse</option>
                   <option value="Family House">Family House</option>
                   <option value="Modern Vila">Modern Villa</option>
-                  <option value="Town House">Town House</option>
+                  <option value="Shop">Shop</option>
                 </select>
                 <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                   Property Description
@@ -213,7 +234,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                   name="propertyDescription"
                   value={formData.propertyDescription}
                   onChange={handleChange}
-                  
+
                 />
               </div>
             </div>
@@ -234,14 +255,27 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="propertyID"
                     value={formData.propertyID}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                     Parent Property{" "}
                   </label>
-                  <select
+
+
+                  <input
+                    className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                    placeholder="Add Parent Property"
+                    type="text"
+                    name="parentProperty"
+                    value={formData.parentProperty}
+                    onChange={handleChange}
+
+                  />
+
+
+                  {/* <select
                     id="status"
                     className="bg-gray-50   border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value={formData.parentProperty}
@@ -251,6 +285,8 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     <option value="">Select Parent Property</option>
                     <option value="Diamond Manor Apartment">Golden Lakh Katraj</option>
                     <option value="Quality House For Sale">Raman Mayara Pune</option></select>
+                 */}
+
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
@@ -313,12 +349,12 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="rooms"
                     value={formData.rooms}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  BedRooms
+                    BedRooms
                   </label>
                   <input
                     className="placeholder:italic h-[50px]  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -331,7 +367,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Kitchnes
+                    Kitchnes
                   </label>
                   <input
                     className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -340,12 +376,12 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="kitchen"
                     value={formData.kitchen}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black" >Select the BHK</label>
-                <select required
+                  <select required
                     id="bhk"
                     className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value={formData.bhk}
@@ -362,7 +398,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     <option value="penthouse">PentHouse</option>
                     <option value="Garage">Garage</option>
                     <option value="others">Others</option>
-                    
+
                   </select>
                 </div>
                 <div>
@@ -376,12 +412,12 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="yearBuilt"
                     value={formData.yearBuilt}
                     onChange={handleChange}
-                   
+
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Total Home Area(sqrt)
+                    Total Home Area(sqrt)
                   </label>
                   <input
                     className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -390,12 +426,12 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="totalhomeArea"
                     value={formData.totalhomeArea}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Built dimensions
+                    Built dimensions
                   </label>
                   <input
                     className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -404,7 +440,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="builtDimentions"
                     value={formData.builtDimentions}
                     onChange={handleChange}
-                   
+
                   />
                   <p className="text-xs text-gray-400 p-2">
                     e.g. 20×30, 20x30x40, 20x30x40x50.
@@ -412,7 +448,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Open area(sqrt)
+                    Open area(sqrt)
                   </label>
                   <input
                     className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -421,7 +457,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="openArea"
                     value={formData.openArea}
                     onChange={handleChange}
-                    
+
                   />
                 </div>
               </div>
@@ -486,7 +522,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                       name="price"
                       value={formData.price}
                       onChange={handleChange}
-                      
+
                     />
                   </div>
                   {/* <div>
@@ -557,17 +593,17 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 value={formData.location}
                 onChange={handleChange}
               /> */}
-             <select className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-             value={formData.location} onChange={handleChange} name="location">
-              {
-                puneAreas.map((area,index)=>{
-                  return(
-                    <option key={index}  value={area}>{area}</option>
-                  )
-                })
-              }
-             </select>
-           <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+              <select className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={formData.location} onChange={handleChange} name="location">
+                {
+                  puneAreas.map((area, index) => {
+                    return (
+                      <option key={index} value={area}>{area}</option>
+                    )
+                  })
+                }
+              </select>
+              <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                 Area
               </label>
               <input
@@ -578,7 +614,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 value={formData.area}
                 onChange={handleChange}
               />
-                <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+              <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                 pin-code
               </label>
               <input
@@ -597,15 +633,15 @@ const handleAmenityChange = (amenityName, isChecked) => {
             <div className="bg-white mt-8 p-2 mx-3">
               <h1 className="text-xl font-bold text-gray-900 mb-8">Media</h1>
               <div className='p-5'>
-      <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-black" htmlFor="small_size">Property Image</label>
-      <input className="b h-[50px] " id="small_size" type="file" name='featureImage'  onChange={handleChange}
-       />
+                <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-black" htmlFor="small_size">Property Image</label>
+                <input className="b h-[50px] " id="small_size" type="file" name='featureImage' onChange={handleChange}
+                />
 
-      
-      {/* <p className='text-xs text-gray-500 p-2'>Enter Youtube or Vimeo url.</p> */}
 
-      
-    </div>            </div>
+                {/* <p className='text-xs text-gray-500 p-2'>Enter Youtube or Vimeo url.</p> */}
+
+
+              </div>            </div>
             <div className=" bg-white mt-8 p-2 mx-3">
               <h1 className="text-xl font-bold text-gray-900 mb-8">
                 Aminities
@@ -621,7 +657,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     />
                   ))}
                 </div>
-               
+
               </div>
             </div>
             <hr />
@@ -630,7 +666,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 {" "}
                 Update
               </button>{" "}
-              <button className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500  hover:bg-white  hover:text-red-500  hover: border border-red-500" onClick={()=>navigate("/admin/myProperties")}>
+              <button className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500  hover:bg-white  hover:text-red-500  hover: border border-red-500" onClick={() => navigate("/admin/myProperties")}>
                 {" "}
                 Cancle
               </button>

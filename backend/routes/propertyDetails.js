@@ -24,9 +24,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-
-
 router.post('/propertyDetails', upload.fields([
   { name: 'featureImage', maxCount: 1 },
   { name: 'backgroundImage', maxCount: 1 },
@@ -425,7 +422,7 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
 
     await db.query(`UPDATE property_details SET ${query.join(', ')} WHERE _id = ?`,
       values).then((res) => {
-        console.log("resss", res)
+        // console.log("resss", res)
       })
 
 
@@ -528,7 +525,7 @@ router.delete('/deletepropertyDetails/:id', async (req, res) => {
 //   try {
 //     console.log("inside residential")
 //     const residentialProperties = await PropertyDetails.find({
-//       propertyType: 'Resedentil',
+//       propertyType: 'Residential',
 //     });
 //     res.status(200).json(residentialProperties);
 //   } catch (error) {

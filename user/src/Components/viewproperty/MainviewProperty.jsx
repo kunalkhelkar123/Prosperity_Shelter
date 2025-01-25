@@ -24,6 +24,8 @@ import ViewAccordion from '../ViewMidFolder/ViewAccordion';
 import Corespace_footer from '../Corespace_footer/Corespace_footer';
 import Banner from "./Banner.png";
 
+
+
 // import Corespace_footer from '../../assets/banner.WEBP';
 
 
@@ -34,6 +36,7 @@ function MainviewProperty(props) {
 
   const {
     propertyTitle,
+    offersImage,
     propertyType,
     propertyDescription,
     propertyID,
@@ -51,6 +54,7 @@ function MainviewProperty(props) {
     openArea,
     price,
     featureImage,
+    backgroundImage,
     location,
     area,
     pinCode,
@@ -61,6 +65,7 @@ function MainviewProperty(props) {
     window.scrollTo(0, 0);
   }, []);
 
+  console.log("amenities ", amenities)
   // contact form
   const [formData, setFormData] = useState({
     name: '',
@@ -189,14 +194,35 @@ function MainviewProperty(props) {
     <><Corespace_navbar />
       <div className="flex flex-col justify-center ">
         <div className="w-full">
-          <div className="bg-gradient from-gray-100 to-gray-500 bg-gradient-to-b h-36 pl-4 sm:h-72">
-            <div className="text-slate-100 pt-20 pl-4 sm:pl-44 text-x sm:text-5xl font-bold subpixel-antialiased">{propertyTitle}</div>
+          {/* <div   className="  bg-gradient-to-b h-36 pl-4 sm:h-72"> */}
+          {/* <div
+            className="bg-gradient-to-b h-36 pl-4 sm:h-72 bg-cover bg-center" */}
+          {/* // style={{ backgroundImage: `url(http://localhost:4000/api/uploads/${backgroundImage})` }}> */}
+          <div
+            className="relative bg-gradient-to-b h-36 pl-4 sm:h-72 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(http://localhost:4000/api/uploads/${backgroundImage})`,
+            }}
+          >
+            {/* Fade overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-            <div className="flex flex-row sm:flex-row  mt-5 pl-4 sm:pl-44  text-red-600">
-              <img src={gps_resi} className="h-4 bg-white  rounded  sm:h-6 sm:bg-white sm:rounded" />
-              <span className="ml-2  font-medium  text-s sm:ml-4 text-slate-100">{area}</span>
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="text-slate-100 pt-20 pl-4 sm:pl-44 text-x sm:text-5xl font-bold subpixel-antialiased">
+                {propertyTitle}
+              </div>
+              <div className="flex flex-row sm:flex-row mt-5 pl-4 sm:pl-44 text-red-600">
+                <img
+                  src={gps_resi}
+                  className="h-4 bg-white rounded sm:h-6 sm:bg-white sm:rounded"
+                  alt="GPS Icon"
+                />
+                <span className="ml-2 font-medium text-s sm:ml-4 text-slate-100">{area}</span>
+              </div>
             </div>
           </div>
+
         </div>
         <div>
           <div className="flex flex-col sm:flex-row justify-center gap-[30px] sm:gap-[10px] md:gap-[50px] xl:gap-[20px]">
@@ -225,7 +251,7 @@ function MainviewProperty(props) {
 
                 <div className="mt-5">
                   <h5 className="text-2xl font-bold">Offers</h5>
-                  <img src={Banner} alt="Offers" className="mt-3" />
+                  <img src={`http://localhost:4000/api/uploads/${offersImage}`} alt="Offers" className="mt-3" />
                 </div></div>
 
               <div className="block bg-white border border-gray-200 rounded-lg shadow  lg:py-5 mt-5">
@@ -243,7 +269,7 @@ function MainviewProperty(props) {
                     </div>
                   </div>
                 </div>
-                <ViewAccordion />
+                <ViewAccordion amenities={amenities} />
               </div>
               {/* <ProjectConfigurationDown/> */}
               {/* <ViewPropertyMain /> */}

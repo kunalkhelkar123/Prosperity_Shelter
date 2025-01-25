@@ -254,7 +254,7 @@ function PropertySubmission() {
                 >
                   <option value="">Select Property Type</option>
                   <option value="Apartment">Apartment</option>
-                  <option value="Resedentil">Resedentil</option>
+                  <option value="Residential">Residential</option>
                   <option value="Commercial">Commercial</option>
                   <option value="Investment">Investment</option>
                   <option value="Town House">Town House</option>

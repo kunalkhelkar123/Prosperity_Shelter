@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import { useCallback, useLayoutEffect, useState, useEffect } from "react";
-import City from "../homepage/city.jpeg";
+import City from "../homepage/city1.jpg";
 import Homepage_google_reviews from "./Homepage_google_reviews";
 import Homepage_latest_blog from "./Homepage_latest_blog";
 import Homepage_investmentProperty from "./Homepage_investmentProperty";

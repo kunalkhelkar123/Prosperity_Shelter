@@ -144,34 +144,20 @@ function EditProperty() {
 
 
   const amenities = [
-    { name: 'Air_Conditioning' },
+    { name: 'Air Conditioning' },
     { name: 'Barbequem' },
     { name: 'Gym' },
     { name: 'Laundry' },
     { name: 'Lawn' },
     { name: 'Microwave' },
-    // { name: 'Outdoor_Shower' },
-    // { name: 'Refrigerator' }, 
-    // { name: 'Sauna' },
-    // { name: 'Swimming Pool' },
-    // { name: 'TV Cable' },
-    // { name: 'Washer' }, 
-    // { name: 'WiFi' },
-    // { name: 'Window_Coverings(Curtains)' },
-    // { name: 'Solar Panel' },
-    // { name: 'EV_Bike/Car_Charging' },
-    // { name: 'Roof_top_terrace_garden' },
-    // { name: 'Senior_citizen_area' },
-    // { name: `Childern's_play_area` },
-    // { name: 'Pergola_sitouts_(Gazibo)' },
-    // { name: '24hr_CCTV' },
-    // { name: 'Solar_water_heater' },
-    // { name: 'Lift_with_generator_Backup' },
-    // { name: 'Corporation_water_supply' },
-    // { name: 'Rain_water_harvesting_system ' },
-    // { name: 'Power_backup_for_lifts_and_pumps ' },
-    { name: 'Security_Cabinet' },
-
+    { name: 'Outdoor Shower' },
+    { name: 'Refrigerator' }, 
+    { name: 'Sauna' },
+    { name: 'Swimming Pool' },
+    { name: 'TV Cable' },
+    { name: 'Washer' }, 
+    { name: 'WiFi' },
+    { name: 'Window Coverings' },
 
   ];
   return (

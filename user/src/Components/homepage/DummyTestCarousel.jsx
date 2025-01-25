@@ -11,20 +11,20 @@ import {useNavigate} from 'react-router-dom';
 function DummyTestCarousel(props) {
   const navigate = useNavigate();
   const handleSearching = () => {
-    fetch(`/api/property/builder_name/${props.ele.builderName}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Data in builder api ', data);
-        navigate('/ViewAllapp', {state: {data}});
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+  //   fetch(`/api/property/builder_name/${props.ele.builderName}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log('Data in builder api ', data);
+        navigate('/Investmentapp');
+      // })
+      // .catch((error) => {
+      //   console.error('Error:', error);
+      // });
   };
 
   return (
@@ -36,12 +36,12 @@ function DummyTestCarousel(props) {
         <span className="absolute top-[12px] bg-red-500 right-[1px] p-[6px] text-white">{props.ele.status}</span>
       </div>
 
-      <h5 className="text-xl font-medium">{props.ele.siteName}</h5>
+      {/* <h5 className="text-xl font-medium">{props.ele.propertyTitle}</h5> */}
       <div className="flex gap-6 ">
         <span>
           <img className="w-5" src={buildlogo} alt="phone-img" />
         </span>
-        <p>{props.ele.builderName}</p>
+        <p>{props.ele.propertyTitle}</p>
       </div>
       <div className="flex gap-6 ">
         <span>

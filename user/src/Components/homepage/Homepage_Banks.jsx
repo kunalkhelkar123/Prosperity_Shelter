@@ -21,8 +21,8 @@ function Homepage_Brands() {
     dots: true,
     infinite: true,
     speed: 350,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     autoplay: true,
     autoplaySpeed: 2000,
     responsive: [
@@ -55,19 +55,23 @@ function Homepage_Brands() {
   return (
     <>
     {/* <h1 className=' text-center font-sans text-4xl sm:text-5xl font-bold mb-8 mt-12'>Banks</h1> */}
-    <div className=" md:w-[75%] w-[100%] container mx-auto px-4 ">
-      <Slider {...settings}>
-      {
-  dummyArr.map((ele)=>{
-    return(
-      <div key={ele} className=''>
-     <img src={ele.img} className='w-[60%] h-[130px] ml-[90px]' />
-     </div>
-    )
-  })
-}
-      </Slider>
-    </div>
+    <div className=" md:w-[100%] w-[100%] container mx-auto px-4 ">
+        <Slider {...settings}>
+          {
+            dummyArr.map((ele) => {
+              return (
+                <div key={ele} className=''>
+                  <img
+                    src={ele.img}
+                    className='w-[90%] h-[100px] ml-[90px] p-[10px] border border-gray-300 rounded-lg'
+                    />
+
+                </div>
+              )
+            })
+          }
+        </Slider>
+      </div>
     
     </>
   )

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import CORESPACE_LOGO from "./footer_assets/CORESPACE_LOGO.png";
+import CORESPACE_LOGO from "./footer_assets/Logo.png";
 import { Link } from "react-router-dom";
 
 function Corespace_footer() {
@@ -74,9 +74,9 @@ function Corespace_footer() {
                 <li>
                   <Link to="/Aboutus">About Us</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/Blog">Blog</Link>
-                </li>
+                </li> */}
                 {/* <li>Careers</li> */}
                 <li>
                   <Link to="/Contactus">Contact Us</Link>
@@ -151,7 +151,7 @@ function Corespace_footer() {
 
         {/* Copyright section */}
         <div className="bg-blue-100 text-center py-6 font-semibold">
-          © 2023 HomiGrow Realty LLP. All Rights Reserved.
+          © 2025 Prosperity Shelters designed by Comet All Rights Reserved.
         </div>
       </footer>
     </>

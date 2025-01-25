@@ -1,166 +1,213 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import axiosinstance from '../../../axiosConfig';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Aminities from "./Aminities";
 
 function EditProperty() {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
-     useEffect(() => {
-         try {
-           const token = sessionStorage.getItem("token");
-           const admin = JSON.parse(sessionStorage.getItem("admin"));
-         
-           console.log("admin ==> ", admin)
-           if (!token || !admin || admin.role !== "admin") {
-             navigate("/admin");
-           }
-         }
-         catch (error) {
-           navigate("/admin");
-     
-         }
-       }, [navigate]);
+  useEffect(() => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const admin = JSON.parse(sessionStorage.getItem("admin"));
 
-  
-const [formData,setFormData]=useState({
-  propertyTitle: "",
+      console.log("admin ==> ", admin)
+      if (!token || !admin || admin.role !== "admin") {
+        navigate("/admin");
+      }
+    }
+    catch (error) {
+      navigate("/admin");
+
+    }
+  }, [navigate]);
+
+
+  const [formData, setFormData] = useState({
+    propertyTitle: "",
     propertyType: [],
     propertyDescription: "",
     propertyID: "",
     parentProperty: "",
-    status: "",
+    status: [],
     label: [],
-    material: [],
-    rooms: 0,
-    bedsroom: 0,
-    kitchen: 0,
-    bhk: 0,
-    yearBuilt: 0,
+    material: "",
+    rooms: "",
+    bedsroom: "",
+    kitchen: "",
+    bhk: "",
+    yearBuilt: "",
     totalhomeArea: "",
-    builtDimentions:"",
-    openArea:"",
-    price:"",
-   featureImage:null,
-    location:"",
-    area :"",
-    pinCode:"",
-    amenities:[]
-});
+    builtDimentions: "",
+    openArea: "",
+    price: "",
+    featureImage: null,
+    backgroundImage: null,
+    offersImage: null,
+    brochurepdf: null,
+    location: "",
+    area: "",
+    pinCode: "",
+    amenities: []
+    , builderName: "",
+    builderDescription: "",
+    MahaRera: "",
+  });
 
-const puneAreas = [
-  "Shivaji Nagar",
-  "Kothrud",
-  "Baner",
-  "Aundh",
-  "Viman Nagar",
-  "Koregaon Park",
-  "Hadapsar",
-  "Pimpri",
-  "Chinchwad",
-  "Wakad",
-  "Kalyani Nagar",
-  "Hinjewadi",
-  "Bavdhan",
-  "Pashan",
-  "Kharadi",
-  "Magarpatta",
-  "Camp",
-  "Deccan",
-  "Pune University",
-  "Yerwada",
-  "Swargate",
-  "Karve Nagar",
-  "Dhanori",
-  "Wanowrie",
-  "Nigdi",
-  "Tathawade",
-  "Warje",
-  "Lohegaon",
-  "Sahakar Nagar",
-  "Balewadi"
-];
+  const puneAreas = [
+    "Select Location",
+    "Ambegaon Budruk",
+    "Ambegaon Khurd",
+    "Aundh",
+    "Baner",
+    "Balewadi",
+    "Bibwewadi",
+    "Bhosari",
+    "Camp",
+    "Chinchwad",
+    "Deccan Gymkhana",
+    "Dhankawadi",
+    "Dhanori",
+    "Erandwane",
+    "Fergusson College Road",
+    "Hadapsar",
+    "Hinjewadi",
+    "Kamshet",
+    "Katraj",
+    "Kondhwa",
+    "Kothrud",
+    "Koregaon Park",
+    "Kharadi",
+    "Lake Town Housing Society",
+    "Lohegaon",
+    "Magarpatta",
+    "Marketyard",
+    "Manjri",
+    "Mundhwa",
+    "Narhe",
+    "Parvati",
+    "Pashan",
+    "Pimpri",
+    "Pimple Saudagar",
+    "Rajmachi Fort",
+    "Shivaji Nagar",
+    "Shriram Nagar",
+    "Shubhada Society",
+    "Sinhagad Road",
+    "Swargate",
+    "Undri",
+    "Vadgaon Sheri",
+    "Varkhade Nagar",
+    "Viman Nagar",
+    "Wakad",
+    "Wanowrie",
+    "Warje",
+    "Yerwada",
+    "Yewlewadi",
+    "Lonavala",
+    "Karjat",
+    "Khandala",
+    "Pawna Lake",
+    "Tungarli Lake",
+    "Mulshi",
+    "Bhivpuri",
+    "Wai",
+    "Khopoli",
+    "Yewlewadi Nearby Areas"
+  ];
 
-const {id} = useParams()
-console.log("idddd==> ",id)
+  const { id } = useParams()
+  console.log("idddd==> ", id)
 
-useEffect(() => {
-  const fetchPropertyDetails = async () => {
+  useEffect(() => {
+    const fetchPropertyDetails = async () => {
+      try {
+        const response = await axiosinstance.get(`/api/property/properties/${id}`);
+        const propertyDetails = response.data;
+
+        console.log("fetch data ==> ", propertyDetails)
+        setFormData(propertyDetails);
+      } catch (error) {
+        console.error("Error fetching property details:", error);
+      }
+    };
+
+    fetchPropertyDetails();
+  }, [id]);
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axiosinstance.get(`/api/property/properties/${id}`);
-      const propertyDetails = response.data;
+      const response = await axiosinstance.put(`/api/property/propertyDetails/${id}`, formData)
 
-      console.log("fetch data ==> ", propertyDetails)
-      setFormData(propertyDetails);
+      toast.success("Property updated Successfully", response.data);
+      console.log(response.data);
+      navigate("/admin/myProperties")
+
+
+
     } catch (error) {
-      console.error("Error fetching property details:", error);
+      console.log("Error updating property:", error);
+      toast.error("Error updating property")
+
     }
   };
 
-  fetchPropertyDetails();
-}, [id]);
 
-const handleUpdate= async(e)=>{
-  e.preventDefault();
-  try{
-    const response=await axiosinstance.put(`/api/property/propertyDetails/${id}`,formData)
-   
-    toast.success("Property updated Successfully",response.data);
-    console.log(response.data);
-    navigate("/admin/myProperties")
-  
-    
 
-  }catch(error){
-    console.log("Error updating property:",error);
-    toast.error("Error updating property")
+  const handleChangeImage = (e) => {
+    const { name, files } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: files[0],
+    }));
+  };
 
-  }
-};
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-const handleChange=(e)=>{
-  setFormData({...formData,[e.target.name]:e.target.value});
-};
-
-const handleAmenityChange = (amenityName, isChecked) => {
-  if (isChecked) {
-    setFormData({
-      ...formData,
-      amenities: [...formData.amenities, amenityName],
-    });
-  } else {
-    setFormData({
-      ...formData,
-      amenities: formData.amenities.filter(
-        (amenity) => amenity !== amenityName
-      ),
-    });
-  }
-};
+  const handleAmenityChange = (amenityName, isChecked) => {
+    if (isChecked) {
+      setFormData({
+        ...formData,
+        amenities: [...formData.amenities, amenityName],
+      });
+    } else {
+      setFormData({
+        ...formData,
+        amenities: formData.amenities.filter(
+          (amenity) => amenity !== amenityName
+        ),
+      });
+    }
+  };
 
 
 
-    const amenities = [
-        { name: 'Air Conditioning' },
-        { name: 'Barbequem' },
-        { name: 'Gym' },
-        { name: 'Laundry' },
-        { name: 'Lawn' },
-        { name: 'Microwave' },
-        { name: 'Outdoor Shower' },
-        { name: 'Refrigerator' },{ name: 'Sauna' },
-        { name: 'Swimming Pool' },
-        { name: 'TV Cable' },
-        { name: 'Washer' },{ name: 'WiFi' },
-        { name: 'Window Coverings' },
-      
-      ];
+  const amenities = [
+    { name: 'Air Conditioning' },
+    { name: 'Barbequem' },
+    { name: 'Gym' },
+    { name: 'Laundry' },
+    { name: 'Lawn' },
+    { name: 'Microwave' },
+    { name: 'Outdoor Shower' },
+    { name: 'Refrigerator' },
+    { name: 'Sauna' },
+    { name: 'Swimming Pool' },
+    { name: 'TV Cable' },
+    { name: 'Washer' },
+    { name: 'WiFi' },
+    { name: 'Window Coverings' },
+
+  ];
   return (
     <div className="flex justify-center items-center bg-slate-50">
-            <ToastContainer/>
+      <ToastContainer />
       <div className=" ">
         <div>
           <h1 className="text-4xl pl-10 font-black text-gray-900 dark:text-black mb-8 mt-4">
@@ -177,19 +224,18 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 <label className="mb-22 pb-7 text-lg  block font-medium  text-gray-900 dark:text-black">
                   Property Title *
                 </label>
-                <input
+                <input required
                   className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                  placeholder=""
+                  placeholder="Enter the Property Title"
                   type="text"
                   name="propertyTitle"
                   value={formData.propertyTitle}
                   onChange={handleChange}
-                  
                 />
                 <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                   Type
                 </label>
-                <select
+                <select required
                   id="countries"
                   className="bg-gray-50 border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={formData.propertyType}
@@ -198,23 +244,64 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 >
                   <option value="">Select Property Type</option>
                   <option value="Apartment">Apartment</option>
-                  <option value="Condo">Condo</option>
-                  <option value="Family House">Family House</option>
-                  <option value="Modern Vila">Modern Villa</option>
+                  <option value="Residential">Residential</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="Investment">Investment</option>
                   <option value="Town House">Town House</option>
+                  <option value="Pent House">Pent House</option>
+                  <option value="Ploting">Ploting</option>
+                  <option value="Open Space">Open Space</option>
+                  <option value="Shop">Shop</option>
+                  <option value="Office">Office</option>
                 </select>
                 <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                   Property Description
                 </label>
-                <input
-                  className="placeholder:italic h-24 bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                  placeholder=""
-                  type="textarea"
+                <textarea
+                  required
+                  className="placeholder:italic h-36 bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                  placeholder="Enter the Property Description"
                   name="propertyDescription"
                   value={formData.propertyDescription}
                   onChange={handleChange}
-                  
                 />
+
+                <label className="mb-22 pb-7 text-lg  block font-medium  text-gray-900 dark:text-black">
+                  Builder Name *
+                </label>
+                <input required
+                  className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                  placeholder="Enter the Buildername"
+                  type="text"
+                  name="builderName"
+                  value={formData.builderName}
+                  onChange={handleChange}
+                />
+
+                <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                  Builder Description
+                </label>
+                <textarea
+                  required
+                  className="placeholder:italic h-36 bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                  placeholder="Enter the Builder Description"
+                  name="builderDescription"
+                  value={formData.builderDescription}
+                  onChange={handleChange}
+                />
+
+                <label className="mb-22 pb-7 text-lg  block font-medium  text-gray-900 dark:text-black">
+                  MahaRera Number
+                </label>
+                <input required
+                  className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                  placeholder="Enter the Buildername"
+                  type="text"
+                  name="MahaRera"
+                  value={formData.MahaRera}
+                  onChange={handleChange}
+                />
+
               </div>
             </div>
 
@@ -229,28 +316,25 @@ const handleAmenityChange = (amenityName, isChecked) => {
                   </label>
                   <input
                     className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                    placeholder=""
+                    placeholder="Enter the Property ID"
                     type="text"
                     name="propertyID"
                     value={formData.propertyID}
                     onChange={handleChange}
-                    
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                     Parent Property{" "}
                   </label>
-                  <select
-                    id="status"
-                    className="bg-gray-50   border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  <input
+                    className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                    placeholder="Enter the Parent Property"
+                    type="text"
+                    name="parentProperty"
                     value={formData.parentProperty}
                     onChange={handleChange}
-                    name="parentProperty"
-                  >
-                    <option value="">Select Parent Property</option>
-                    <option value="Diamond Manor Apartment">Golden Lakh Katraj</option>
-                    <option value="Quality House For Sale">Raman Mayara Pune</option></select>
+                  />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
@@ -263,9 +347,10 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     onChange={handleChange}
                     name="status"
                   >
-                    <option value="" selected >Select Status</option>
-                    <option value="For Rent">For Rent</option>
+                    <option value="">Select Status</option>
                     <option value="For Sale">For Sale</option>
+                    <option value="For Rent">For Rent</option>
+
                   </select>
                 </div>
                 <div>
@@ -280,15 +365,15 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="label"
                   >
                     <option value="">Select Label</option>
-                    <option value="Rented">Rented</option>
-                    <option value="Sold">Sold</option>
+                    <option value="Hot">Hot and Upcomming </option>
+                    <option value="Normal">Normal</option>
                   </select>
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                     Material
                   </label>
-                  <select
+                  <select required
                     id="material"
                     className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value={formData.material}
@@ -298,13 +383,13 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     <option value="">Select Material</option>
                     <option value="Block">Block</option>
                     <option value="Brick">Brick</option>
-                    <option value="Rock">Rock</option>
-                    <option value="Wood">Wood</option>
+                    <option value="Concrete">Concrete</option>
+
                   </select>
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                    Rooms
+                    Total Rooms
                   </label>
                   <input
                     className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -313,12 +398,11 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="rooms"
                     value={formData.rooms}
                     onChange={handleChange}
-                    
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  BedRooms
+                    Total BedRooms
                   </label>
                   <input
                     className="placeholder:italic h-[50px]  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -331,7 +415,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Kitchnes
+                    Total Balcony
                   </label>
                   <input
                     className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -340,19 +424,18 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     name="kitchen"
                     value={formData.kitchen}
                     onChange={handleChange}
-                    
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black" >Select the BHK</label>
-                <select required
+                  <select required
                     id="bhk"
                     className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value={formData.bhk}
                     onChange={handleChange}
                     name="bhk"
                   >
-                    <option value="" selected>Select the Bhk</option>
+                    <option value="" selected>Select the Configuration </option>
                     <option value="Rk">RK</option>
                     <option value="1 BHK">1BHK</option>
                     <option value="2 BHK">2BHK</option>
@@ -361,50 +444,47 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     <option value="5 Bhk">5Bhk</option>
                     <option value="penthouse">PentHouse</option>
                     <option value="Garage">Garage</option>
+                    <option value="others">Open Space</option>
                     <option value="others">Others</option>
-                    
                   </select>
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                    Year built
+                    Year built or Possession Year
                   </label>
                   <input
                     className="placeholder:italic h-[50px]  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                    placeholder=""
+                    placeholder="Enter the Year built"
                     type="number"
                     name="yearBuilt"
                     value={formData.yearBuilt}
                     onChange={handleChange}
-                   
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Total Home Area(sqrt)
+                    Total Home Area(sqrt)
                   </label>
                   <input
                     className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                    placeholder=""
+                    placeholder="Enter the Total Home Area"
                     type="text"
                     name="totalhomeArea"
                     value={formData.totalhomeArea}
                     onChange={handleChange}
-                    
                   />
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Built dimensions
+                    Built dimensions
                   </label>
                   <input
                     className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                    placeholder=""
+                    placeholder="Enter the built area"
                     type="text"
                     name="builtDimentions"
                     value={formData.builtDimentions}
                     onChange={handleChange}
-                   
                   />
                   <p className="text-xs text-gray-400 p-2">
                     e.g. 20×30, 20x30x40, 20x30x40x50.
@@ -412,135 +492,51 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 </div>
                 <div>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Open area(sqrt)
+                    Open area(sqrt)
                   </label>
                   <input
                     className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                    placeholder=""
+                    placeholder="Enter the Open Area"
                     type="text"
                     name="openArea"
                     value={formData.openArea}
                     onChange={handleChange}
-                    
                   />
                 </div>
               </div>
             </div>
-            {/* <div className="bg-white mt-8 p-2">
-              <h1 className="text-xl font-bold text-gray-900 mb-8">
-                Select Energy Class
-              </h1>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                    Energy Class{" "}
-                  </label>
-                  <select
-                    id="energyClass"
-                    className="bg-gray-50 h-[50px] border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={formData.energyClass}
-                    onChange={handleChange}
-                    name="energyClass"
-                  >
-                    <option value="">Select Energy Class (EU regulation)</option>
-                    <option>A+</option>
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    <option>D</option>
-                    <option>E</option>
-                    <option>F</option>
-                    <option>G</option>
-                    <option>H</option>
-                    <option>I</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                    Energy Index in kWh/m2a
-                  </label>
-                  <input
-                    className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                    placeholder=""
-                    type="text"
-                    name="energyIndex"
-                    value={formData.energyIndex}
-                    onChange={handleChange}
-                   
-                  />
-                </div>
-              </div>
-            </div> */}
+
             <div className="w-full ">
               <div className="bg-white mt-8 p-2">
-                <h1 className="text-xl font-bold text-gray-900 mb-8">Price</h1>
+                <h1 className="text-xl font-bold text-gray-900 mb-4">Price</h1>
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                      Price($)
+                    <label className="block   text-lg font-medium text-gray-900 dark:text-black">
+                      Price ( Rs in Lakhs )
                     </label>
+                    {/* <select required
+                        id="price"
+                        className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        value={formData.price}
+                        onChange={handleChange}
+                        name="price"
+                      >
+                        <option value="" selected>Select the Price</option>
+                        <option value="0-50lac">0-50 lakh</option>
+                        <option value="1Cr-2Cr">1 Crore-2 Crore</option>
+                        <option value="2Cr-3Crk">2 Crore-3 Crore</option>
+                        <option value="4Cr-Above">4 Crore-Above</option>
+                      </select> */}
+
                     <input
-                      className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                      placeholder="e.g. 1000"
+                      className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                      placeholder="Enter the price in lakhs"
                       type="text"
                       name="price"
                       value={formData.price}
                       onChange={handleChange}
-                      
                     />
                   </div>
-                  {/* <div>
-                    <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                      Price Prefix
-                    </label>
-                    <input
-                      className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                      placeholder=""
-                      type="text"
-                      name="pricePrefix"
-                      value={formData.pricePrefix}
-                      onChange={handleChange}
-                      
-                    />
-                    <p className="text-xs text-gray-400 p-2">
-                      Any text shown before price (for example: from).
-                    </p>
-                  </div> */}
-                  {/* <div>
-                    <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                      Price Suffix
-                    </label>
-                    <input
-                      className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                      placeholder=""
-                      type="text"
-                      name="priceSuffix"
-                      value={formData.priceSuffix}
-                      onChange={handleChange}
-                     
-                    />
-                    <p className="text-xs text-gray-400 p-2">
-                      Any text shown after price (for example: per night).
-                    </p>
-                  </div>
-                  <div>
-                    <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                      Price Custom
-                    </label>
-                    <input
-                      className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
-                      placeholder=""
-                      type="text"
-                      name="priceCustom"
-                      value={formData.priceCustom}
-                      onChange={handleChange}
-                     
-                    />
-                    <p className="text-xs text-gray-400 p-2">
-                      Any text instead of price (for example: by agreement).
-                      Prefix and Suffix will be ignored.
-                    </p>
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -557,17 +553,17 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 value={formData.location}
                 onChange={handleChange}
               /> */}
-             <select className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-             value={formData.location} onChange={handleChange} name="location">
-              {
-                puneAreas.map((area,index)=>{
-                  return(
-                    <option key={index}  value={area}>{area}</option>
-                  )
-                })
-              }
-             </select>
-           <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+              <select className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={formData.location} onChange={handleChange} name="location">
+                {
+                  puneAreas.map((area, index) => {
+                    return (
+                      <option key={index} value={area}>{area}</option>
+                    )
+                  })
+                }
+              </select>
+              <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                 Area
               </label>
               <input
@@ -578,8 +574,8 @@ const handleAmenityChange = (amenityName, isChecked) => {
                 value={formData.area}
                 onChange={handleChange}
               />
-                <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                pin-code
+              <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                Area Pin-code
               </label>
               <input
                 className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
@@ -594,19 +590,63 @@ const handleAmenityChange = (amenityName, isChecked) => {
 
               {/* <GoogleMapComonent /> */}
             </div>
-            <div className="bg-white mt-8 p-2 mx-3">
-              <h1 className="text-xl font-bold text-gray-900 mb-8">Media</h1>
-              <div className='p-5'>
-      <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-black" htmlFor="small_size">Property Image</label>
-      <input className="b h-[50px] " id="small_size" type="file" name='featureImage'  onChange={handleChange}
-       />
 
-      
-      {/* <p className='text-xs text-gray-500 p-2'>Enter Youtube or Vimeo url.</p> */}
+ 
+            {/* <div>
+              <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                Property Image
+              </label>
+              <input
+                className="b h-[50px]"
+                id="small_size"
+                type="file"
+                name="featureImage"
+                onChange={handleChangeImage}
+              />
+            </div> */}
+           {/* <div>
+              <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                Property Background Image
+              </label>
+              <input
+                className="b h-[50px]"
+                id="small_size"
+                type="file"
+                name="backgroundImage"
+                onChange={handleChangeImage}
+              />
+            </div>
+            <div>
+              <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                Offers Banner
+              </label>
+              <input
+                className="b h-[50px]"
+                id="small_size"
+                type="file"
+                name="offersImage"
+                onChange={handleChangeImage}
+              />
+            </div>
 
-      
-    </div>            </div>
-            <div className=" bg-white mt-8 p-2 mx-3">
+            <div>
+              <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                Brochure PDF (only pdf)
+              </label>
+              <input
+                className="b h-[50px]"
+                id="small_size"
+                type="file"
+                name="brochurepdf"
+                onChange={handleChangeImage}
+              />
+            </div> */}
+
+
+
+
+
+            {/* <div className=" bg-white mt-8 p-2 mx-3">
               <h1 className="text-xl font-bold text-gray-900 mb-8">
                 Aminities
               </h1>
@@ -621,16 +661,16 @@ const handleAmenityChange = (amenityName, isChecked) => {
                     />
                   ))}
                 </div>
-               
+
               </div>
-            </div>
+            </div> */}
             <hr />
             <div className=" mt-8 p-2 ">
               <button className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500  hover:bg-white  hover:text-red-500  hover: border border-red-500" >
                 {" "}
                 Update
               </button>{" "}
-              <button className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500  hover:bg-white  hover:text-red-500  hover: border border-red-500" onClick={()=>navigate("/admin/myProperties")}>
+              <button className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500  hover:bg-white  hover:text-red-500  hover: border border-red-500" onClick={() => navigate("/admin/myProperties")}>
                 {" "}
                 Cancle
               </button>

@@ -50,6 +50,6 @@ app.get("/check", async (req, res) => {
 app.get("/check2", async (req, res) => {
   res.send("Hello world");
 });
-app.listen(process.env.PORT || 4000, () => {
+app.listen(4000, () => {
   console.log("Server is Running on:4000");
 });

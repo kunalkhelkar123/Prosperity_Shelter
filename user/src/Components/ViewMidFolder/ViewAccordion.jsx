@@ -29,7 +29,7 @@ let amenitiesData = [
   },
   {
     logo: security,
-    name:"24 Hour Security",
+    name: "24 Hour Security",
   },
   {
     logo: swiming,
@@ -39,17 +39,29 @@ let amenitiesData = [
     logo: yoga,
     name: "Yoga",
   },
-   {
+  {
     logo: power,
     name: "Power Backup",
   },
 ];
 
-function ViewAccordion() {
+function ViewAccordion( brochurepdf) {
   const [openAccordion, setOpenAccordion] = useState(null);
+  console.log("brochurepdf ",brochurepdf)
+  // console.log("amenities ",amenities)
 
   const toggleAccordion = (index) => {
     setOpenAccordion((prev) => (prev === index ? null : index));
+  };
+  const handleDownload = () => {
+    console.log("brochurepdf ",brochurepdf)
+  // console.log("amenities ",amenities)
+
+    const link = document.createElement("a");
+    const pdfUrl= `http://localhost:4000/api/uploads/${brochurepdf.brochurepdf}`;
+    window.open(pdfUrl, "_blank");
+    link.download = brochurepdf; // Ensures the file will be downloaded instead of opened
+    link.click();
   };
 
   return (
@@ -62,16 +74,15 @@ function ViewAccordion() {
               <button
                 type="button"
                 className={`flex items-center justify-between w-full p-5 font-medium 
-                rtl:text-right my-2  border-b-1 focus:ring-4 focus:ring-gray-200  gap-3 ${
-                  openAccordion === index
+                rtl:text-right my-2  border-b-1 focus:ring-4 focus:ring-gray-200  gap-3 ${openAccordion === index
                     ? "bg-[#390255] focus:ring-[#390255]  text-white"
                     : "bg-[#FFF848] text-black"
-                }`}
-                onClick={() => toggleAccordion(index)}
+                  }`}
+                // onClick={() => toggleAccordion(index)}
                 aria-expanded={openAccordion === index}
                 aria-controls={`accordion-collapse-body-${index}`}>
-                <span>{item.question}</span>
-                <svg
+                <span>Floor Plan and Brochure</span>
+                {/* <svg
                   data-accordion-icon
                   className={`w-3 h-3 rotate-180 shrink-0 ${
                     openAccordion === index ? "open" : ""
@@ -87,26 +98,33 @@ function ViewAccordion() {
                     strokeWidth="2"
                     d="M9 5 5 1 1 5"
                   />
-                </svg>
+                </svg> */}
+                <button
+                  onClick={handleDownload}
+                  className="px-4 py-2 bg-[#6b04a0] text-white rounded-lg hover:bg-[#390255] transition"
+                >
+                  Download PDF
+                </button>
               </button>
+
             </h2>
-            <div
+            {/* <div
               id={`accordion-collapse-body-${index}`}
               className={`${
                 openAccordion === index ? "block bg-gray-100" : "hidden"
               } border border-b-2 border-purple-700 shadow-sm`}
               aria-labelledby={`accordion-collapse-heading-${index}`}>
               <div className={`p-5`}>
-                {/* <p className="mb-2 text-gray-500 dark:text-gray-400">
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
                   {item.answer}
-                </p> */}
+                </p>
                 <img
-                  src={planimage}
+                  src={`http://localhost:4000/api/uploads/${brochurepdf}`}
                   alt="planimage"
                   className="lg:transform lg:rotate-[90]"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
@@ -141,7 +159,7 @@ function ViewAccordion() {
                   <h4 className="text-[12px] lg:text-sm">{amentiesData.name}</h4>
                 </div>
 
-                
+
               </>
             );
           })}

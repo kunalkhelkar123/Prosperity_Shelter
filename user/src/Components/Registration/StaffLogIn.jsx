@@ -33,7 +33,7 @@ function StaffLogIn() {
       // Send login request to the backend
       const response = await axios.post("/api/auth/stafflogin", formData);
       // Successful response
-      console.log("staff user ==> ", response.data.user)
+      console.log("staff user ==> ", response.data.user);
       toast.success(response.data.message);
       // Redirect and set token
       // Storing the user object in sessionStorage
@@ -59,33 +59,44 @@ function StaffLogIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover opacity">
-      <div className="bg-[#390255] p-8 rounded-lg shadow-lg w-[400px]">
+    <div className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat opacity px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#390255] p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="text-center mb-6">
-          <Link to={"/"} >
-            <img src={logo} alt="Logo" className="h-20 mx-auto w-20 mb-4" />
+          <Link to={"/"}>
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-16 sm:h-20 mx-auto w-16 sm:w-20 mb-4"
+            />
           </Link>
-          <h2 className="text-5xl font-semibold text-white">Staff Login</h2>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white">
+            Staff Login
+          </h2>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-lg text-white font-semibold mb-2">
+            <label
+              htmlFor="email"
+              className="block text-base sm:text-lg text-white font-semibold mb-2"
+            >
               Email Address
             </label>
-
             <input
               type="email"
               id="email"
               placeholder="Enter your Email"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
             />
-
-
           </div>
           <div className="mb-6 relative">
-            <label htmlFor="password" className="block text-lg text-white font-semibold mb-2">
+            <label
+              htmlFor="password"
+              className="block text-base sm:text-lg text-white font-semibold mb-2"
+            >
               Password
             </label>
             <input
@@ -94,21 +105,24 @@ function StaffLogIn() {
               placeholder="Enter your password"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
               value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
             />
             {/* Show Password Toggle */}
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-10 text-black mt-2 text-sm focus:outline-none"
+              className="absolute right-3 top-10 text-black text-sm focus:outline-none"
             >
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
           <button
             type="submit"
-            className={`w-full bg-[#FFF848] text-2xl font-semibold text-[#390255] py-2 px-1 rounded-lg hover:bg-white hover:text-[#390255] ${loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+            className={`w-full bg-[#FFF848] text-xl sm:text-2xl font-semibold text-[#390255] py-2 px-1 rounded-lg hover:bg-white hover:text-[#390255] ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             disabled={loading}
           >
             {loading ? "Logging In..." : "Log In"}

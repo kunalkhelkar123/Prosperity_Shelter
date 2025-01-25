@@ -1,5 +1,7 @@
 import  { useEffect, useRef, useState } from "react";
-import LOGO from "./Asset/logo.png";
+
+import CORESPACE_LOGO from "./Asset/Logo.png";
+
 import { Link, useLocation } from "react-router-dom";
 
 function Corespace_navbar() {
@@ -84,8 +86,8 @@ function Corespace_navbar() {
             </button>
           </div>
 
-          <div className="hidden sm:flex justify-around items-center">
-            <div>
+          <div className="flex flex-wrap justify-center sm:justify-around items-center gap-4 p-4">
+          <div>
               <Link to="/">
                 <button
                   onClick={() => handleButtonClick(location.pathname)}

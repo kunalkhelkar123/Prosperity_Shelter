@@ -2,7 +2,7 @@ import React from 'react';
 
 const Heading = () => {
   return (
-    <div className='b mt-[3-px] mb-[100px]'>
+    <div className='b mt-[3-px] mb-[50px]'>
 <h2 className="text-4xl text-center font-bold uppercase">
   <span className="text-black">Properties For </span>
   <span className="text-purple-900">Your Growth</span>

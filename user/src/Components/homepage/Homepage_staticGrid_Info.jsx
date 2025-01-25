@@ -59,7 +59,7 @@ const Homepage_staticGrid_Info = () => {
           className="w-full h-[300px] object-cover mt-[100px]"
         />
         <div className="absolute top-1/2 ml-5 left-4 transform -translate-y-1/2 text-white z-10">
-          <h1 className="text-5xl font-bold mb-4">HomiGrow By Kunal's Properties</h1>
+          <h1 className="text-5xl font-bold mb-4"> Prosperity Shelters Properties</h1>
           <h2 className="text-3xl font-semibold">
             We are the best you choose !
           </h2>

@@ -20,6 +20,7 @@ import ContactUs from "./Components/ContactUs";
 import SearchApp from "./Components/Search/SearchApp";
 import filterdata from "./Components/homepage/Homepage_filter_menu";
 import ViewAllApp from "./Components/ViewAll/ViewAllApp";
+import HotProperties from './Components/HotProperties/HotProperties'
 
 // import PropertySubmission from "../../admin/src/components/Property-submission/PropertySubmission";
 
@@ -92,6 +93,8 @@ function App() {
           <Route path="/Popupform" element={<PopupForm />} />
           <Route path="/Searchapp" element={<SearchApp />} />
           <Route path="/ViewAllapp" element={<ViewAllApp />} />
+          <Route path="/HotProperties" element={<HotProperties />} />
+
 
 
 

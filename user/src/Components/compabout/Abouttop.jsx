@@ -24,7 +24,7 @@ function Abouttop(){
               w-[350px] rounded-full  items-center font-bold  sm:bg-yellow-400 sm:flex sm:justify-center sm:text-purple-900
              sm:w-[250px] sm:rounded-full sm:h-10 sm:items-center sm:font-bold sm:mb-5 md:w-[300px] lg:w-[350px] xl:w-[400px] 2xl:w-[450px] transition duration-150 ease-in-out "
             >
-              Welcome to HomiGrow
+              Welcome to Prosperity Shelters
             </span></div>
         </>
     )

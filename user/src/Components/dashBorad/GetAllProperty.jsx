@@ -40,7 +40,7 @@ function GetAllProperty() {
         let response;
         if (sortOption === "all") {
           response = await axiosinstance.get("api/property/properties");
-          console.log("response in iffff ", response.data);
+          // console.log("response in iffff ", response.data);
         } else {
           response = await axiosinstance.get(
             `api/property/properties?sort=${sortOption}`
@@ -120,7 +120,7 @@ function GetAllProperty() {
           >
             <div className="">
               <img
-                src={`/api/uploads/${properties.featureImage}`}
+                src={`http://localhost:4000/api/uploads/${properties.featureImage}`}
                 alt={`Property ${index}`}
                 className="h-full w-48 rounded-lg"
               />

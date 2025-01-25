@@ -80,7 +80,7 @@ function Corespace_navbar() {
           <div>
             <button>
               <img
-                src={LOGO}
+                src={CORESPACE_LOGO}
                 className="sm:p-1 p-0.5 h-[4rem] w-[5rem] ml-[3rem] md:w-[4rem] md:h-[3rem] md:ml-[3rem] md:text-[14px] lg:w-[6rem] lg:h-[5rem] lg:ml-[6rem] sm:w-[5rem] sm:h-[4rem] sm:ml-[3rem]"
               />
             </button>

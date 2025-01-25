@@ -15,7 +15,7 @@ function DummyTest() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await axiosinstance.get('/api/property/properties');
+        const response = await axiosinstance.get('api/property/properties');
         console.log('Data from database using proxy', response.data);
         setAllProperties(response.data);
       } catch (error) {

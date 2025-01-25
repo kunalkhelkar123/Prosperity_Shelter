@@ -51,7 +51,8 @@ function GetAllProperty() {
         const sortedData = sortProperties(response.data); // Sort the fetched properties
         setProperties(sortedData);
       } catch (error) {
-        console.error("Error fetching properties:", error);
+        console.error("Error fetching properties:", error
+        );
       }
     };
 

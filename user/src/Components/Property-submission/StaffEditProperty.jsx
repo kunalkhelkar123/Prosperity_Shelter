@@ -127,7 +127,7 @@ console.log("idddd==> ",id)
 useEffect(() => {
   const fetchPropertyDetails = async () => {
     try {
-      const response = await axiosinstance.get(`/api/property/properties/${id}`);
+      const response = await axiosinstance.get(`api/property/properties/${id}`);
       const propertyDetails = response.data;
 
       console.log("fetch data ==> ", propertyDetails)

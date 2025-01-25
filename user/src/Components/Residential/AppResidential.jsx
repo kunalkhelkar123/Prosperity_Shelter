@@ -5,6 +5,7 @@ import luxury from "../Residential/luxury homes.avif";
 import axios from "axios";
 import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
 import Corespace_footer from "../Corespace_footer/Corespace_footer";
+import ResidentialHeading from "./ResidentialHeading";
 const AppResidential = () => {
   const [allProperties, setAllProperties] = useState([]);
   const [currentOutput, setCurrentOutput] = useState([]);
@@ -43,7 +44,7 @@ const AppResidential = () => {
   return (
     <>
     <Corespace_navbar/>
-      <div className="items-center justify-center mb-10">
+      {/* <div className="items-center justify-center mb-10">
         <div className="b-slate-100">
           <div className="relative w-full h-[600px] px-6 overflow-hidden">
             <img
@@ -85,7 +86,8 @@ const AppResidential = () => {
             <div className="absolute inset-0 w-full h-full bg-black opacity-20"></div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <ResidentialHeading />
       <div className="flex flex-row justify-center items-center gap-6 flex-wrap">
         {currentOutput.map((card) => (
           <div key={card.id}>

@@ -27,7 +27,9 @@ const upload = multer({ storage: storage });
 router.post('/propertyDetails', upload.fields([
   { name: 'featureImage', maxCount: 1 },
   { name: 'backgroundImage', maxCount: 1 },
-  { name: 'offersImage', maxCount: 1 }
+  { name: 'offersImage', maxCount: 1 },
+  { name: 'brochurepdf', maxCount: 1 }
+
 ]), async (req, res) => {
   try {
     // Extract form data
@@ -54,12 +56,16 @@ router.post('/propertyDetails', upload.fields([
       area,
       pinCode,
       amenities,
+      builderDescription,
+      MahaRera,
+
     } = req.body;
 
     // Extract file paths or names for images
     const featureImage = req.files['featureImage'] ? req.files['featureImage'][0].filename : null;
     const backgroundImage = req.files['backgroundImage'] ? req.files['backgroundImage'][0].filename : null;
     const offersImage = req.files['offersImage'] ? req.files['offersImage'][0].filename : null;
+    const brochurepdf = req.files['brochurepdf'] ? req.files['brochurepdf'][0].filename : null;
 
     // Save property details to MySQL
     const query = `
@@ -67,16 +73,18 @@ router.post('/propertyDetails', upload.fields([
         propertyID, propertyTitle, propertyType, propertyDescription, parentProperty, 
         builderName, status, label, material, rooms, bedsroom, kitchen, bhk, 
         yearBuilt, totalhomeArea, builtDimentions, openArea, price, location, 
-        area, pinCode, amenities, featureImage, backgroundImage, offersImage
+        area, pinCode, amenities, featureImage, backgroundImage, offersImage,brochurepdf,
+        builderDescription,MahaRera
       ) 
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
     `;
 
     const values = [
       propertyID, propertyTitle, propertyType, propertyDescription, parentProperty,
       builderName, status, label, material, rooms, bedsroom, kitchen, bhk,
       yearBuilt, totalhomeArea, builtDimentions, openArea, price, location,
-      area, pinCode, amenities, featureImage, backgroundImage, offersImage
+      area, pinCode, amenities, featureImage, backgroundImage, offersImage, brochurepdf,
+      builderDescription, MahaRera
     ];
 
     // Insert into database
@@ -143,6 +151,19 @@ router.get('/properties', async (req, res) => {
   const query = 'SELECT * FROM property_details'; // SQL query to fetch all properties
   try {
     const [properties] = await db.query(query); // Execute the query
+    res.status(200).json(properties); // Send the fetched data as a JSON response
+    console.log('Fetched properties successfully');
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+router.get('/hotproperties', async (req, res) => {
+  const query = 'SELECT * FROM property_details WHERE label =?'; // SQL query to fetch all properties
+  try {
+    const [properties] = await db.query(query,["Hot"]); // Execute the query
     res.status(200).json(properties); // Send the fetched data as a JSON response
     console.log('Fetched properties successfully');
   } catch (error) {
@@ -271,16 +292,21 @@ router.get('/properties/:id', async (req, res) => {
 
 
 // Edit Properties using mysql     upload.single('featureImage')
-router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, res) => {
+router.put('/propertyDetails/:id', upload.fields([
+  // { name: 'featureImage', maxCount: 1 },
+  // { name: 'backgroundImage', maxCount: 1 },
+  // { name: 'offersImage', maxCount: 1 },
+  // { name: 'brochurepdf', maxCount: 1 }
+]), async (req, res) => {
   const propertyId = req.params.id; // Get the property ID from the URL parameter
 
   const {
+    propertyID,
     propertyTitle,
     propertyType,
     propertyDescription,
-    builderName,
-    propertyID,
     parentProperty,
+    builderName,
     status,
     label,
     material,
@@ -297,9 +323,14 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
     area,
     pinCode,
     amenities,
+    builderDescription,
+    MahaRera,
   } = req.body;
 
-  const featureImage = req.file ? req.file.filename : null; // Check if a new image is uploaded
+  // const featureImage = req.files['featureImage'] ? req.files['featureImage'][0].filename : null;
+  // const backgroundImage = req.files['backgroundImage'] ? req.files['backgroundImage'][0].filename : null;
+  // const offersImage = req.files['offersImage'] ? req.files['offersImage'][0].filename : null;
+  // const brochurepdf = req.files['brochurepdf'] ? req.files['brochurepdf'][0].filename : null;
 
   try {
     // Fetch the existing property details
@@ -309,19 +340,25 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
       return res.status(404).json({ message: 'Property not found' });
     }
 
-    // If a new feature image is uploaded, delete the old image from the file system
-    if (featureImage && property[0].featureImage) {
-      const oldImagePath = path.join(__dirname, '../uploads', property[0].featureImage);
-      fs.unlink(oldImagePath, (err) => {
-        if (err) console.error(`Failed to delete old image: ${err.message}`);
-      });
-    }
+    // Handle old image deletions only if new images are uploaded
+    // const deleteOldImage = (fileKey, oldFileName) => {
+    //   if (fileKey && oldFileName) {
+    //     const oldImagePath = path.join(__dirname, '../uploads', oldFileName);
+    //     fs.unlink(oldImagePath, (err) => {
+    //       if (err) console.error(`Failed to delete old image: ${err.message}`);
+    //     });
+    //   }
+    // };
+
+    // Delete old images if new ones are uploaded
+    // if (featureImage) deleteOldImage(featureImage, property[0].featureImage);
+    // if (backgroundImage) deleteOldImage(backgroundImage, property[0].backgroundImage);
+    // if (offersImage) deleteOldImage(offersImage, property[0].offersImage);
+    // if (brochurepdf) deleteOldImage(brochurepdf, property[0].brochurepdf);
 
     // Update the property in the database
-
     const query = [];
-    const values = []
-
+    const values = [];
 
     if (propertyTitle) {
       query.push('propertyTitle = ?');
@@ -343,7 +380,6 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
       query.push('status = ?');
       values.push(status);
     }
-
     if (label) {
       query.push('label = ?');
       values.push(label);
@@ -408,23 +444,42 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
       query.push('amenities = ?');
       values.push(amenities);
     }
-    if (featureImage) {
-      query.push('featureImage = ?');
-      values.push(featureImage);
+
+    // if (featureImage) {
+    //   query.push('featureImage = ?');
+    //   values.push(featureImage);
+    // }
+    // if (backgroundImage) {
+    //   query.push('backgroundImage = ?');
+    //   values.push(backgroundImage);
+    // }
+    // if (offersImage) {
+    //   query.push('offersImage = ?');
+    //   values.push(offersImage);
+    // }
+    // if (brochurepdf) {
+    //   query.push('brochurepdf = ?');
+    //   values.push(brochurepdf);
+    // }
+
+    if (builderName) {
+      query.push('builderName = ?');
+      values.push(builderName);
+    }
+    if (MahaRera) {
+      query.push('MahaRera = ?');
+      values.push(MahaRera);
+    }
+    if (builderDescription) {
+      query.push('builderDescription = ?');
+      values.push(builderDescription);
     }
 
+    // Add the propertyId for the WHERE clause
     values.push(propertyId);
 
-
-    // console.log("query ==> ", query);
-    // console.log("values ==> ", values);
-
-
-    await db.query(`UPDATE property_details SET ${query.join(', ')} WHERE _id = ?`,
-      values).then((res) => {
-        // console.log("resss", res)
-      })
-
+    // Execute the update query
+    await db.query(`UPDATE property_details SET ${query.join(', ')} WHERE _id = ?`, values);
 
     res.status(200).json({ message: 'Property updated successfully' });
   } catch (error) {
@@ -432,6 +487,7 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
     res.status(500).json({ error: 'Failed to update property' });
   }
 });
+
 
 
 
@@ -1036,21 +1092,106 @@ router.get('/Commercial_properties', async (req, res) => {
 
 router.post('/filter_properties', async (req, res) => {
   try {
-    const { area, bhk, price } = req.body;
-    // Define filter object
-    const filters = {};
+    const { area, configuration, budget } = req.body;
+
+    console.log("area, configuration, budget", area, configuration, budget);
+
+    // Define the filter object
+    const filters = [];
+    const values = [];
+
     // Apply filters if they exist
-    if (area) filters.area = area;
-    if (bhk) filters.bhk = bhk;
-    if (price) filters.price = price;
-    // Find properties based on filters
-    const properties = await PropertyDetails.find(filters);
+    if (area) {
+      filters.push('location = ?');
+      values.push(area);
+    }
+    if (configuration) {
+      filters.push('bhk = ?');
+      values.push(configuration);
+    }
+
+    // Handling the budget field with ranges
+    if (budget) {
+      let budgetCondition = '';
+      let minBudget = 0;
+      let maxBudget = 0;
+
+      switch (budget) {
+        case 'below 20L':
+          minBudget = 1;
+          maxBudget = 2000000;
+          break;
+        case '20L-50L':
+          minBudget = 2000000;
+          maxBudget = 5000000;
+          break;
+        case '50L-1C':
+          minBudget = 5000000;
+          maxBudget = 10000000;
+          break;
+        case '1Cr-1.5Cr':
+          minBudget = 10000000;
+          maxBudget = 15000000;
+          break;
+        case '1.5Cr-2Cr':
+          minBudget = 15000000;
+          maxBudget = 20000000;
+          break;
+        case '2Cr-2.5Cr':
+          minBudget = 20000000;
+          maxBudget = 25000000;
+          break;
+        case '2.5Cr-3Cr':
+          minBudget = 25000000;
+          maxBudget = 30000000;
+          break;
+        case '3Cr-3.5Cr':
+          minBudget = 30000000;
+          maxBudget = 35000000;
+          break;
+        case '3.5Cr-4Cr':
+          minBudget = 35000000;
+          maxBudget = 40000000;
+          break;
+        case '4Cr-5Cr':
+          minBudget = 40000000;
+          maxBudget = 50000000;
+          break;
+        case 'Above 5Cr':
+          minBudget = 50000000;
+          maxBudget = 100000000; // Or any large value if you need to represent "Above"
+          break;
+        default:
+          // If budget is not in the predefined ranges, handle accordingly
+          break;
+      }
+
+      if (minBudget && maxBudget) {
+        filters.push('price BETWEEN ? AND ?');
+        values.push(minBudget);
+        values.push(maxBudget);
+      }
+    }
+
+    // Build the query dynamically based on the filters
+    let query = 'SELECT * FROM property_details';
+
+    if (filters.length > 0) {
+      query += ' WHERE ' + filters.join(' AND ');
+    }
+
+    // Execute the query
+    const [properties] = await db.query(query, values);
+
     res.status(200).json(properties);
-    console.log('details ', properties);
+    console.log('Details: ', properties);
   } catch (error) {
+    console.log("error while fetching properties in filter property route",error)
     res.status(500).json({ message: error.message });
   }
 });
+
+
 
 
 

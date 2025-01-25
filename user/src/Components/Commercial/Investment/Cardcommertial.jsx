@@ -47,7 +47,7 @@ const Cardcommertial = ({data}) => {
           <div className="text-md font-semibold text-gray-600">{location}</div>
         </div>
 
-        <div className="w-[70px]  ml-auto h-[40px]  border-[#FFF848] bg-[#FFF848] text-[#390255]  hover:border-[#390255] hover:text-white px-2 py-1 text-center align-middle text-sm font-semibold leading-normal   flex justify-center items-center ">
+        <div className="w-[70px]  ml-auto h-[40px]  border-[#FFF848] bg-[#FFF848] text-[#390255]  hover:border-[#390255] hover:text-red-400 px-2 py-1 text-center align-middle text-sm font-semibold leading-normal   flex justify-center items-center ">
           {status}
         </div>
       </div>

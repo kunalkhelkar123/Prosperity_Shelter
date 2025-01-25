@@ -41,37 +41,65 @@ function Homepage_filter_menu() {
     setIsPopupOpen(false);
   };
   const puneAreas = [
-    "Shivaji Nagar",
-    "Kothrud",
-    "Baner",
+    "Select Location",
+    "Ambegaon Budruk",
+    "Ambegaon Khurd",
     "Aundh",
-    "Viman Nagar",
-    "Koregaon Park",
-    "Hadapsar",
-    "Pimpri",
-    "Chinchwad",
-    "Wakad",
-    "Kalyani Nagar",
-    "Hinjewadi",
-    "Bavdhan",
-    "Pashan",
-    "Kharadi",
-    "Magarpatta",
+    "Baner",
+    "Balewadi",
+    "Bibwewadi",
+    "Bhosari",
     "Camp",
-    "Deccan",
-    "Pune University",
-    "Yerwada",
-    "Swargate",
-    "Karve Nagar",
+    "Chinchwad",
+    "Deccan Gymkhana",
+    "Dhankawadi",
     "Dhanori",
-    "Wanowrie",
-    "Nigdi",
-    "Tathawade",
-    "Warje",
+    "Erandwane",
+    // "Fergusson College Road",
+    "Hadapsar",
+    "Hinjewadi",
+    "Kamshet",
+    "Katraj",
+    "Kondhwa",
+    "Kothrud",
+    "Koregaon Park",
+    "Kharadi",
+    // "Lake Town Housing Society",
     "Lohegaon",
-    "Sahakar Nagar",
-    "Baewadil",
-    "Others",
+    "Magarpatta",
+    "Marketyard",
+    "Manjri",
+    "Mundhwa",
+    "Narhe",
+    "Parvati",
+    "Pashan",
+    "Pimpri",
+    "Pimple Saudagar",
+    "Rajmachi Fort",
+    "Shivaji Nagar",
+    "Shriram Nagar",
+    "Shubhada Society",
+    "Sinhagad Road",
+    "Swargate",
+    "Undri",
+    "Vadgaon Sheri",
+    "Varkhade Nagar",
+    "Viman Nagar",
+    "Wakad",
+    "Wanowrie",
+    "Warje",
+    "Yerwada",
+    "Yewlewadi",
+    "Lonavala",
+    "Karjat",
+    "Khandala",
+    "Pawna Lake",
+    "Tungarli Lake",
+    "Mulshi",
+    "Bhivpuri",
+    "Wai",
+    "Khopoli",
+    // "Yewlewadi Nearby Areas"
   ];
 
   useLayoutEffect(() => {
@@ -120,6 +148,7 @@ function Homepage_filter_menu() {
       budget: selectedBudget,
     };
 
+    console.log("data ", data)
     fetch("/api/property/filter_properties", {
       method: "POST",
       headers: {
@@ -132,7 +161,7 @@ function Homepage_filter_menu() {
         // Handle response from the backend
         // setFilterData(data);
 
-        navigate("/Searchapp", { state: { data } });
+        navigate("/Searchapp", { state: { data } });  
 
         // console.log("data ", data);
         // console.log("filter data console", filterData);
@@ -254,13 +283,17 @@ function Homepage_filter_menu() {
               <option value="" disabled hidden>
                 Choose a Budget
               </option>
-              <option value="DE">below 50L</option>
-              <option value="US">50L - 99L </option>
-              <option value="CA">1Cr - 1.99Cr</option>
-              <option value="FR">2Cr - 2.99Cr</option>
-              <option value="DE">3Cr - 3.99Cr</option>
-              <option value="DE">4Cr - 6Cr</option>
-              <option value="DE">above 6Cr</option>
+              <option value="below 20L">below 20L</option>
+              <option value="20L-50L  ">20L - 50L </option>
+              <option value="50 - 1C  ">50 - 1Cr</option>
+              <option value="1Cr-1.5Cr ">1Cr - 1.5Cr</option>
+              <option value="1.5Cr-2Cr ">1.5Cr - 2Cr</option>
+              <option value="2Cr-2.5Cr ">2Cr - 2.5Cr</option>
+              <option value="2.5Cr-3Cr ">2.5Cr - 3Cr</option>
+              <option value="3Cr-3.5Cr ">3Cr - 3.5Cr</option>
+              <option value="3.5Cr-4Cr ">3.5Cr - 4Cr</option>
+              <option value="4Cr-5Cr   " >4Cr - 5Cr</option>
+              <option value="Above 5Cr ">Above 5Cr</option>
             </select>
             {/* <Link to={{ pathname: "/Searchapp", filterData }}> */}
             <button
@@ -282,7 +315,7 @@ function Homepage_filter_menu() {
           <div className="mb-10 w-full">
             <div className=" p-8 w-full rounded-lg bg-gray-100 flex flex-col items-center justify-center gap-[130px]">
               <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-              Our Partners <br /> (Builder)
+                Our Partners <br /> (Builder)
               </h2>
               <Homepage_Brands />
               <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">

@@ -20,7 +20,7 @@ function DummyTestCarousel(props) {
   //     .then((response) => response.json())
   //     .then((data) => {
   //       console.log('Data in builder api ', data);
-        navigate('/Investmentapp');
+        navigate('/hotproperties');
       // })
       // .catch((error) => {
       //   console.error('Error:', error);
@@ -57,11 +57,11 @@ function DummyTestCarousel(props) {
       </div>
 
       <div className="flex w-[100%]  justify-between items-center">
-        <h6> Budget : {props.ele.price}</h6>
+        <h6> Budget : {props.ele.price} /- RS </h6>
 
         {/* <Link to="/ViewAllapp"> */}
         <button className="border-[#FFF848] bg-[#FFF848] hover:bg-[#390255]  hover:border-[#390255] hover:text-white p-1 rounded-lg" onClick={handleSearching}>
-          view all
+          View All
         </button>
         {/* </Link> */}
       </div>

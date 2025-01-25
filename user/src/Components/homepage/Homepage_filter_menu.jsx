@@ -70,7 +70,8 @@ function Homepage_filter_menu() {
     "Warje",
     "Lohegaon",
     "Sahakar Nagar",
-    "Balewadi",
+    "Baewadil",
+    "Others",
   ];
 
   useLayoutEffect(() => {

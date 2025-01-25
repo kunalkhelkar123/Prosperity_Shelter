@@ -73,8 +73,8 @@ function Homepage_Brands() {
                 <div key={ele} className=''>
                   <img
                     src={ele.img}
-                    className='w-[90%] h-[100px] ml-[90px] p-[10px] border border-gray-300 rounded-lg'
-                  />
+                    className='w-[90%] h-[100px] ml-[100px] p-[10px] border border-gray-300 rounded-lg'
+                    />
 
                 </div>
               )

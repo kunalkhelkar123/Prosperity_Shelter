@@ -276,10 +276,10 @@ function Homepage_filter_menu() {
       <DummyTest />
       {/* <Homepage_staticGrid_Info /> */}
       {/* <Homepage_investmentProperty /> */}
-      <div className="bg-gray-50 py-10 min-h-screen">
+      <div className="bg-gray-100 py-10 min-h-screen">
         <div className="w-full px-4">
           <div className="mb-10 w-full">
-            <div className="shadow-md p-8 w-full rounded-lg bg-gray-100 flex flex-col items-center justify-center gap-[75px]">
+            <div className=" p-8 w-full rounded-lg bg-gray-100 flex flex-col items-center justify-center gap-[130px]">
               <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
               Our Partners <br /> (Builder)
               </h2>

@@ -112,12 +112,13 @@ function PropertySubmission() {
 
     try {
 
-      console.log("data ==>", data)
+      console.log("data ==>", formData)
       console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
 
       const response = await axiosinstance.post("/api/property/propertyDetails", data);
+      toast.success("Property submitted successfully out");
 
-      if (response.status == 201) {
+      if (response.status == "201") {
 
         toast.success("Property submitted successfully");
         setFormData({

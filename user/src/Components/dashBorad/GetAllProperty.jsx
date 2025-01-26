@@ -120,7 +120,7 @@ function GetAllProperty() {
           >
             <div className="">
               <img
-                src={`http://localhost:4000/api/uploads/${properties.featureImage}`}
+                src={properties.featureImage}
                 alt={`Property ${index}`}
                 className="h-full w-48 rounded-lg"
               />

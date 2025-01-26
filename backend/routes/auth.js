@@ -6,20 +6,42 @@ const db = require("../db")
 //// Register endpoint
 router.post("/register", async (req, res) => {
   try {
-    const { name, phone, email, password, isActive, role } = req.body;
+    const { name, phone, email, password } = req.body;
     // Validate request body
-    if (!name || !phone || !email || !password || !role) {
+
+    try {
+
+      const checkemail = `
+    SELECT * FROM users_master WHERE email=?
+  `;
+      const [userResult] = await db.query(checkemail, [email]);
+
+      if (userResult.length > 0) {
+        console.log("user already present with same mail id")
+        return res.status(201).json({ message: "user already present with same mail id ." });
+
+      }
+
+    }
+    catch (error) {
+
+
+    }
+
+    if (!name || !phone || !email || !password) {
       return res.status(400).json({ message: "All fields are required." });
     }
+
+
     const sqlCreateUser = `
-    INSERT INTO users_master (name, phone, email, password,role) 
-    VALUES (?, ?, ?, ?,?)
+    INSERT INTO users_master (name, phone, email, password,role,isActive,ORG) 
+    VALUES (?, ?, ?, ?,?,?,?)
   `;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // console.log("hashedPassword  ==> ", hashedPassword);
-    const [userResult] = await db.query(sqlCreateUser, [name, phone, email, hashedPassword, role]);
+    const [userResult] = await db.query(sqlCreateUser, [name, phone, email, hashedPassword, "admin", "true", password]);
     // console.log("Inserted user ID ==> ", userResult.insertId);
     const userid = userResult.insertId;
     // console.log("userid ==> ", userid);

@@ -58,7 +58,7 @@ const CardSearch = ({ data }) => {
       {/* Image Section */}
       <div className="flex flex-col mt-2">
         <img
-          src={`http://localhost:4000/api/uploads/${featureImage}`}
+          src={featureImage}
           alt="Image 2"
           className="h-[230px] w-[308px] mt-1"
         />

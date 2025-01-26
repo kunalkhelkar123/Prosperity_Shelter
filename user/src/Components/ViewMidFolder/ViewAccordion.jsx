@@ -58,7 +58,7 @@ function ViewAccordion( brochurepdf) {
   // console.log("amenities ",amenities)
 
     const link = document.createElement("a");
-    const pdfUrl= `http://localhost:4000/api/uploads/${brochurepdf.brochurepdf}`;
+    const pdfUrl= brochurepdf.brochurepdf;
     window.open(pdfUrl, "_blank");
     link.download = brochurepdf; // Ensures the file will be downloaded instead of opened
     link.click();

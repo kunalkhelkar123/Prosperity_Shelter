@@ -205,7 +205,7 @@ function MainviewProperty(props) {
           <div
             className="relative bg-gradient-to-b h-36 pl-4 sm:h-72 bg-cover bg-center"
             style={{
-              backgroundImage: `url(http://localhost:4000/api/uploads/${backgroundImage})`,
+              backgroundImage: `url(${backgroundImage})`,
             }}
           >
             {/* Fade overlay */}
@@ -255,7 +255,7 @@ function MainviewProperty(props) {
                 <div className="mt-5">
                   <h5 className="text-2xl font-bold">Offers</h5>
                   <img
-                    src={`http://localhost:4000/api/uploads/${offersImage}`}
+                    src={offersImage}
                     alt="Offers"
                     className="mt-3"
                   />
@@ -267,7 +267,7 @@ function MainviewProperty(props) {
                 <div className="flex flex-wrap flex-col justify-center gap-6 p-6 sm:justify-around mt-5 ">
                   <h5 className=" mt-[-20px] text-start text-2xl font-bold tracking-tight  ">Project Configuration</h5>
                   <div className="flex flex-wrap flex-col justify-center gap-6 p-6 md:flex-row md:justify-evenly md:items-center mt-[-20px]">
-                    <img src={`http://localhost:4000/api/uploads/${featureImage}`} alt="property-img" srcset="" />
+                    <img src={featureImage} alt="property-img" srcset="" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <span className="font-bold">Project Name: </span>{propertyTitle}

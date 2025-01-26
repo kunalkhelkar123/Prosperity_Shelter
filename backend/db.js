@@ -2,10 +2,10 @@ const mysql = require("mysql2/promise"); // Use `mysql2/promise` for async/await
 
 // Create a connection pool
 const connection = mysql.createPool({
-  host: "localhost",
-  user: "root",
+  host: "prosperityshelters.czu80qkoq99g.ap-south-1.rds.amazonaws.com",
+  user: "admin",
   // password: "admin",
-  password: "Kunal@123",
+  password: "kunal29022000",
   database: "homi_grow",
 });
 

@@ -19,7 +19,7 @@ const bodyParser = require("body-parser");
 dotenv.config();
 
 const _dirname=path.dirname("");
-const buildpath=path.join(_dirname,"../user/dist");
+const buildpath=path.join(_dirname,"../user/build");
 app.use(express.static(buildpath));
 // ----- Mongoose connection ------
 mongoose

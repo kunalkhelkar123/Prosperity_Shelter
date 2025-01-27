@@ -4,7 +4,7 @@ import axios from "axios";
 // Create an Axios instance
 const axiosinstance = axios.create({
     baseURL: "http://localhost:4000/", // Replace with your API base URL
-    timeout: 30000, // Request timeout
+    timeout: 300000, // Request timeout
 });
 
 // Add an interceptor to include the token

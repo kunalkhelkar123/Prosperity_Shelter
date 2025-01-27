@@ -660,7 +660,7 @@ const handleAmenityChange = (amenityName, isChecked) => {
                   {" "}
                   Update
                 </button>{" "}
-                <button className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500  hover:bg-white  hover:text-red-500  hover: border border-red-500" onClick={() => navigate("/admin/myProperties")}>
+                <button className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500  hover:bg-white  hover:text-red-500  hover: border border-red-500" onClick={() => navigate("/staff/myProperties")}>
                   {" "}
                   Cancle
                 </button>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DashBoardHomePage from './DashBoardHomePage';
 import NavBar from '../NavBar';
 import { Link, useNavigate } from "react-router-dom";
+// import CryptoJS from "crypto-js";
 
 function DashBoradSliderBar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +24,52 @@ function DashBoradSliderBar() {
 
     }, [navigate]);
 
+
+
+    // useEffect(() => {
+    //     const token = sessionStorage.getItem("token");
+    //     const encryptedAdmin = sessionStorage.getItem("admin");
+    
+    //     // If there's no token or encryptedAdmin data, or if the token is invalid, redirect to login
+    //     if (!token || !encryptedAdmin) {
+    //         navigate("/admin");
+    //         return;
+    //     }
+    
+    //     try {
+    //         // Decode the token to check if it's expired
+    //         // const decodedToken = jwt_decode.decode(token);
+    
+    //         // if (!decodedToken || decodedToken.exp * 1000 < Date.now()) {
+    //         //     // If the token is expired or invalid, redirect to login
+    //         //     navigate("/admin");
+    //         //     return;
+    //         // }
+    
+    //         // Decrypt the admin data if encrypted
+    //         const bytes = CryptoJS.AES.decrypt(encryptedAdmin, "kunaljdsdbfhdsbf765havsd78@jhasdvr64646%#%#%^");
+    //         const decryptedAdmin = bytes.toString(CryptoJS.enc.Utf8);
+    
+    //         // If decryption fails or the decrypted data is empty, redirect to login
+    //         if (!decryptedAdmin) {
+    //             navigate("/admin");
+    //             return;
+    //         }
+    
+    //         const admin = JSON.parse(decryptedAdmin);
+    
+    //         // Check if the admin role is valid
+    //         if (admin && admin.role !== "admin") {
+    //             navigate("/admin");
+    //         }
+    
+    //         console.log("admin ==> ", admin);
+    //     } catch (error) {
+    //         // Handle any errors, such as invalid token format or decryption failure
+    //         console.error("Error decoding token or admin data:", error);
+    //         navigate("/admin");
+    //     }
+    // }, [navigate]);
 
 
 

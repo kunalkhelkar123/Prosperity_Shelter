@@ -16,7 +16,7 @@ function DashBoradSliderBar() {
         const token = sessionStorage.getItem("token");
         const admin = JSON.parse(sessionStorage.getItem("admin"));
 
-        console.log("admin ==> ", admin)
+        // console.log("admin ==> ", admin)
         if (!token || !admin || admin.role !== "admin") {
             navigate("/admin");
         }
@@ -94,7 +94,7 @@ function DashBoradSliderBar() {
 
     function check(menus) {
         if (menus.name === 'Logout') {
-            console.log("logout == ")
+            // console.log("logout == ")
             sessionStorage.removeItem("token");
             sessionStorage.removeItem("admin");
         }

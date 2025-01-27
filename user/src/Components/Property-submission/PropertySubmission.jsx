@@ -17,7 +17,7 @@ function PropertySubmission() {
       const token = sessionStorage.getItem("token");
       const admin = JSON.parse(sessionStorage.getItem("admin"));
 
-      console.log("admin ==> ", admin)
+      // console.log("admin ==> ", admin)
       if (!token || !admin || admin.role !== "admin") {
         navigate("/admin");
       }
@@ -112,8 +112,8 @@ function PropertySubmission() {
 
     try {
 
-      console.log("data ==>", formData)
-      console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
+      // console.log("data ==>", formData)
+      // console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
 
       const response = await axiosinstance.post("/api/property/propertyDetails", data);
       toast.success("Property submitted successfully out");
@@ -151,9 +151,7 @@ function PropertySubmission() {
           builderDescription: "",
           MahaRera: "",
         })
-
       }
-
       // console.log("Property Details created:", response.data);
       // setFormData(""); // Reset form state as needed
       // navigate("/admin/myProperties")
@@ -161,6 +159,29 @@ function PropertySubmission() {
       console.error("Error creating Property Details:", error);
     }
   };
+
+  const handleChangePdf = (event) => {
+    const file = event.target.files[0];
+  
+    // Check if a file is selected
+    if (file) {
+      const maxSizeInMB = 5; // Maximum file size in MB
+      const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // Convert to bytes
+  
+      if (file.size > maxSizeInBytes) {
+        alert(`The file size exceeds ${maxSizeInMB} MB. Please upload a smaller file.`);
+        event.target.value = ""; // Clear the input
+        return;
+      }
+  
+      // Proceed with the file upload
+      // console.log("File is valid:", file);
+      // Add your logic here to handle the file (e.g., upload to the server or set state)
+    } else {
+      console.log("No file selected");
+    }
+  };
+  
 
   const amenities = [
     { name: "Air Conditioning" },
@@ -246,7 +267,8 @@ function PropertySubmission() {
 
   return (
 
-    <><NavBar />
+    <>
+    <NavBar />
       <div className="flex justify-center items-center bg-slate-50">
         <ToastContainer />
         <div className=" ">
@@ -387,7 +409,7 @@ function PropertySubmission() {
                       <option value="Diamond Manor Apartment">Golden Lakh Katraj</option>
                       <option value="Quality House For Sale">Raman Mayara Pune</option>
                     </select> */}
-                    <input  required
+                    <input required
                       className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder="Enter the Parent Property"
                       type="text"
@@ -401,7 +423,7 @@ function PropertySubmission() {
                       Status{" "}
                     </label>
                     <select
-                     required
+                      required
                       id="status"
                       className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       value={formData.status}
@@ -418,7 +440,7 @@ function PropertySubmission() {
                       Label
                     </label>
                     <select
-                     required
+                      required
                       id="label"
                       className="bg-gray-50 border h-[50px] border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       value={formData.label}
@@ -453,7 +475,7 @@ function PropertySubmission() {
                       Total Rooms
                     </label>
                     <input
-                     required
+                      required
                       className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder=""
                       type="number"
@@ -467,7 +489,7 @@ function PropertySubmission() {
                       Total BedRooms
                     </label>
                     <input
-                     required
+                      required
                       className="placeholder:italic h-[50px]  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder=""
                       type="number"
@@ -481,7 +503,7 @@ function PropertySubmission() {
                       Number of Balcony
                     </label>
                     <input
-                     required
+                      required
                       className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder=""
                       type="number"
@@ -517,7 +539,7 @@ function PropertySubmission() {
                       Year built or Possession Year
                     </label>
                     <input
-                     required
+                      required
                       className="placeholder:italic h-[50px]  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder="Enter the Year built"
                       type="number"
@@ -531,7 +553,7 @@ function PropertySubmission() {
                       Total Home Area(sqrt)
                     </label>
                     <input
-                     required
+                      required
                       className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder="Enter the Total Home Area"
                       type="text"
@@ -545,7 +567,7 @@ function PropertySubmission() {
                       Built dimensions
                     </label>
                     <input
-                     required
+                      required
                       className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder="Enter the built area"
                       type="text"
@@ -554,7 +576,7 @@ function PropertySubmission() {
                       onChange={handleChange}
                     />
                     <p className="text-xs text-gray-400 p-2">
-                      e.g. 20×30, 20x30x40, 20x30x40x50.
+                      e.g. 20x30, 20x30x40, 20x30x40x50.
                     </p>
                   </div>
                   <div>
@@ -596,7 +618,7 @@ function PropertySubmission() {
                       </select> */}
 
                       <input
-                       required
+                        required
                         className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                         placeholder="Enter the price in lakhs"
                         type="text"
@@ -621,7 +643,7 @@ function PropertySubmission() {
                 value={formData.location}
                 onChange={handleChange}
               /> */}
-                <select  required className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <select required className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={formData.location} onChange={handleChange} name="location">
                   {
                     puneAreas.map((area, index) => {
@@ -635,7 +657,7 @@ function PropertySubmission() {
                   Area
                 </label>
                 <input
-                 required
+                  required
                   className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                   placeholder="Enter the Area"
                   type="text"
@@ -647,7 +669,7 @@ function PropertySubmission() {
                   Area Pin-code
                 </label>
                 <input
-                 required
+                  required
                   className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                   placeholder="Enter the Pin code"
                   type="text"
@@ -669,7 +691,7 @@ function PropertySubmission() {
                   Property Image
                 </label>
                 <input
-                 required
+                  required
                   className="b h-[50px]"
                   id="small_size"
                   type="file"
@@ -682,7 +704,7 @@ function PropertySubmission() {
                   Property Background Image
                 </label>
                 <input
-                 required
+                  required
                   className="b h-[50px]"
                   id="small_size"
                   type="file"
@@ -705,15 +727,16 @@ function PropertySubmission() {
 
               <div>
                 <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  Brochure PDF (only pdf)
+                  Brochure PDF (only pdf, size less than 5 MB)
                 </label>
                 <input
-                 required
+                  required
                   className="b h-[50px]"
                   id="small_size"
                   type="file"
                   name="brochurepdf"
-                  onChange={handleChangeImage}
+                  accept=".pdf" // Restrict to PDF files
+                  onChange={handleChangePdf}
                 />
               </div>
 
@@ -761,8 +784,7 @@ function PropertySubmission() {
           </div>
         </div>
       </div>
-
-    </>
+</>
   );
 }
 

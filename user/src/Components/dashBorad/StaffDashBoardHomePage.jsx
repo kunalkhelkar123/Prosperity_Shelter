@@ -32,11 +32,11 @@ function DashBoardHomePage() {
       try {
         const response = await axiosinstance.get("/api/property/getleads-count");
         setLead(response.data);
-        console.log("leads data ==>", response.data);
+        // console.log("leads data ==>", response.data);
 
         const allProperties = await axiosinstance.get("/api/property/property-count");
         setAllProperty(allProperties.data);
-        console.log(allProperties.data);
+        // console.log(allProperties.data);
       } catch (error) {
         console.log("Error fetching data:", error);
       }
@@ -46,7 +46,7 @@ function DashBoardHomePage() {
 
   useEffect(() => {
     if (lead) {
-      console.log("Updated leads data length ==>", lead.length);
+      // console.log("Updated leads data length ==>", lead.length);
     }
   }, [lead]);
 

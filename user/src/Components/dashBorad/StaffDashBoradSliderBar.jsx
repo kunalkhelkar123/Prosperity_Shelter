@@ -43,7 +43,7 @@ function DashBoradSliderBar() {
     function check(menus) {
         if (menus.name === 'Logout') {
 
-            console.log("logout == ")
+            // console.log("logout == ")
             sessionStorage.removeItem("token");
             sessionStorage.removeItem("user");
             sessionStorage.removeItem("admin");

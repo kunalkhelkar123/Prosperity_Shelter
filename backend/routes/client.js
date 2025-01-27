@@ -2,11 +2,153 @@ const express = require('express');
 const router = express.Router();
 const sendBirthdayWishEmail = require("../handlers/handleSendBirthdayMessage")
 const sendWishEmail = require("../handlers/handleSendBirthdayMessage")
+const { S3Client, PutObjectCommand, GetObjectCommand, GetObjectCommandInput, DeleteObjectCommand } = require('@aws-sdk/client-s3'); // AWS SDK v3
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+const multer = require('multer');
+const dotenv = require("dotenv");
 
 
 const db = require('../db');
 const sendAnniversaryWishEmail = require('../handlers/handleSendAnniversaryMessage');
+dotenv.config();
 
+
+
+const s3 = new S3Client({
+    region: process.env.AWS_REGION, // Add your AWS region
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID, // Add your AWS Access Key
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // Add your AWS Secret Key
+    },
+});
+
+const bucketName = process.env.AWS_BUCKET_NAME;
+
+// Multer configuration for handling file uploads with file validation
+const storage = multer.memoryStorage();
+const fileFilter = (req, file, cb) => {
+    // Allow only certain file types
+    if (file.mimetype === 'application/pdf' || file.mimetype.startsWith('image/')) {
+        cb(null, true);
+    } else {
+        cb(new Error('Invalid file type. Only PDF and image files are allowed.'), false);
+    }
+};
+
+
+const upload = multer({ storage, fileFilter });
+
+// Upload file to S3
+const uploadToS3 = async (file, bucketName) => {
+    const params = {
+        Bucket: bucketName, // Your S3 bucket name
+        Key: `${Date.now()}-${file.originalname}`, // Unique file name in the bucket
+        Body: file.buffer, // File buffer (in memory)
+        ContentType: file.mimetype, // File MIME type
+    };
+    try {
+        const command = new PutObjectCommand(params); // Create the PutObjectCommand
+        await s3.send(command); // Send the command to S3
+        return `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`; // Return the file's public URL
+    } catch (error) {
+        console.error('Error uploading to S3:', error);
+        throw new Error('Failed to upload file to S3');
+    }
+};
+
+router.post(
+    '/addoffers',
+    upload.fields([
+        { name: 'image', maxCount: 1 },
+    ]),
+    async (req, res) => {
+        try {
+            // Upload files to S3 and get their URLs
+
+            // console.log("insods")
+            const image =
+                req.files['image'] &&
+                (await uploadToS3(req.files['image'][0], bucketName));
+
+            // Extract form data from the request body
+            const {
+                heading
+            } = req.body;
+            // console.log("insods2")
+
+            // Insert property details into MySQL database
+            const query = `
+          INSERT INTO offers_data (
+            heading,image
+          ) 
+          VALUES (?,?);
+        `;
+            const values = [
+                heading
+                , image
+            ];
+
+            // console.log('adding details in db');
+            await db.query(query, values);
+            res.status(201).json({ message: 'offer details saved successfully.' });
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).json({ error: error.message });
+        }
+    }
+);
+
+router.get("/getoffers", async (req, res) => {
+    try {
+        const query = `
+    SELECT * 
+    FROM offers_data
+    ORDER BY id DESC;
+`;
+
+        const [rows] = await db.execute(query);
+        res.status(200).json(rows);
+    } catch (error) {
+        console.error("Error fetching offers_data details:", error);
+        res.status(500).json({ error: "Failed to fetch offers_data details." });
+    }
+});
+
+
+router.delete('/deleteoffers/:id', async (req, res) => {
+    const offerid = req.params.id;
+    // console.log("id ", offerid)
+
+    try {
+        //   console.log("here")
+        // Fetch the existing offers_data details
+        const query = `SELECT * FROM offers_data WHERE id = ?`
+        const [offers_data] = await db.execute(query, [offerid]);
+        // console.log("offers_data", offers_data)
+        if (offers_data.length === 0) {
+            return res.status(404).json({ message: 'offers_data not found' });
+        }
+        try {
+            // console.log("deleting ")
+            const result = await db.query('DELETE FROM offers_data WHERE id = ?', [offerid]);
+
+            if (result) {
+                res.status(200).send(); // Successfully deleted
+            }
+        }
+        catch (err) {
+            console.log("error", err)
+            res.status(500).json({ error: 'Failed to delete offers_data' });
+
+
+        }
+
+
+    } catch (error) {
+        console.error('Error deleting offers_data:', error);
+        res.status(500).json({ error: 'Failed to delete offers_data' });
+    }
+});
 
 router.put("/update-booking", async (req, res) => {
     try {

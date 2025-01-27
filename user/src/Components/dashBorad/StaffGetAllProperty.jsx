@@ -41,12 +41,12 @@ function GetAllProperty() {
         let response;
         if (sortOption === "all") {
           response = await axiosinstance.get("/api/property/properties");
-          console.log("response in iffff ", response.data);
+          // console.log("response in iffff ", response.data);
         } else {
           response = await axiosinstance.get(
             `/api/property/properties?sort=${sortOption}`
           );
-          console.log("response in else ", response.data);
+          // console.log("response in else ", response.data);
         }
         const sortedData = sortProperties(response.data); // Sort the fetched properties
         setProperties(sortedData);

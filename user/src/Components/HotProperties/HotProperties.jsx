@@ -23,8 +23,8 @@ const HotProperties = () => {
           "/api/property/hotproperties"
         );
         const { propertyTitle } = response;
-        console.log(propertyTitle);
-        console.log("Data from database using proxy", response.data);
+        // console.log(propertyTitle);
+        // console.log("Data from database using proxy", response.data);
         setAllProperties(response.data);
       } catch (error) {
         console.error("Error fetching properties:", error);

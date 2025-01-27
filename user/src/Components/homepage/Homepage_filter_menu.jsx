@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import Corespace_footer from "../Corespace_footer/Corespace_footer";
 import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
 import PopupForm from "../PopupForm";
+import OffersPopup from "../OffersPopup";
+
 import Homepage_Banks from "./Homepage_Banks";
 // import PopupForm from "./Components/PopupForm";
 // import ScratchCardPopup from '../ScratchCardPopup/ScratchCardPopup';
@@ -40,6 +42,8 @@ function Homepage_filter_menu() {
   const closePopup = () => {
     setIsPopupOpen(false);
   };
+
+
   const puneAreas = [
     "Select Location",
     "Ambegaon Budruk",
@@ -184,6 +188,7 @@ function Homepage_filter_menu() {
       <Corespace_navbar />
       <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
 
+<OffersPopup  isOpen={isPopupOpen2} onClose={closePopup2}  />
       <div
         style={{ "--image-url": `url(${City})` }}
         className="h-[600px] w-[100%] bg-cover bg-repeat-round relative bg-[image:var(--image-url)]"

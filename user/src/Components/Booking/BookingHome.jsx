@@ -19,7 +19,7 @@ const BookingHome = () => {
                 const response = await axiosinstance.get("/api/client/bookings");
                 if (response.status === 200) {
                     setBookings(response.data);
-                    console.log("call")
+                    // console.log("call")
                 } else {
                     setError("Failed to fetch booking details.");
                 }
@@ -42,7 +42,7 @@ const BookingHome = () => {
     const handleUpdateBooking = async () => {
         try {
 
-            console.log("selectedBooking", selectedBooking)
+            // console.log("selectedBooking", selectedBooking)
             const response = await axiosinstance.put(`/api/client/update-booking`, selectedBooking);
             if (response.status === 200) {
                 alert("Booking updated successfully!");

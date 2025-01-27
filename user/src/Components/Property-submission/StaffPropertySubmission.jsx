@@ -112,8 +112,8 @@ function PropertySubmission() {
 
     try {
 
-      console.log("data ==>", data)
-      console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
+      // console.log("data ==>", data)
+      // console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
 
       const response = await axiosinstance.post("/api/property/propertyDetails", data);
 

@@ -7,15 +7,20 @@ const staff = require("./routes/staff");
 const visitesadmin = require("./routes/visitesadmin");
 const dailyscrum = require("./routes/dailyscrum")
 const client = require("./routes/client")
+// const client2 = require("../user/dist")
+
 const otpRoute = require("./routes/user");
 const propertyDetails = require("./routes/propertyDetails");
 const verifyToken = require("./middleware/verifyToken")
-
+const path =require("path")
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
 dotenv.config();
 
+const _dirname=path.dirname("");
+const buildpath=path.join(_dirname,"../user/dist");
+app.use(express.static(buildpath));
 // ----- Mongoose connection ------
 mongoose
   .connect(

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.png";
-import corespace from "../assets/CORE SPACE.png";
+import logo from "../assets/Logo.png";
+import corespace from "../assets/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
-// import dashboard from "./dashBorad"
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,22 +49,17 @@ function NavBar() {
           </div>
           <div className="hidden sm:block">
             <div className="ml-4 flex items-center">
-              <Link to={"/staff/dashboard"}>
-                <a
-                  href="#"
-                  className="text-[#FFF848] px-3 py-2 rounded-md text-lg font-medium hover:bg-gray-700"
-                  to=""
-                >
-                  Home
-                </a>
+              <Link
+                to="/staff/dashboard"
+                className="text-[#FFF848] px-3 py-2 rounded-md text-lg font-medium hover:bg-gray-700"
+              >
+                Home
               </Link>
-              <Link to={"/staff/myProperties"}>
-                <a
-                  href="#"
-                  className="text-[#FFF848] px-3 py-2 rounded-md text-lg font-medium hover:bg-gray-700"
-                >
-                  Properties
-                </a>
+              <Link
+                to="/staff/myProperties"
+                className="text-[#FFF848] px-3 py-2 rounded-md text-lg font-medium hover:bg-gray-700"
+              >
+                Properties
               </Link>
               <button
                 className="text-[#FFF848] bg-[#390255] px-3 py-2 text-base flex justify-center items-center rounded-md hover:bg-[#FFF848] hover:text-[#390255]"
@@ -84,36 +78,20 @@ function NavBar() {
       {isOpen && (
         <div className="sm:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a
-              href="#"
+            <Link
+              to="/staff/dashboard"
               className="text-[#FFF848] block px-3 py-2 rounded-md text-base font-medium"
             >
               Home
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/staff/myProperties"
               className="text-[#FFF848] block px-3 py-2 rounded-md text-base font-medium"
             >
-              Property
-            </a>
-            {/* <div>
-              <div
-                className="text-[#FFF848] block px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => navigate("/staff/dashboard")}
-              >
-                {" "}
-                Home
-              </div>
-              <div
-                className="text-[#FFF848] block px-3 py-2 rounded-md text-base font-medium"
-                onClick={() => navigate("/staff/myProperties")}
-              >
-                {" "}
-                Property
-              </div>
-            </div> */}
+              Properties
+            </Link>
             <button
-              className="text-[#FFF848] border border-purple-600 bg-[bg-[#390255]] px-3 py-1 flex justify-center items-center rounded-md text-base hover:bg-[#FFF848] hover:text-purple-950"
+              className="text-[#FFF848] border border-purple-600 bg-[#390255] px-3 py-1 flex justify-center items-center rounded-md text-base hover:bg-[#FFF848] hover:text-purple-950"
               onClick={() => navigate("/staff/submit")}
             >
               <span className="material-symbols-outlined text-center text-3xl mt-2">

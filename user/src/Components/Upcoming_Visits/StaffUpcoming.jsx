@@ -70,8 +70,11 @@ function Upcomingvisits() {
                 visiteId: visiteId,
                 attend: true,
             });
+            // console.log("Attend status updated:", response);
 
             if (response.status === 200) {
+                alert("Attend status updated successfully Please Click on Reload Data!");
+                fetchVisites();
                 setVisites((prevVisites) =>
                     prevVisites.map((visite) =>
                         visite.id === visiteId ? { ...visite, attend: 1 } : visite
@@ -86,8 +89,8 @@ function Upcomingvisits() {
     return (
         <>
             <NavBar />
-            <div className="p-6 bg-purple-100">
-                <h1 className="text-4xl font-bold flex justify-center items-center mt-[-10px] p-2 text-purple-950">
+            <div className="p-6 bg-purple-100 h-[1000px]">
+                <h1 className="text-4xl font-bold flex justify-center items-center mt-[-10px] p-2 text-purple-9500">
                     Upcoming Visite Details
                 </h1>
 
@@ -109,7 +112,7 @@ function Upcomingvisits() {
                     {/* Reload Button */}
                     <button
                         onClick={fetchVisites}
-                        className="bg-yellow-500 text-white py-2 px-4 rounded-md"
+                        className="bg-yellow-500 text-white py-2 px-4 rounded-md "
                     >
                         Reload Data
                     </button>
@@ -118,7 +121,7 @@ function Upcomingvisits() {
                 {/* Visites Table */}
                 <div className="relative overflow-auto">
                     <table className="w-full text-sm text-left text-gray-500 border-collapse border border-gray-300">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                        <thead className="text-xs text-black uppercase bg-gray-400">
                             <tr className="border-b border-gray-300">
                                 <th className="px-4 py-3 border-r border-gray-300">Sr. No</th>
                                 <th className="px-4 py-3 border-r border-gray-300">Client Name</th>

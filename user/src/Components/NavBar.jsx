@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.png";
+// import logo from "../assets/logo.png";
 import corespace from "../assets/CORE SPACE.png";
 import { Link, useNavigate } from "react-router-dom";
 

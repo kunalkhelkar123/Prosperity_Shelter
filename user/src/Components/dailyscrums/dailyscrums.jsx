@@ -47,7 +47,7 @@ function DailyScrum() {
     return (
         <>
             <StaffNavbar />
-            <div className="p-6 bg-purple-100">
+            <div className="p-6 bg-purple-100 h-[1000px] *:">
                 <h1 className="text-4xl font-bold text-center mb-4 text-purple-950">
                     Add Your Daily Scrum
                 </h1>

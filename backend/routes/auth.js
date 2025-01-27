@@ -114,7 +114,7 @@ router.post("/stafflogin", async (req, res) => {
     console.log("Inside staff login route");
 
     const { email, password } = req.body;
-
+    console.log("email, password", email, password)
     // Input validation
     if (!email || !password) {
       return res.status(400).json({ message: "Email and password are required" });

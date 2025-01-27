@@ -170,42 +170,45 @@ function LeadContact() {
   return (
     <>
       <StaffNavBar />
-      <div className="container mx-auto px-4 py-6">
+      <div className="container max-w-full px-4 py-6 bg-slate-300 h-[1000px]">
         <h1 className="text-4xl font-bold text-center text-purple-950 mb-4">Lead Details</h1>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left text-gray-500 border">
+        <div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
+        <table className="w-full text-sm table-auto text-left text-gray-500 border">
             <thead className="text-xs text-gray-700 uppercase bg-gray-200">
-              <tr>
-                <th scope="col" className="px-4 py-3 rounded-s-lg">Name</th>
-                <th scope="col" className="px-4 py-3">Email</th>
-                <th scope="col" className="px-4 py-3">Phone No</th>
-                <th scope="col" className="px-4 py-3">Subject</th>
-                <th scope="col" className="px-4 py-3">Message</th>
-                <th scope="col" className="px-4 py-3">Refer</th>
-                {/* <th scope="col" className="px-4 py-3">Preferred Location</th> */}
-                <th scope="col" className="px-4 py-3">Visit Date</th>
-                <th scope="col" className="px-4 py-3">Budget</th>
-                <th scope="col" className="px-4 py-3">Configuration</th>
-                <th scope="col" className="px-4 py-3">Area</th>
-                <th scope="col" className="px-4 py-3 rounded-e-lg">Action</th>
+              <tr className="border-2 border-gray-300">
+              <th scope="col"  className="px-4 py-3 rounded-s-lg border-2 border-gray-300">Sr</th>
+
+                <th scope="col"  className="px-4 py-3 border-2 border-gray-300">Name</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Email</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Phone No</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Subject</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Message</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Refer</th>
+                {/* <th scope="col" className="px-4 py-3 border-2 border-gray-300">Preferred Location</th> */}
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Visit Date</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Budget</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Configuration</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300">Area</th>
+                <th scope="col" className="px-4 py-3 border-2 border-gray-300 rounded-e-lg">Action</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {users.map((user,index) => (
                 <React.Fragment key={user.id}>
-                  <tr className="bg-purple-50 text-black">
-                    <td className="px-4 py-2 font-medium">{user.fullName}</td>
-                    <td className="px-4 py-2">{user.emailId}</td>
-                    <td className="px-4 py-2 text-blue-600"> <a href={`tel:+91${user.contactNumber}`}>{user.contactNumber}</a></td>
-                    <td className="px-4 py-2">{user.subject}</td>
-                    <td className="px-4 py-2">{user.message}</td>
-                    <td className="px-4 py-2">{user.Refer}</td>
-                    {/* <td className="px-4 py-2">{user.preferredLocation}</td> */}
-                    <td className="px-4 py-2">{user.visitDate}</td>
-                    <td className="px-4 py-2">{user.budget}</td>
-                    <td className="px-4 py-2">{user.configuration}</td>
-                    <td className="px-4 py-2">{user.area}</td>
-                    <td className="px-4 py-2">
+                  <tr className="bg-purple-50 text-black border-2 border-gray-300">
+                    <td className="px-4 py-2 border-2 border-gray-300 ">{index+1}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300 font-medium">{user.fullName}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300">{user.emailId}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300 text-blue-600"> <a href={`tel:+91${user.contactNumber}`}>{user.contactNumber}</a></td>
+                    <td className="px-4 py-2 border-2 border-gray-300">{user.subject}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300">{user.message}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300">{user.Refer}</td>
+                    {/* <td className="px-4 py-2 border-2 border-gray-300">{user.preferredLocation}</td> */}
+                    <td className="px-4 py-2 border-2 border-gray-300">{user.visitDate}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300">{user.budget}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300">{user.configuration}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300">{user.area}</td>
+                    <td className="px-4 py-2 border-2 border-gray-300">
                       <button
                         onClick={() => toggleRow(user.id)}
                         className="px-2 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
@@ -228,23 +231,23 @@ function LeadContact() {
                           <h3 className="font-bold text-lg mb-2">Old Descriptions:</h3>
                           <table className="w-full text-sm text-left text-gray-500">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-200">
-                              <tr>
-                                <th className="px-4 py-2">Sr. No.</th>
-                                <th className="px-4 py-2">Description</th>
-                                <th className="px-4 py-2">Expected Visit Date</th>
-                                <th className="px-4 py-2">Followup By</th>
-                                <th className="px-4 py-2">Followup Date</th>
+                              <tr className="border-2 border-gray-300">
+                                <th className="px-4 py-2 border-2 border-gray-300">Sr. No.</th>
+                                <th className="px-4 py-2 border-2 border-gray-300">Description</th>
+                                <th className="px-4 py-2 border-2 border-gray-300">Expected Visit Date</th>
+                                <th className="px-4 py-2 border-2 border-gray-300">Followup By</th>
+                                <th className="px-4 py-2 border-2 border-gray-300">Followup Date</th>
 
                               </tr>
                             </thead>
                             <tbody>
                               {(descriptions[user.id] || []).map((desc, index) => (
                                 <tr key={index}>
-                                  <td className="px-4 py-2">{index + 1}</td>
-                                  <td className="px-4 py-2">{desc.lead_description}</td>
-                                  <td className="px-4 py-2">{(desc.expected_visit_date == "01/01/1970" ? "NA" : desc.expected_visit_date)}</td>
-                                  <td className="px-4 py-2">{desc.followup_by}</td>
-                                  <td className="px-4 py-2">{desc.created_at}</td>
+                                  <td className="px-4 py-2 border-2 border-gray-300">{index + 1}</td>
+                                  <td className="px-4 py-2 border-2 border-gray-300">{desc.lead_description}</td>
+                                  <td className="px-4 py-2 border-2 border-gray-300">{(desc.expected_visit_date == "01/01/1970" ? "NA" : desc.expected_visit_date)}</td>
+                                  <td className="px-4 py-2 border-2 border-gray-300">{desc.followup_by}</td>
+                                  <td className="px-4 py-2 border-2 border-gray-300">{desc.created_at}</td>
 
                                 </tr>
                               ))}

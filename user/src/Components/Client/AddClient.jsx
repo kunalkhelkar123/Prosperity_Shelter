@@ -41,7 +41,7 @@ const AddClient = () => {
 
         try {
             // Log the client data for debugging purposes
-            console.log("Sending clientData:", clientData);
+            // console.log("Sending clientData:", clientData);
 
             // Make a POST request to the backend API
             const response = await axiosinstance.post("/api/client/addclient", { ...clientData });
@@ -50,40 +50,40 @@ const AddClient = () => {
                 alert("Client added successfully");
 
                 // Reset the form to its initial state
-                // setClientData({
-                //     clientName: "",
-                //     address: "",
-                //     city: "",
-                //     district: "",
-                //     taluka: "",
-                //     pincode: "",
-                //     age: "",
-                //     occupation: "",
-                //     bookingDate: "",
-                //     dateOfBirth: "",
-                //     anniversaryDate: "",
-                //     parentProperty: "",
-                //     propertyName: "",
-                //     propertyDescription: "",
-                //     totalPrice: "",
-                //     advancePaid: "",
-                //     paymentMode: "",
-                //     remainingAmount: "",
-                //     sansaction: "",
-                //     mobileNumber: "",
-                //     email: "",
-                //     aadharCard: "",
-                //     pancardNumber: "",
-                //     coApplicantName: "",
-                //     coApplicantMobile: "",
-                //     coApplicantEmail: "",
-                //     coApplicantAadharCard: "",
-                //     coApplicantPancardNumber: "",
-                //     coApplicantAddress: "",
-                // });
+                setClientData({
+                    clientName: "",
+                    address: "",
+                    city: "",
+                    district: "",
+                    taluka: "",
+                    pincode: "",
+                    age: "",
+                    occupation: "",
+                    bookingDate: "",
+                    dateOfBirth: "",
+                    anniversaryDate: "",
+                    parentProperty: "",
+                    propertyName: "",
+                    propertyDescription: "",
+                    totalPrice: "",
+                    advancePaid: "",
+                    paymentMode: "",
+                    remainingAmount: "",
+                    sansaction: "",
+                    mobileNumber: "",
+                    email: "",
+                    aadharCard: "",
+                    pancardNumber: "",
+                    coApplicantName: "",
+                    coApplicantMobile: "",
+                    coApplicantEmail: "",
+                    coApplicantAadharCard: "",
+                    coApplicantPancardNumber: "",
+                    coApplicantAddress: "",
+                });
 
                 // Optional: Close modal or redirect
-                // onClose(); 
+                onClose(); 
             } else {
                 // Handle the failure case
                 alert("Failed to add Client : " + response.data.message);

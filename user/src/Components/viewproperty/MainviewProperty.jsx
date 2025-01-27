@@ -24,6 +24,8 @@ import ViewAccordion from '../ViewMidFolder/ViewAccordion';
 import Corespace_footer from '../Corespace_footer/Corespace_footer';
 import Banner from "./Banner.png";
 
+
+
 // import Corespace_footer from '../../assets/banner.WEBP';
 
 
@@ -34,6 +36,7 @@ function MainviewProperty(props) {
 
   const {
     propertyTitle,
+    offersImage,
     propertyType,
     propertyDescription,
     propertyID,
@@ -51,15 +54,21 @@ function MainviewProperty(props) {
     openArea,
     price,
     featureImage,
+    backgroundImage,
+    brochurepdf,
     location,
     area,
     pinCode,
     amenities,
+    builderName, builderDescription, MahaRera
   } = viewobj;
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  console.log("amenities ", amenities)
+  console.log("brochurepdf ", brochurepdf)
 
   // contact form
   const [formData, setFormData] = useState({
@@ -161,7 +170,7 @@ function MainviewProperty(props) {
     {
       icon: 'fa-solid fa-users',
       heading: 'MahaRera',
-      Description: 'P52100030356',
+      Description: `${MahaRera}`,
     },
     { icon: 'fa-solid fa-bed', heading: 'Type', Description: bhk },
     {
@@ -189,14 +198,35 @@ function MainviewProperty(props) {
     <><Corespace_navbar />
       <div className="flex flex-col justify-center ">
         <div className="w-full">
-          <div className="bg-gradient from-gray-100 to-gray-500 bg-gradient-to-b h-36 pl-4 sm:h-72">
-            <div className="text-slate-100 pt-20 pl-4 sm:pl-44 text-x sm:text-5xl font-bold subpixel-antialiased">{propertyTitle}</div>
+          {/* <div   className="  bg-gradient-to-b h-36 pl-4 sm:h-72"> */}
+          {/* <div
+            className="bg-gradient-to-b h-36 pl-4 sm:h-72 bg-cover bg-center" */}
+          {/* // style={{ backgroundImage: `url(http://localhost:4000/api/uploads/${backgroundImage})` }}> */}
+          <div
+            className="relative bg-gradient-to-b h-36 pl-4 sm:h-72 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${backgroundImage})`,
+            }}
+          >
+            {/* Fade overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-            <div className="flex flex-row sm:flex-row  mt-5 pl-4 sm:pl-44  text-red-600">
-              <img src={gps_resi} className="h-4 bg-white  rounded  sm:h-6 sm:bg-white sm:rounded" />
-              <span className="ml-2  font-medium  text-s sm:ml-4 text-slate-100">{area}</span>
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="text-slate-100 pt-20 pl-4 sm:pl-44 text-x sm:text-5xl font-bold subpixel-antialiased">
+                {propertyTitle}
+              </div>
+              <div className="flex flex-row sm:flex-row mt-5 pl-4 sm:pl-44 text-red-600">
+                <img
+                  src={gps_resi}
+                  className="h-4 bg-white rounded sm:h-6 sm:bg-white sm:rounded"
+                  alt="GPS Icon"
+                />
+                <span className="ml-2 font-medium text-s sm:ml-4 text-slate-100">{area}</span>
+              </div>
             </div>
           </div>
+
         </div>
         <div>
           <div className="flex flex-col sm:flex-row justify-center gap-[30px] sm:gap-[10px] md:gap-[50px] xl:gap-[20px]">
@@ -218,32 +248,55 @@ function MainviewProperty(props) {
               <DescriptiveCardContainer title={project.titleName} titleValue={project.titleValue} titleDesc={project.titleDesc} />
               <DescriptiveCardContainer
                 title={builder.titleName}
-                titleValue={builder.titleValue}
-                titleDesc={builder.titleDesc}
+                titleValue={builderName}
+                titleDesc={builderDescription}
               />
-              <div>
-
+              {offersImage && (
                 <div className="mt-5">
                   <h5 className="text-2xl font-bold">Offers</h5>
-                  <img src={Banner} alt="Offers" className="mt-3" />
-                </div></div>
+                  <img
+                    src={offersImage}
+                    alt="Offers"
+                    className="mt-3"
+                  />
+                </div>
+              )}
 
-              <div className="block bg-white border border-gray-200 rounded-lg shadow  lg:py-5 mt-5">
+
+              <div className="block bg-white border border-gray-200 rounded-lg shadow w-full lg:py-5 mt-5">
                 <div className="flex flex-wrap flex-col justify-center gap-6 p-6 sm:justify-around mt-5 ">
                   <h5 className=" mt-[-20px] text-start text-2xl font-bold tracking-tight  ">Project Configuration</h5>
                   <div className="flex flex-wrap flex-col justify-center gap-6 p-6 md:flex-row md:justify-evenly md:items-center mt-[-20px]">
-                    <img src={`http://localhost:4000/api/uploads/${featureImage}`} alt="property-img" srcset="" />
-                    <div>
-                      <p className="">Price : {price}</p>
-                      <p> MahaRa : P512700000E</p>
-                      <p> Dimentions : {builtDimentions}</p>
+                    <img src={featureImage} alt="property-img" srcset="" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <span className="font-bold">Project Name: </span>{propertyTitle}
+                        <br /><span className="font-bold">Project Type : </span>{propertyType}
+                        <br /><span className="font-bold">Parent Property : </span>{parentProperty}
+                        <br /><span className="font-bold">Property Status : </span>{status}
+                        <br /><span className="font-bold">Configuration : </span>{bhk}
+                        <br /><span className="font-bold">Project Completion Year : </span>{yearBuilt}
+                        <br /><span className="font-bold">Total Carpet area : </span>{totalhomeArea}
+                        <br /><span className="font-bold">Material use : </span>{material}
+                        <br /><span className="font-bold">Total rooms : </span>{rooms}
+                        <br /><span className="font-bold">Total Bedrooms : </span>{bedsroom}
+                      </div>
+
+                      <div>
+                        <br /><span className="font-bold">Total Balcony : </span>{kitchen}
+                        <br /><span className="font-bold">Location : </span>{area}
+                        <br /><span className="font-bold">Price : </span>{price}
+                        <br /><span className="font-bold">MahaRa : </span>{/* Insert MahaRa value here */}
+                        <br /><span className="font-bold">Dimensions : </span>{builtDimentions}
+                      </div>
                     </div>
+
                     <div>
-                      <span className="bg-yellow-200 p-[10px] rounded-xl font-medium">{totalhomeArea} / sq. ft</span>
+                      <span className="bg-yellow-200 p-[10px] rounded-xl font-medium">Total Carpet Area = {totalhomeArea} / sq. ft</span>
                     </div>
                   </div>
                 </div>
-                <ViewAccordion />
+                <ViewAccordion brochurepdf={brochurepdf} />
               </div>
               {/* <ProjectConfigurationDown/> */}
               {/* <ViewPropertyMain /> */}

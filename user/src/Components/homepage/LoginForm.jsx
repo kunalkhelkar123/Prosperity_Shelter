@@ -28,7 +28,7 @@ const LoginForm = ({ onClose }) => {
     e.preventDefault();
     if (validateForm2()) {
       // Submit form data
-      console.log('Form submitted:', formDatanew);
+      // console.log('Form submitted:', formDatanew);
     }
   };
 
@@ -42,7 +42,7 @@ const LoginForm = ({ onClose }) => {
         mobile: 'Mobile number should not start with 0.'
       }));
     } else {
-      console.log('Form submitted:', formDatanew);
+      // console.log('Form submitted:', formDatanew);
     }
 
     // Name validation (only alphabets and spaces)

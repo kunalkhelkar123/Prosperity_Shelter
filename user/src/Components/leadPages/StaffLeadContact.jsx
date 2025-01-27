@@ -33,7 +33,7 @@ function LeadContact() {
       const user = JSON.parse(sessionStorage.getItem("user"));
       setStaffuser(user.name)
       setFollowUpBy(user.name)
-      console.log("staffuser ==> ", staffuser)
+      // console.log("staffuser ==> ", staffuser)
       if (!token || !user || user.role !== "staff") {
         navigate("/staff");
       }
@@ -48,7 +48,7 @@ function LeadContact() {
     const fetchUsers = async () => {
       try {
         const response = await axiosinstance.get("/api/property/getleads");
-        console.log("Fetched Users:", response.data);
+      //   console.log("Fetched Users:", response.data);
         setUsers(response.data.data);
       } catch (err) {
         console.error("Error fetching leads:", err);
@@ -76,10 +76,10 @@ function LeadContact() {
         followup_by: followUpBy
       };
 
-      console.log("formData ==> ", newDescription)
+      // console.log("formData ==> ", newDescription)
       // Send the new description to the API
       const response = await axiosinstance.post("/api/property/addDescription", newDescription);
-      console.log("Description added successfully:", response.data);
+       //console.log("Description added successfully:", response.data);
       // console.error("Description added successfully:");
       // alert("Description added successfully:.");
 
@@ -107,7 +107,7 @@ function LeadContact() {
   const fetchDescriptions = async (leadId) => {
     try {
       const response = await axiosinstance.get(`/api/property/getDescriptions/${leadId}`);
-      console.log("Fetched Descriptions:", response.data.data);
+       //console.log("Fetched Descriptions:", response.data.data);
       setDescriptions((prev) => ({
         ...prev,
         [leadId]: response.data.data,
@@ -138,7 +138,7 @@ function LeadContact() {
         data: { leadId: id },
       });
 
-      console.log("Lead deleted successfully:", response.data);
+      // console.log("Lead deleted successfully:", response.data);
 
       // Update the state to remove the deleted lead
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));

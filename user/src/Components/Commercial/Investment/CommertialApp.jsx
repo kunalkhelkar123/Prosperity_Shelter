@@ -18,10 +18,9 @@ const CommertialApp = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await axiosinstance.get(
-          "/api/property/Commercial_properties"
-        );
-        // console.log("Data from database using proxy:", response.data);
+        console.log("commercial properties call")
+        const response = await axiosinstance.get("/api/property/Commercial_properties");
+        console.log("Data from commercial properties:", response.data);
         setCoinsData(response.data);
       } catch (error) {
         console.error("Error fetching properties:", error);

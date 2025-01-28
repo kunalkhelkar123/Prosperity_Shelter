@@ -46,7 +46,7 @@ const Visits = () => {
                 try {
                     console.log("user.staff_id", user);
 
-                    const response = await axiosinstance.post('/api/staff/getvisits', {
+                    const response = await axiosinstance.post('api/staff/getvisits', {
                         id: user.id,  // Ensure `user.id` exists
                     });
                     if (response.status === 200) {
@@ -96,7 +96,7 @@ const Visits = () => {
                 console.log("Visit data:", visitData);
 
                 // Send POST request to add visit
-                const response = await axiosinstance.post("/api/staff/addvisits", visitData);
+                const response = await axiosinstance.post("api/staff/addvisits", visitData);
 
                 if (response.status === 201) { // Changed to 201 for successful creation
                     const result = response.data;
@@ -140,7 +140,7 @@ const Visits = () => {
         console.log("Deleting visit with ID:", visitId); // Debugging line
         
         // Make the DELETE request to the backend
-        const response = await axiosinstance.delete(`/api/staff/deletevisit/${visitId}`);
+        const response = await axiosinstance.delete(`api/staff/deletevisit/${visitId}`);
         
         // Debugging line to check the response
         console.log("Response from server:", response);

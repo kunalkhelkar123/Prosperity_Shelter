@@ -44,7 +44,7 @@ const AddClient = () => {
             // console.log("Sending clientData:", clientData);
 
             // Make a POST request to the backend API
-            const response = await axiosinstance.post("/api/client/addclient", { ...clientData });
+            const response = await axiosinstance.post("api/client/addclient", { ...clientData });
 
             if (response.data.success) {
                 alert("Client added successfully");

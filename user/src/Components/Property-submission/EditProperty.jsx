@@ -125,7 +125,7 @@ function EditProperty() {
   useEffect(() => {
     const fetchPropertyDetails = async () => {
       try {
-        const response = await axiosinstance.get(`/api/property/properties/${id}`);
+        const response = await axiosinstance.get(`api/property/properties/${id}`);
         const propertyDetails = response.data;
 
         console.log("fetch data ==> ", propertyDetails)
@@ -141,7 +141,7 @@ function EditProperty() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosinstance.put(`/api/property/propertyDetails/${id}`, formData)
+      const response = await axiosinstance.put(`api/property/propertyDetails/${id}`, formData)
 
       toast.success("Property updated Successfully", response.data);
       console.log(response.data);

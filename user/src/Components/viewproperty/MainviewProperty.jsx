@@ -201,7 +201,7 @@ function MainviewProperty(props) {
           {/* <div   className="  bg-gradient-to-b h-36 pl-4 sm:h-72"> */}
           {/* <div
             className="bg-gradient-to-b h-36 pl-4 sm:h-72 bg-cover bg-center" */}
-          {/* // style={{ backgroundImage: `url(http://localhost:4000/api/uploads/${backgroundImage})` }}> */}
+          {/* // style={{ backgroundImage: `url(http://localhost:4000api/uploads/${backgroundImage})` }}> */}
           <div
             className="relative bg-gradient-to-b h-36 pl-4 sm:h-72 bg-cover bg-center"
             style={{

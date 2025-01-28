@@ -41,7 +41,7 @@ const EnquireNowForm = () => {
 
     try {
       const response = await fetch(
-        "/api/property/addenquiry",
+        "api/property/addenquiry",
         {
           method: "POST",
           headers: {

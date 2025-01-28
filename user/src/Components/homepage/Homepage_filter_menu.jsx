@@ -153,7 +153,7 @@ function Homepage_filter_menu() {
     };
 
     console.log("data ", data)
-    fetch("/api/property/filter_properties", {
+    fetch("api/property/filter_properties", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

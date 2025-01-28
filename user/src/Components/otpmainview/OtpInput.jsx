@@ -58,7 +58,7 @@ const OtpInput = ({ length = 6, phoneNumber = "", onOtpSubmit = () => {} }) => {
 
       try {
         const response = await axiosinstance.post(
-          "/api/otp/verify-otp",
+          "api/otp/verify-otp",
           {
             phoneNumber,
             otp,

@@ -16,7 +16,7 @@ const BookingHome = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axiosinstance.get("/api/client/bookings");
+                const response = await axiosinstance.get("api/client/bookings");
                 if (response.status === 200) {
                     setBookings(response.data);
                     // console.log("call")
@@ -43,7 +43,7 @@ const BookingHome = () => {
         try {
 
             // console.log("selectedBooking", selectedBooking)
-            const response = await axiosinstance.put(`/api/client/update-booking`, selectedBooking);
+            const response = await axiosinstance.put(`api/client/update-booking`, selectedBooking);
             if (response.status === 200) {
                 alert("Booking updated successfully!");
                 setShowPopup(false);

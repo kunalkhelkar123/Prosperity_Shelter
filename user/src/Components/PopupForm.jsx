@@ -67,7 +67,7 @@ const PopupForm = ({ isOpen, onClose }) => {
       // window.location.reload();
       // Send the form data to the backend
       const response = await axios
-        .post("/api/property/leads", formData)
+        .post("api/property/leads", formData)
         .then((response) => {
           if (response.data.success) {
             alert(response.data.message); // Show success alert

@@ -39,7 +39,7 @@ function LogIn() {
     try {
       setLoading(true);  // Set loading state to true while the request is being made
 
-      const response = await axios.post("/api/auth/login", formData);
+      const response = await axios.post("api/auth/login", formData);
 
       console.log("Login response:", response.data);
       console.log("Login response accessToken:", response.data.accessToken);
@@ -100,7 +100,7 @@ function LogIn() {
   //   try {
   //     setLoading(true);  // Set loading state to true while the request is being made
 
-  //     const response = await axios.post("/api/auth/login", formData);
+  //     const response = await axios.post("api/auth/login", formData);
 
   //     console.log("Login response:", response.data);
   //     console.log("Login response accessToken:", response.data.accessToken);

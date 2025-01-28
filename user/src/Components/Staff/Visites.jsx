@@ -12,7 +12,7 @@ function Visites() {
   useEffect(() => {
     const fetchVisites = async () => {
       try {
-        const response = await axiosinstance.get("/api/adminstaffvisites/getvisits");
+        const response = await axiosinstance.get("api/adminstaffvisites/getvisits");
 
         if (response.status === 200 && response.data.length > 0) {
           const total = response.data.length;

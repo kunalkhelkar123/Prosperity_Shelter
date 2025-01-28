@@ -55,7 +55,7 @@ function Booking() {
         setSelectedMonth(currentMonth);
 
         if (userId) {
-          const response = await axiosinstance.post("/api/staff/get-bookings");
+          const response = await axiosinstance.post("api/staff/get-bookings");
 
           if (response.status === 200) {
             if (response.data.length > 0) {
@@ -145,7 +145,7 @@ function Booking() {
 
       console.log("user ", user);
       console.log("newBookingData ", newBookingData);
-      const response = await axiosinstance.post("/api/staff/add-booking", newBookingData);
+      const response = await axiosinstance.post("api/staff/add-booking", newBookingData);
 
       if (response.status === 201) {
         setBookings([...bookings, response.data]);

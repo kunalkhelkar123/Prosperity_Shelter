@@ -11,7 +11,7 @@ import {useNavigate} from 'react-router-dom';
 function DummyTestCarousel(props) {
   const navigate = useNavigate();
   const handleSearching = () => {
-  //   fetch(`/api/property/builder_name/${props.ele.builderName}`, {
+  //   fetch(`api/property/builder_name/${props.ele.builderName}`, {
   //     method: 'GET',
   //     headers: {
   //       'Content-Type': 'application/json',
@@ -31,8 +31,8 @@ function DummyTestCarousel(props) {
     <div className="flex flex-col justify-evenly gap-3 sm:mr-3  leading-7 items-start max-w-[290px] p-3 bg-white border border-gray-200 rounded-lg shadow md:ml">
       <div className="relative">
         <img className="w-[100%] relative" src={props.ele.featureImage} alt="" srcSet="" />
-        {/* <img className="w-[100%] relative" src={`http://localhost:4000/api/uploads/${props.ele.featureImage}`} alt="" srcSet="" /> */}
-        {/* <img className="relative" src={`http://localhost:4000/api/uploads/${props.ele.featureImage}`} alt="" width="275" height="183" /> */}
+        {/* <img className="w-[100%] relative" src={`http://localhost:4000api/uploads/${props.ele.featureImage}`} alt="" srcSet="" /> */}
+        {/* <img className="relative" src={`http://localhost:4000api/uploads/${props.ele.featureImage}`} alt="" width="275" height="183" /> */}
         <span className="absolute top-[12px] bg-red-500 right-[1px] p-[6px] text-white">{props.ele.status}</span>
       </div>
 

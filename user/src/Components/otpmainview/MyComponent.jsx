@@ -32,7 +32,7 @@ function MyComponent() {
 
     try {
       const response = await axiosinstance.post(
-        "/api/otp/send-otp",
+        "api/otp/send-otp",
         {
           name,
           email,

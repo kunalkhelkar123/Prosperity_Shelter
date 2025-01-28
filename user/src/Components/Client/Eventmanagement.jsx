@@ -35,7 +35,7 @@ Enjoy your celebration and here's to many more successful years together!`
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axiosinstance.get('/api/client/getclientsdate');
+                const response = await axiosinstance.get('api/client/getclientsdate');
                 if (response.data.success) {
                     setClients(response.data.data);
                 }
@@ -76,7 +76,7 @@ Enjoy your celebration and here's to many more successful years together!`
             return;
         }
         try {
-            const response = await axiosinstance.post('/api/client/sendWish', {
+            const response = await axiosinstance.post('api/client/sendWish', {
                 clientName: selectedClient.clientName,
                 email: selectedClient.email,
                 mobileNumber: selectedClient.mobileNumber,

@@ -31,7 +31,7 @@ function LeadContact() {
 
   const fetchDescriptions = async (leadId) => {
     try {
-      const response = await axiosinstance.get(`/api/property/getDescriptions/${leadId}`);
+      const response = await axiosinstance.get(`api/property/getDescriptions/${leadId}`);
       // console.log("Fetched Descriptions:", response.data.data);
       setDescriptions((prev) => ({
         ...prev,
@@ -56,7 +56,7 @@ function LeadContact() {
     if (!window.confirm("Are you sure you want to delete this lead?")) return;
 
     try {
-      const response = await axiosinstance.delete("/api/property/deleteLead", {
+      const response = await axiosinstance.delete("api/property/deleteLead", {
         data: { leadId: id },
       });
 
@@ -79,7 +79,7 @@ function LeadContact() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axiosinstance.get("/api/property/getleads");
+        const response = await axiosinstance.get("api/property/getleads");
          //console.log("Fetched Users:", response.data);
         setUsers(response.data.data);
       } catch (err) {

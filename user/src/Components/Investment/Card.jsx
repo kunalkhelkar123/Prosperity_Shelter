@@ -24,7 +24,7 @@ const Card = ({ data }) => {
   // useEffect(() => {
   //   const fetchImageUrl = async () => {
   //     try {
-  //       const response = await axiosinstance.get(`/api/property/getImageUrl`, {
+  //       const response = await axiosinstance.get(`api/property/getImageUrl`, {
   //         params: { key: featureImage }, // Pass the S3 key to the backend
   //       });
   //       setImageUrl(response.data.signedUrl); // Update state with signed URL

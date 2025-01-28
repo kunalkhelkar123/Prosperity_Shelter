@@ -37,7 +37,7 @@ function ContactUs() {
       // window.location.reload();
       // Send the form data to the backend
       const response = await axios
-        .post("/api/property/leads", formData)
+        .post("api/property/leads", formData)
         .then(async (response) => {
           if (response.data.success) {
             alert(response.data.message);
@@ -57,7 +57,7 @@ function ContactUs() {
             };
 
             const senddata = await axios.post(
-              "/api/property/submit-google-form",
+              "api/property/submit-google-form",
               googleFormData
             );
             console.log("datatatata==>>>>", senddata);

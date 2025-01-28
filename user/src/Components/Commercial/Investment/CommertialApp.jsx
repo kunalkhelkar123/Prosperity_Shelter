@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import axiosinstance from "../../../../axiosConfig";
+import axios from "axios";
+
 import CommertialHeading from "./CommertialHeading";
 import Cardcommertial from "./Cardcommertial";
 import PaginationButtonCommertial from "./PaginationButtonCommertial";
@@ -11,6 +13,8 @@ const CommertialApp = () => {
   const [postPerPage] = useState(9);
   const [currentOutput, setCurrentOutput] = useState([]);
 
+  console.log("commercial properties call 1")
+
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
 });
@@ -21,7 +25,7 @@ const CommertialApp = () => {
     const fetchProperties = async () => {
       try {
         console.log("commercial properties call")
-        const response = await axiosinstance.get("api/property/Commercial_properties");
+        const response = await axios.get("api/property/Commercial_properties");
         console.log("Data from commercial properties:", response.data);
         setCoinsData(response.data);
       } catch (error) {

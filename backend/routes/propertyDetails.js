@@ -82,6 +82,8 @@ router.post(
   async (req, res) => {
     try {
       // Upload files to S3 and get their URLs
+
+      console.log(" req.files['brochurepdf'] ",req.files['brochurepdf'])
       const featureImage =
         req.files['featureImage'] &&
         (await uploadToS3(req.files['featureImage'][0], bucketName));
@@ -124,6 +126,8 @@ router.post(
       } = req.body;
 
       // Insert property details into MySQL database
+
+      console.log("brochurepdf",brochurepdf)
       const query = `
         INSERT INTO property_details (
           propertyID, propertyTitle, propertyType, propertyDescription, parentProperty, 

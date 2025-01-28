@@ -73,7 +73,7 @@ const OffersPopup = ({ isOpen, onClose }) => {
                                 <img
                                     src={offer.image} // Assuming `imageUrl` is the key for the image path
                                     alt={`Offer ${index + 1}`}
-                                    className="rounded-lg"
+                                    className="rounded-lg h-[480px]"
                                 />
                             </div>
                         ))}
@@ -91,7 +91,7 @@ const OffersPopup = ({ isOpen, onClose }) => {
                                 zIndex: 20,            // Set a higher z-index to place the button above the image
                             }}
                         >
-                            Show More
+                           Price On Call
                         </button>
                     </Link>
 

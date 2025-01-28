@@ -113,7 +113,7 @@ function PropertySubmission() {
     try {
 
       // console.log("data ==>", formData)
-      // console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
+      console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
 
       const response = await axiosinstance.post("/api/property/propertyDetails", data);
       toast.success("Property submitted successfully out");
@@ -121,36 +121,36 @@ function PropertySubmission() {
       if (response.status == "201") {
 
         toast.success("Property submitted successfully");
-        setFormData({
-          propertyTitle: "",
-          propertyType: [],
-          propertyDescription: "",
-          propertyID: "",
-          parentProperty: "",
-          status: [],
-          label: [],
-          material: "",
-          rooms: "",
-          bedsroom: "",
-          kitchen: "",
-          bhk: "",
-          yearBuilt: "",
-          totalhomeArea: "",
-          builtDimentions: "",
-          openArea: "",
-          price: "",
-          featureImage: null,
-          backgroundImage: null,
-          offersImage: null,
-          brochurepdf: null,
-          location: "",
-          area: "",
-          pinCode: "",
-          amenities: []
-          , builderName: "",
-          builderDescription: "",
-          MahaRera: "",
-        })
+        // setFormData({
+        //   propertyTitle: "",
+        //   propertyType: [],
+        //   propertyDescription: "",
+        //   propertyID: "",
+        //   parentProperty: "",
+        //   status: [],
+        //   label: [],
+        //   material: "",
+        //   rooms: "",
+        //   bedsroom: "",
+        //   kitchen: "",
+        //   bhk: "",
+        //   yearBuilt: "",
+        //   totalhomeArea: "",
+        //   builtDimentions: "",
+        //   openArea: "",
+        //   price: "",
+        //   featureImage: null,
+        //   backgroundImage: null,
+        //   offersImage: null,
+        //   brochurepdf: null,
+        //   location: "",
+        //   area: "",
+        //   pinCode: "",
+        //   amenities: []
+        //   , builderName: "",
+        //   builderDescription: "",
+        //   MahaRera: "",
+        // })
       }
       // console.log("Property Details created:", response.data);
       // setFormData(""); // Reset form state as needed
@@ -162,18 +162,22 @@ function PropertySubmission() {
 
   const handleChangePdf = (event) => {
     const file = event.target.files[0];
-  
+
     // Check if a file is selected
     if (file) {
       const maxSizeInMB = 5; // Maximum file size in MB
       const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // Convert to bytes
-  
+
       if (file.size > maxSizeInBytes) {
         alert(`The file size exceeds ${maxSizeInMB} MB. Please upload a smaller file.`);
         event.target.value = ""; // Clear the input
         return;
       }
-  
+      else {
+
+        handleChangeImage(event)
+      }
+
       // Proceed with the file upload
       // console.log("File is valid:", file);
       // Add your logic here to handle the file (e.g., upload to the server or set state)
@@ -181,7 +185,7 @@ function PropertySubmission() {
       console.log("No file selected");
     }
   };
-  
+
 
   const amenities = [
     { name: "Air Conditioning" },
@@ -268,7 +272,7 @@ function PropertySubmission() {
   return (
 
     <>
-    <NavBar />
+      <NavBar />
       <div className="flex justify-center items-center bg-slate-50">
         <ToastContainer />
         <div className=" ">
@@ -784,7 +788,7 @@ function PropertySubmission() {
           </div>
         </div>
       </div>
-</>
+    </>
   );
 }
 

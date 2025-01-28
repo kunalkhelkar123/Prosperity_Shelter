@@ -73,10 +73,6 @@ function Managestaff() {
   };
 
   const handleEditDetails = (userId) => {
-
-
-
-
     const userToEdit = users.find((user) => user.staffid === userId);
     setEditedUser({ ...userToEdit });
     setEditUserId(userId);

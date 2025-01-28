@@ -21,6 +21,11 @@ const AppResidential = () => {
         const response = await axios.get(
           "api/property/residential_properties"
         );
+
+        console.log("commercial properties call")
+        const response2 = await axios.get("api/property/Commercial_properties");
+        console.log("Data from database commercial", response2.data);
+
         console.log("Data from database using proxy", response.data);
         setAllProperties(response.data);
       } catch (error) {

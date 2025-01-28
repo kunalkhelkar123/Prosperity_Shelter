@@ -16,6 +16,8 @@ const CommertialApp = () => {
 });
 
   useEffect(() => {
+    console.log("commercial properties call")
+
     const fetchProperties = async () => {
       try {
         console.log("commercial properties call")

@@ -19,7 +19,7 @@ const CommertialApp = () => {
     const fetchProperties = async () => {
       try {
         console.log("commercial properties call")
-        const response = await axiosinstance.get("/api/property/Commercial_properties");
+        const response = await axiosinstance.get("api/property/Commercial_properties");
         console.log("Data from commercial properties:", response.data);
         setCoinsData(response.data);
       } catch (error) {

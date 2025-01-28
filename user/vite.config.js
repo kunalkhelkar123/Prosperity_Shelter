@@ -12,4 +12,7 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: 'build', // Replace with your desired folder name
+  },
 });

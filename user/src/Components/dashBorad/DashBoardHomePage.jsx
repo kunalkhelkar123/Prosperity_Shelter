@@ -76,11 +76,11 @@ function DashBoardHomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosinstance.get("api/property/getleads-count");
+        const response = await axiosinstance.get("/api/property/getleads-count");
         setLead(response.data);
         // console.log("leads data ==>", response.data);
 
-        const allProperties = await axiosinstance.get("api/property/property-count");
+        const allProperties = await axiosinstance.get("/api/property/property-count");
         setAllProperty(allProperties.data);
         // console.log(allProperties.data);
       } catch (error) {

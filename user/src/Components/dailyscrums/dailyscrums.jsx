@@ -27,7 +27,7 @@ function DailyScrum() {
             return;
         }
         try {
-            const response = await axiosinstance.post("api/dailyscrum/adddailyscrum", {
+            const response = await axiosinstance.post("/api/dailyscrum/adddailyscrum", {
                 description,
                 date,
                 name: user.name,  // Assuming `user.name` exists

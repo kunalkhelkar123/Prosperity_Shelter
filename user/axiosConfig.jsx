@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Create an Axios instance
 const axiosinstance = axios.create({
-    baseURL: "http://43.204.228.66:4000/", // Replace with your API base URL
+    baseURL: "http://localhost:4000/", // Replace with your API base URL
     timeout: 300000, // Request timeout
 });
 

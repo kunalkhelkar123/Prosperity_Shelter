@@ -21,7 +21,7 @@ export default function DeleteProperty({ propertyId, onDelete }) {
         return;
       }
 
-      const response = await axiosinstance.delete(`api/property/deletepropertyDetails/${propertyId}`);
+      const response = await axiosinstance.delete(`/api/property/deletepropertyDetails/${propertyId}`);
       console.log("Response from delete property:", response);
 
       if (response.status == "200") {

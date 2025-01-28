@@ -42,7 +42,7 @@ const PaymentHome = () => {
             };
 
             // Send POST request to backend
-            const response = await axiosinstance.post('api/client/addpayments', payload);
+            const response = await axiosinstance.post('/api/client/addpayments', payload);
 
             // Handle response
             if (response.status === 200) {
@@ -76,7 +76,7 @@ const PaymentHome = () => {
     // Fetch client payments from the backend
     const fetchClientPayments = async () => {
         try {
-            const response = await axiosinstance.get('api/client/paymentsDetails');  // Using Axios GET request
+            const response = await axiosinstance.get('/api/client/paymentsDetails');  // Using Axios GET request
             setClientPayments(response.data);  // Set the response data
         } catch (error) {
             console.error("Error fetching client payments:", error);
@@ -113,7 +113,7 @@ const PaymentHome = () => {
             setShowPaymentPopup(true); // Show the payment popup
             setLoading(true); // Start loading state
 
-            const response = await axiosinstance.post(`api/client/getpayments`, {
+            const response = await axiosinstance.post(`/api/client/getpayments`, {
                 id: client.client_id, // Pass client_id in the request body
             });
 
@@ -155,7 +155,7 @@ const PaymentHome = () => {
     const handleUpdate = async () => {
         try {
             // Update client details
-            const response = await axiosinstance.put('api/client/updateclientpayment', updatedDetails, {
+            const response = await axiosinstance.put('/api/client/updateclientpayment', updatedDetails, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

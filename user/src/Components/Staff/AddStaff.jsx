@@ -49,7 +49,7 @@ function AddStaff({ onClose }) {
     try {
 
       console.log("staffDetails   ", staffDetails)
-      const response = await axiosinstance.post("api/property/createStaff", staffDetails);
+      const response = await axiosinstance.post("/api/property/createStaff", staffDetails);
       if (response.data.success) {
         alert("Staff member added successfully");
 

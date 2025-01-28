@@ -42,7 +42,7 @@ const UploadHeadingAndImage = () => {
 
     const fetchOffers = async () => {
         try {
-            const response = await axios.get("api/client/getoffers");
+            const response = await axios.get("/api/client/getoffers");
             setOffers(response.data);
         } catch (error) {
             console.error("Error fetching offers:", error);
@@ -66,7 +66,7 @@ const UploadHeadingAndImage = () => {
         formData.append("image", image);
 
         try {
-            const response = await axios.post("api/client/addoffers", formData, {
+            const response = await axios.post("/api/client/addoffers", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -85,7 +85,7 @@ const UploadHeadingAndImage = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`api/client/deleteoffers/${id}`);
+            await axios.delete(`/api/client/deleteoffers/${id}`);
             setMessage("Offer deleted successfully.");
             fetchOffers();
         } catch (error) {

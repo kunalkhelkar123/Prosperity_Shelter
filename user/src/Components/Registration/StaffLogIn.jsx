@@ -31,7 +31,7 @@ function StaffLogIn() {
     try {
       setLoading(true);
       // Send login request to the backend
-      const response = await axios.post("api/auth/stafflogin", formData);
+      const response = await axios.post("/api/auth/stafflogin", formData);
       // Successful response
       console.log("staff user ==> ", response.data.user);
       toast.success(response.data.message);

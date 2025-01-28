@@ -143,7 +143,7 @@ useEffect(() => {
 const handleUpdate= async(e)=>{
   e.preventDefault();
   try{
-    const response=await axiosinstance.put(`api/property/propertyDetails/${id}`,formData)
+    const response=await axiosinstance.put(`/api/property/propertyDetails/${id}`,formData)
    
     toast.success("Property updated Successfully",response.data);
     console.log(response.data);

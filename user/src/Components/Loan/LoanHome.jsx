@@ -14,7 +14,7 @@ const Loans = () => {
     useEffect(() => {
         const fetchLoanDetails = async () => {
             try {
-                const response = await axiosinstance.get("api/client/loan");
+                const response = await axiosinstance.get("/api/client/loan");
                 setLoanDetails(response.data);
                 setLoading(false);
             } catch (err) {
@@ -52,7 +52,7 @@ const Loans = () => {
 
         try {
             const updatedLoan = { ...selectedLoan };
-            await axiosinstance.put("api/client/loan", updatedLoan);  // Send data in body
+            await axiosinstance.put("/api/client/loan", updatedLoan);  // Send data in body
             setLoanDetails((prev) =>
                 prev.map((loan) => (loan.id === updatedLoan.id ? updatedLoan : loan))
             );

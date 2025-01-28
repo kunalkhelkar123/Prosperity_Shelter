@@ -119,7 +119,7 @@ function ViewAccordion( brochurepdf) {
                   {item.answer}
                 </p>
                 <img
-                  src={`http://localhost:4000api/uploads/${brochurepdf}`}
+                  src={`http://localhost:4000/api/uploads/${brochurepdf}`}
                   alt="planimage"
                   className="lg:transform lg:rotate-[90]"
                 />

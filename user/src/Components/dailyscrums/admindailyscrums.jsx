@@ -24,7 +24,7 @@ function DailyScrumsList() {
     useEffect(() => {
         const fetchScrums = async () => {
             try {
-                const response = await axiosinstance.get("api/dailyscrum/getdailyscrum");
+                const response = await axiosinstance.get("/api/dailyscrum/getdailyscrum");
 
                 if (response.status === 200 && response.data.length > 0) {
                     setScrums(response.data);

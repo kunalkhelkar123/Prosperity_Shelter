@@ -952,7 +952,6 @@ router.post("/submit-google-form", async (req, res) => {
 
 router.get('/Commercial_properties', async (req, res) => {
   try {
-    console.log("inside commercial properties")
     // Query to fetch only commercial properties
     const [commercialProperties] = await db.query('SELECT * FROM property_details WHERE propertyType = ?', ['Commercial']);
 

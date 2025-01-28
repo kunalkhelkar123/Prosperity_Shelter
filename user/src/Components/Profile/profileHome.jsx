@@ -49,7 +49,7 @@ const ProfilePage = () => {
         if (user) {
             const fetchAllProfiles = async () => {
                 try {
-                    const response = await axiosinstance.get('api/auth/get-all');
+                    const response = await axiosinstance.get('/api/auth/get-all');
                     if (response.data.success) {
                         setAllProfiles(response.data.profiles);
                         // Find the current user's profile
@@ -91,7 +91,7 @@ const ProfilePage = () => {
     // Handle Profile Update
     const handleProfileUpdate = async () => {
         try {
-            const response = await axiosinstance.put('api/auth/updateuser', {
+            const response = await axiosinstance.put('/api/auth/updateuser', {
 
                 myProfile
 
@@ -114,7 +114,7 @@ const ProfilePage = () => {
 
         try {
             const id = user.id;
-            const response = await axiosinstance.put('api/auth/change-password', {
+            const response = await axiosinstance.put('/api/auth/change-password', {
                 oldPassword,
                 newPassword,
                 id
@@ -135,7 +135,7 @@ const ProfilePage = () => {
     // Handle New Profile Submission
     const handleAddProfile = async () => {
         try {
-            const response = await axiosinstance.post('api/auth/createuser', newProfile);
+            const response = await axiosinstance.post('/api/auth/createuser', newProfile);
             if (response.data.success) {
                 alert('Profile created successfully!');
                 setNewProfile({

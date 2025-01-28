@@ -10,7 +10,7 @@ const OffersPopup = ({ isOpen, onClose }) => {
     // Fetch offers from the backend
     const fetchOffers = async () => {
         try {
-            const response = await axios.get("api/client/getoffers");
+            const response = await axios.get("/api/client/getoffers");
             console.log("length", response.data.length)
 
             const datalength = response.data;

@@ -273,7 +273,7 @@ import { Link, useLocation } from "react-router-dom";
 
 function Corespace_navbar() {
   const [content, setContent] = useState(false);
-  const [activeButton, setActiveButton] = useState("/Home");
+  const [activeButton, setActiveButton] = useState("/");
   const location = useLocation();
   const menuRef = useRef(null); // Create a ref for the menu
 
@@ -290,6 +290,8 @@ function Corespace_navbar() {
   };
 
   useEffect(() => {
+
+
     // Prevent default navigation on hard refresh
     if (!location.pathname) {
       history.push("/Home"); // Redirect to your default page
@@ -332,6 +334,7 @@ function Corespace_navbar() {
 
   // Close the menu if clicking outside of it
   useEffect(() => {
+
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setContent(false);
@@ -347,13 +350,13 @@ function Corespace_navbar() {
   return (
     <>
       <div className="top-0 sticky ml-[-20px] z-30 w-[412x] bg-[#390255]">
-        <div className="flex  justify-between items-center h-auto p-2">
+        <div className="flex  justify-between items-center h-auto sm:h-[70px] p-2">
           {/* Logo Section */}
           <div>
             <button>
               <img
                 src={CORESPACE_LOGO}
-                className="h-[3rem] w-[4rem] ml-4 sm:h-[4rem] sm:w-[5rem] md:h-[3rem] md:w-[4rem] lg:h-[5rem] lg:w-[6rem] xl:h-[6rem] xl:w-[7rem]"
+                className=" pt-[4px] h-[3rem] w-[4rem] ml-4 sm:h-[2rem] sm:w-[5rem] md:h-[2rem] md:w-[4rem] lg:h-[2rem] lg:w-[6rem] xl:h-[4rem] xl:w-[6rem]"
               />
             </button>
           </div>
@@ -363,7 +366,7 @@ function Corespace_navbar() {
             <Link to="/">
             <button
                 onClick={() => handleButtonClick("/")}
-                className={`hover:bg-[#ffff0c] hover:text-black px-4 py-2 text-[12px]  sm:text-[18px] rounded-[20px] font-medium ${activeButton === "/" ? "bg-[#ffff0c] text-black" : "text-white"}`}
+                className={`hover:bg-[#ffff0c] hover:text-black px-4 py-2 text-[12px]  sm:text-[14px] rounded-[20px] font-medium ${activeButton === "/" ? "bg-[#ffff0c] text-black" : "text-white"}`}
               >
                 HOME
               </button>
@@ -372,7 +375,7 @@ function Corespace_navbar() {
             <Link to="/Appresidential">
               <button
                 onClick={() => handleButtonClick(location.pathname)}
-                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px]  sm:text-[18px] font-medium ${activeButton === "/Appresidential" ? "bg-[#ffff0c] text-black" : "text-white"
+                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px]  sm:text-[14px] font-medium ${activeButton === "/Appresidential" ? "bg-[#ffff0c] text-black" : "text-white"
                   }`}
               >
                 <strong>RESIDENTIAL</strong>
@@ -382,7 +385,7 @@ function Corespace_navbar() {
             <Link to="/Commertialapp">
               <button
                 onClick={() => handleButtonClick(location.pathname)}
-                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[18px] font-medium ${activeButton === "/Commertialapp" ? "bg-[#ffff0c] text-black" : "text-white"
+                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[14px] font-medium ${activeButton === "/Commertialapp" ? "bg-[#ffff0c] text-black" : "text-white"
                   }`}
               >
                 <strong>COMMERCIAL</strong>
@@ -392,7 +395,7 @@ function Corespace_navbar() {
             <Link to="/Investmentapp">
               <button
                 onClick={() => handleButtonClick(location.pathname)}
-                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[18px] font-medium ${activeButton === "/Investmentapp" ? "bg-[#ffff0c] text-black" : "text-white"
+                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[14px] font-medium ${activeButton === "/Investmentapp" ? "bg-[#ffff0c] text-black" : "text-white"
                   }`}
               >
                 <strong>INVESTMENT</strong>
@@ -401,7 +404,7 @@ function Corespace_navbar() {
             <Link to="/Aboutus">
               <button
                 onClick={() => handleButtonClick(location.pathname)}
-                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px]  sm:text-[18px] font-medium ${activeButton === "/Aboutus" ? "bg-[#ffff0c] text-black" : "text-white"
+                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px]  sm:text-[14px] font-medium ${activeButton === "/Aboutus" ? "bg-[#ffff0c] text-black" : "text-white"
                   }`}
               >
                 <strong>ABOUT </strong>
@@ -410,7 +413,7 @@ function Corespace_navbar() {
             <Link to="/Contactus">
               <button
                 onClick={() => handleButtonClick(location.pathname)}
-                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[18px] font-medium ${activeButton === "/Contactus" ? "bg-[#ffff0c] text-black" : "text-white"
+                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[14px] font-medium ${activeButton === "/Contactus" ? "bg-[#ffff0c] text-black" : "text-white"
                   }`}
               >
                 <strong>CONTACT </strong>

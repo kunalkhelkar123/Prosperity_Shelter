@@ -16,6 +16,8 @@ import Corespace_footer from "../Corespace_footer/Corespace_footer";
 import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
 import PopupForm from "../PopupForm";
 import Homepage_Banks from "./Homepage_Banks";
+import Moreaboutus_Home from "./Moreaboutus_Home";
+import Homepage_torana from "./Homepage_torana";
 // import PopupForm from "./Components/PopupForm";
 // import ScratchCardPopup from '../ScratchCardPopup/ScratchCardPopup';
 
@@ -276,6 +278,12 @@ function Homepage_filter_menu() {
       <DummyTest />
       {/* <Homepage_staticGrid_Info /> */}
       {/* <Homepage_investmentProperty /> */}
+      <div>
+        <Moreaboutus_Home />
+      </div>
+      <div>
+        <Homepage_torana />
+      </div>
       <div className="bg-gray-100 py-10 min-h-screen">
         <div className="w-full px-4">
           <div className="mb-10 w-full">

@@ -18,12 +18,12 @@ const Moreaboutus_Home = () => {
       <div className="max-w-7xl h-[600px] mx-auto px-6 md:px-12 py-10 flex justify-center items-center bg-white">
         <div className="space-y-6 text-center">
           {/* Welcome Text */}
-          <h2 className="text-[#C14D1D] text-[20px] font-medium uppercase tracking-wider flex justify-self-end">
+          <h2 className="text-[#C14D1D] text-[20px] font-medium uppercase tracking-wider flex justify-self-start">
             WELCOME TO Prosperity Shelters 
           </h2>
 
           {/* Main Heading with Animation */}
-          <h1 className="text-[50px] font-bold leading-tight flex justify-self-end">
+          <h1 className="text-[50px] font-bold leading-tight flex justify-self-start">
             <span className="text-[#FF5C00]">THE PATH TO&nbsp;</span>
             <AnimatePresence mode="wait">
               {showFuture ? (
@@ -64,12 +64,12 @@ const Moreaboutus_Home = () => {
             </div>
 
             {/* Text Section */}
-            <div className="md:w-1/2 space-y-6 text-gray-700 text-lg leading-relaxed">
+            <div className="md:w-1/2 space-y-6 text-gray-700 text-lg leading-relaxed ">
               {/* Intro Text */}
-              <p className="text-gray-600">
+              <p className="text-gray-600  text-justify">
                 In the dynamic world of real estate, where timing can be the
                 difference between finding your{" "}
-                <span className="font-semibold text-[#FF5C00]">dream home</span>{" "}
+                <span className="font-semibold text-[#FF5C00]">Dream Home</span>{" "}
                 and settling for less,
                 <strong className="text-[#C14D1D]">
                   {" "}

@@ -205,7 +205,7 @@ function Homepage_filter_menu() {
           </h1>
           <h1 className=" text-2xl mb-[-40px]  mt-[20px] sm:mb-[-30px] sm:text-4xl font-semibold text-gray-200 hover:text-white  tracking-wider">
           {/* let’s find the perfect home */}
-          LETS'S FIND THE PERFECT HOME WITH US
+          LETS'S FIND THE PERFECT HOME FOR YOU
           </h1>
         </div>
 
@@ -308,7 +308,7 @@ function Homepage_filter_menu() {
             </select>
             {/* <Link to={{ pathname: "/Searchapp", filterData }}> */}
             <button
-              className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5  mb-2"
+              className="focus:outline-none ml-[40px] sm:ml-2 items-center justify-center sm:w-20 w-[180px] text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5  mb-2"
               onClick={handleSearching}
               disabled={!isSearchEnabled}
             >

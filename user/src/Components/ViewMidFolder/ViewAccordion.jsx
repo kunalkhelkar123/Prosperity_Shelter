@@ -54,15 +54,37 @@ function ViewAccordion( brochurepdf) {
     setOpenAccordion((prev) => (prev === index ? null : index));
   };
   const handleDownload = () => {
-    console.log("brochurepdf ",brochurepdf)
-  // console.log("amenities ",amenities)
+    console.log("brochurepdf ", brochurepdf);
 
-    const link = document.createElement("a");
-    const pdfUrl= brochurepdf.brochurepdf;
+    if (!brochurepdf || !brochurepdf.brochurepdf) {
+        console.error("No valid PDF URL found");
+        return;
+    }
+
+    const pdfUrl = brochurepdf.brochurepdf;
+
+    // Open the PDF in a new tab
     window.open(pdfUrl, "_blank");
-    link.download = brochurepdf; // Ensures the file will be downloaded instead of opened
-    link.click();
-  };
+
+    // Fetch the file to trigger automatic download
+    fetch(pdfUrl)
+        .then(response => response.blob())  // Convert response to Blob
+        .then(blob => {
+            const blobUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = blobUrl;
+            link.download = "brochure.pdf"; // Ensures the file is downloaded
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(blobUrl); // Cleanup blob URL
+        })
+        .catch(error => console.error("Error downloading the PDF:", error));
+};
+
+
+
+
 
   return (
     <>

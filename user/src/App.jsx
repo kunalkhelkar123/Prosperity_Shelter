@@ -22,7 +22,7 @@ import filterdata from "./Components/homepage/Homepage_filter_menu";
 import ViewAllApp from "./Components/ViewAll/ViewAllApp";
 import HotProperties from './Components/HotProperties/HotProperties'
 import Offers from './Components/offers/offers'
-
+import Companyfooter2 from "./Components/Companyfooter2"
 import axios from "axios";
 
 // import PropertySubmission from "../../admin/src/components/Property-submission/PropertySubmission";
@@ -122,7 +122,7 @@ function App() {
           <Route path="/admin/profile" element={<ProfilHome />} />
           <Route path="/admin/offers" element={<Offers />} />
 
-      
+
 
 
 
@@ -142,7 +142,10 @@ function App() {
           <Route path="/staff/dailyscrum" element={<DailyScrum />} />
           <Route path="/staff/leadsPage" element={<StaffLeadContact />} />
         </Routes>
+        
         {/* <Corespace_footer /> */}
+        {/* <Companyfooter2 /> */}
+
         {/* <PopupForm isOpen={isPopupOpen} onClose={closePopup} /> */}
       </BrowserRouter>
 

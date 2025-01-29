@@ -172,7 +172,7 @@ function Booking() {
     }
   };
 
-  return (
+  return (<>
     <div className="flex flex-col h-screen">
     {/* Top Navigation */}
     <div className="w-full">
@@ -362,8 +362,9 @@ function Booking() {
       </span>
     </button>
   </div>
-  
+ 
 
+</>
   );
 }
 

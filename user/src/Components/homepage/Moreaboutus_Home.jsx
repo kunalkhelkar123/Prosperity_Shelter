@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import img from "../homepage/photobanks/key-home.webp"; // Adjust the path as needed
+import { Link } from "react-router-dom";
 
 const Moreaboutus_Home = () => {
   const [showFuture, setShowFuture] = useState(false);
@@ -18,7 +19,7 @@ const Moreaboutus_Home = () => {
         <div className="space-y-6 text-center">
           {/* Welcome Text */}
           <h2 className="text-[#C14D1D] text-[20px] font-medium uppercase tracking-wider flex justify-self-end">
-            WELCOME TO RIGHT TIME REALTORS LLP
+            WELCOME TO Prosperity Shelters 
           </h2>
 
           {/* Main Heading with Animation */}
@@ -72,7 +73,7 @@ const Moreaboutus_Home = () => {
                 and settling for less,
                 <strong className="text-[#C14D1D]">
                   {" "}
-                  Right Time Realtors LLP{" "}
+                  Prosperity Shelters{" "}
                 </strong>
                 stands out as a beacon of reliability and expertise. With a
                 passion for helping clients navigate the intricate world of real
@@ -86,15 +87,15 @@ const Moreaboutus_Home = () => {
 
               {/* Highlighted Question */}
               <p className="text-xl font-semibold text-gray-800 relative inline-block">
-                What sets Right Time Realtors LLP apart?
+                What sets Prosperity Shelters apart?
                 <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-gradient-to-r from-[#FF5C00] to-[#C14D1D] rounded-lg"></span>
               </p>
 
               {/* More About Us Button */}
               <div>
-                <button className="bg-gradient-to-r bg-gray-300 mt-5 text-black font-semibold py-3 px-8 rounded-lg text-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                <Link to="/Aboutus"><button className="bg-gradient-to-r bg-gray-300 mt-5 text-black font-semibold py-3 px-8 rounded-lg text-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                   More About Us
-                </button>
+                </button></Link>
               </div>
             </div>
           </div>

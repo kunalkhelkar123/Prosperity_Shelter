@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import img from "../homepage/photobanks/BuildingHome1.webp"; 
+import img from "../homepage/photobanks/BuildingHome1.webp";
 
 export default function TornaMoharSection() {
   return (
@@ -14,33 +14,38 @@ export default function TornaMoharSection() {
             </span>
 
             <h1 className="text-4xl lg:text-5xl font-bold tracking-tight">
-              TORNA MOHAR
+              Prosperity Shelters
             </h1>
 
             <div className="space-y-6 text-gray-100 max-w-xl">
               <p className="leading-relaxed">
-                Discover a life of elegance and modern convenience at Torna
-                Mohar, a thoughtfully designed residential project by Right Time
-                Realtors. Located in the scenic Ambegaon Bk, Pune South, this
-                project brings you closer to nature while keeping you
-                well-connected to the city's major hubs. Torna Mohar is a symbol
-                of royal living, where every corner is designed to reflect
-                luxury, comfort, and well-being.
+                Discover a life of elegance and modern convenience at Prosperity
+                Shelters, a thoughtfully designed residential project by us.
+                Strategically located across all regions of Pune—South, East,
+                West, and North, this project offers a perfect blend of nature
+                and urban connectivity. Prosperity Shelters is a symbol of royal
+                living, where every corner is crafted to reflect luxury, comfort,
+                and well-being.
               </p>
 
               <p className="leading-relaxed">
-                Elevate Your Lifestyle with the Right Time Realtors LLP: Western
-                Casa – Where Luxury Meets Innovation
+                Elevate Your Lifestyle with Prosperity Shelters -
+                Multiple Projects Where Luxury Meets Innovation.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="px-8 py-3 bg-white bg-opacity-20 text-white rounded-full hover:bg-opacity-30 transition-colors">
-                View More Details
-              </button>
-              <button className="px-8 py-3 bg-black text-white rounded-full hover:bg-gray-900 transition-colors">
-                Call Now
-              </button>
+              <Link to="/Aboutus">
+                <button className="px-8 py-3 bg-white bg-opacity-20 text-white rounded-full hover:bg-opacity-30 transition-colors">
+                  View More Details
+                </button>
+              </Link>
+
+              <Link to="/Contactus">
+                <button className="px-8 py-3 bg-black text-white rounded-full hover:bg-gray-900 transition-colors">
+                  Call Now
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -48,7 +53,7 @@ export default function TornaMoharSection() {
           <div className="relative">
             <img
               src={img}
-              alt="Torna Mohar Building"
+              alt="Prosperity shelter "
               className="rounded-lg shadow-2xl w-full h-auto"
             />
           </div>

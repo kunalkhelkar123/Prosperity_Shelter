@@ -86,7 +86,7 @@ function Corespace_navbar() {
             </button>
           </div>
 
-          <div className="flex flex-wrap justify-center sm:justify-around items-center gap-4 p-4">
+          <div className="flex flex-wrap justify-center sm:justify-around items-center gap-4 px-4 py-2">
           <div>
               <Link to="/">
                 <button
@@ -156,10 +156,11 @@ function Corespace_navbar() {
                       : "text-white"
                   } hover:bg-[#ffff0c] hover:text-black hover:font-medium rounded-full hover:text-sm px-5 py-2.5 focus:outline-none md:py-[8px] lg:py-[12px] sm:text-sm sm:pt-[7px] sm:pb-[8px] sm:pl-[9px] sm:pr-[9px]`}
                 >
-                  <strong> ABOUT</strong>
+                  {/* <strong> ABOUT</strong> */}
                 </button>
               </Link>
             </div>
+
             <div>
               <Link to="/Contactus">
                 <button
@@ -170,7 +171,7 @@ function Corespace_navbar() {
                       : "text-white"
                   } hover:bg-[#ffff0c] hover:text-black hover:font-medium rounded-full hover:text-sm px-5 py-2.5 focus:outline-none md:py-[8px] lg:py-[12px] sm:text-sm sm:pt-[7px] sm:pb-[8px] sm:pl-[9px] sm:pr-[9px]`}
                 >
-                  <strong> CONTACT-US</strong>
+                  {/* <strong> CONTACT-US</strong> */}
                 </button>
               </Link>
             </div>

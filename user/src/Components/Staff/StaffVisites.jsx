@@ -204,26 +204,26 @@ const Visits = () => {
             <div className="relative flex justify-center items-center">
                 <table className="w-full text-sm text-left text-gray-500 border">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-200">
-                        <tr>
-                            <th className="px-4 py-3">Sr. No</th>
-                            <th className="px-4 py-3">Visitor Name</th>
-                            <th className="px-4 py-3">Visit Date</th>
-                            <th className="px-4 py-3">Purpose</th>
-                            <th className="px-4 py-3">Followup By</th>
-                            <th className="px-4 py-3">Month</th>
-                            <th className="px-4 py-3">Action</th> {/* New Action Column */}
+                        <tr className="border-2 border-gray-300">
+                            <th className="px-4 py-3 border-2 border-gray-300">Sr. No</th>
+                            <th className="px-4 py-3 border-2 border-gray-300">Visitor Name</th>
+                            <th className="px-4 py-3 border-2 border-gray-300">Visit Date</th>
+                            <th className="px-4 py-3 border-2 border-gray-300">Purpose</th>
+                            <th className="px-4 py-3 border-2 border-gray-300">Followup By</th>
+                            <th className="px-4 py-3 border-2 border-gray-300">Month</th>
+                            <th className="px-4 py-3 border-2 border-gray-300">Action</th> {/* New Action Column */}
                         </tr>
                     </thead>
                     <tbody>
                         {filteredVisits.map((visit, index) => (
-                            <tr key={visit.id || index} className="bg-gray-100">
-                                <td className="px-4 py-3">{index + 1}</td>
-                                <td className="px-4 py-3">{visit.visitor_name}</td>
-                                <td className="px-4 py-3">{visit.visit_date}</td>
-                                <td className="px-4 py-3">{visit.purpose}</td>
-                                <td className="px-4 py-3">{visit.followup_by}</td>
-                                <td className="px-4 py-3">{visit.month}</td>
-                                <td className="px-4 py-3">
+                            <tr key={visit.id || index} className="border-2 border-gray-300">
+                                <td className="px-4 py-3 border-2 border-gray-300">{index + 1}</td>
+                                <td className="px-4 py-3 border-2 border-gray-300">{visit.visitor_name}</td>
+                                <td className="px-4 py-3 border-2 border-gray-300">{visit.visit_date}</td>
+                                <td className="px-4 py-3 border-2 border-gray-300">{visit.purpose}</td>
+                                <td className="px-4 py-3 border-2 border-gray-300">{visit.followup_by}</td>
+                                <td className="px-4 py-3 border-2 border-gray-300">{visit.month}</td>
+                                <td className="px-4 py-3 border-2 border-gray-300">
                                     <button
                                         onClick={() => handleDeleteVisit(visit.id)}
                                         className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-800"

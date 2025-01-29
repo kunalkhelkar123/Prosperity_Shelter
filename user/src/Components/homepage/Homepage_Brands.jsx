@@ -64,8 +64,7 @@ function Homepage_Brands() {
   };
   return (
     <>
-      {/* <h1 className=' text-center font-sans text-4xl sm:text-5xl font-bold mb-8 mt-12'>Brands we work with</h1> */}
-      <div className=" md:w-[100%] w-[100%] container mx-auto px-4 ">
+      <div className=" md:w-[100%] w-[100%] container mx-auto px-4  ">
         <Slider {...settings}>
           {
             dummyArr.map((ele) => {
@@ -73,16 +72,14 @@ function Homepage_Brands() {
                 <div key={ele} className=''>
                   <img
                     src={ele.img}
-                    className='w-[90%] h-[100px] ml-[100px] p-[10px] border border-gray-300 rounded-lg'
+                    className='w-[90%] h-[100px] ml-[100px] p-[10px] border border-gray-300 rounded-lg flex gap-10'
                     />
-
                 </div>
               )
             })
           }
         </Slider>
       </div>
-
     </>
   )
 }

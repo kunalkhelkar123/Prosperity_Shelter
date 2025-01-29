@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import logo from "../assets/Logo.png";
-import corespace from "../assets/Logo.png";
+import logo from "../assets/logo.png";
+// import corespace from "..assets/logo.png";
+// import corespace from "../assets/L";
+
 import { Link, useNavigate } from "react-router-dom";
 
 function NavBar() {
@@ -16,7 +18,7 @@ function NavBar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:w-full">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <img src={corespace} className="h-8 md:h-8 w-full" alt="Logo" />
+            <img src={logo} className="h-8 md:h-8 w-full" alt="Logo" />
           </div>
           <div className="block sm:hidden">
             <button

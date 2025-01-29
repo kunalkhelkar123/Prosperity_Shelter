@@ -11,35 +11,19 @@ function DashBoradSliderBar() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     const user = JSON.parse(sessionStorage.getItem("user"));
-
-    const menus = [
-        { id: 1, name: 'Home', link: '#', icons: 'home' },
-        { id: 2, name: 'All Properties', link: '/staff/myProperties', icons: 'dashboard_customize' },
-        // { id: 3, name: 'Profile', link: '#', icons: 'person ' },
-        { id: 4, name: 'Add Property', link: '/staff/submit', icons: 'add' },
-        { id: 5, name: 'Bookings', link: '/staff/bookings', icons: 'home' },
-        { id: 6, name: 'Logout', link: '/staff', icons: 'logout' },
-    ];
-
-
-
     function check(menus) {
         if (menus.name === 'Logout') {
-
             // console.log("logout == ")
             sessionStorage.removeItem("token");
             sessionStorage.removeItem("user");
             sessionStorage.removeItem("admin");
-
-
         }
-
-
     // Check if the token exists and user has the role 'staff'
     if (!token || !user || user.role !== "staff") {
       navigate("/staff");
     }
-  }, [navigate]);
+  }
+}, [navigate]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);

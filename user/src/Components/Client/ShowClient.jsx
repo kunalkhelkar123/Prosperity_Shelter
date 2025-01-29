@@ -5,6 +5,7 @@ import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from 'xlsx';
 // import axios from "../../../axiosConfig";
+import axios from "axios";
 
 const ShowClient = () => {
     const [clients, setClients] = useState([]);

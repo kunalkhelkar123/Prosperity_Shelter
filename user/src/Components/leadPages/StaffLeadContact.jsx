@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import StaffNavBar from "../StaffNavBar";
 // import axios from "../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function LeadContact() {
   const [users, setUsers] = useState([]);

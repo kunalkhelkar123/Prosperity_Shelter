@@ -23,6 +23,7 @@ import ViewAllApp from "./Components/ViewAll/ViewAllApp";
 import HotProperties from './Components/HotProperties/HotProperties'
 import Offers from './Components/offers/offers'
 
+import axios from "axios";
 
 // import PropertySubmission from "../../admin/src/components/Property-submission/PropertySubmission";
 

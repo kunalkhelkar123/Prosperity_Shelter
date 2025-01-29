@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
 import AddClient from "./AddClient"
 import ShowClient from "./ShowClient";
+import axios from "axios";
 
 function ClientHome() {
     const [view, setView] = useState("allClients");

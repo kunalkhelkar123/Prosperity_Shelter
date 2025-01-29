@@ -7,6 +7,7 @@ import Couple from "../homepage/readyToMove.jpg";
 import Nhome from "../homepage/NatureHome.jpg";
 import UnderC from "../homepage/underConstruction.jpg";
 import Luxury from "../homepage/luxuryHome.jpg";
+import axios from "axios";
 
 
 const CarouselPre = ({

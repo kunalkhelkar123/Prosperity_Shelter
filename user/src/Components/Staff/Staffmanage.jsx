@@ -7,6 +7,7 @@ import AddStaff from "./AddStaff";
 import { useNavigate } from "react-router-dom";
 import Booking from "./Bookings";
 import Visits from "./Visites";
+import axios from "axios";
 
 function Managestaff() {
   const [users, setUsers] = useState([]);

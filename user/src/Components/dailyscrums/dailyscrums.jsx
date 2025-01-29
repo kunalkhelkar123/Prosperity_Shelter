@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 // import axios from "../../../axiosConfig";
 import StaffNavbar from "../StaffNavBar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 function DailyScrum() {
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");

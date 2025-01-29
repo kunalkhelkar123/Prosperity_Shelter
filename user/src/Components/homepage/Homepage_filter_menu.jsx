@@ -16,6 +16,7 @@ import Corespace_footer from "../Corespace_footer/Corespace_footer";
 import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
 import PopupForm from "../PopupForm";
 import OffersPopup from "../OffersPopup";
+import axios from "axios";
 
 import Homepage_Banks from "./Homepage_Banks";
 import Moreaboutus_Home from "./Moreaboutus_Home";

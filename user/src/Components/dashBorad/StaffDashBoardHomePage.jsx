@@ -4,6 +4,7 @@
 // import axios from "../../../axiosConfig";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function DashBoardHomePage() {
   const [lead, setLead] = useState(0);

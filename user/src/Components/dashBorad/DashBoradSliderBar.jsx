@@ -4,6 +4,7 @@ import DashBoardHomePage from './DashBoardHomePage';
 import NavBar from '../NavBar';
 import { Link, useNavigate } from "react-router-dom";
 // import CryptoJS from "crypto-js";
+import axios from "axios";
 
 function DashBoradSliderBar() {
     const [isOpen, setIsOpen] = useState(false);

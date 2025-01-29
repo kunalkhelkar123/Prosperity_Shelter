@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useLayoutEffect } from "react";
 import office from "../Investment/office.jpg";
+import axios from "axios";
 
 const ViewAllEnquireNowForm = () => {
   useLayoutEffect(() => {

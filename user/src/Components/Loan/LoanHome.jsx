@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import axios from "../../../axiosConfig";
 import NavBar from "../Client/NavBar";
+import axios from "axios";
 
 const Loans = () => {
     const [loanDetails, setLoanDetails] = useState([]);

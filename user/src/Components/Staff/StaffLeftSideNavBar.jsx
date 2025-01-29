@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Importing menu and close icons
+import axios from "axios";
 
 function LeftSideNavBar({ setActiveTab, activeTab }) {
   const navigate = useNavigate();

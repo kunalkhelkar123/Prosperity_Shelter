@@ -7,6 +7,7 @@ import HeadingSearch from "./HeadingSearch";
 import PaginationButtonSearch from "./PaginationButtonSearch";
 import { useLocation } from "react-router-dom";
 // import { Homepage_filter_menu } from "../../Components/homepage/Homepage_filter_menu";
+// import axios from "axios";
 
 const SearchApp = () => {
   const [allProperties, setAllProperties] = useState([]);

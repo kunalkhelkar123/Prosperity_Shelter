@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import StaffNavBar from "../StaffNavBar";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteProperty from "../Property-submission/DeleteProperty";
+import axios from "axios";
 
 
 function GetAllProperty() {

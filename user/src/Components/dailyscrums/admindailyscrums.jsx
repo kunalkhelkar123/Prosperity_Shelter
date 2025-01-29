@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import axios from "../../../axiosConfig";
 import NavBar from "../NavBar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // Function to get the local formatted date (yyyy-mm-dd)
 const getFormattedDate = (date) => {

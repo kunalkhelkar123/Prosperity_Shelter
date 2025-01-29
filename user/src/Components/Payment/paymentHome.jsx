@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../Client/NavBar";
+import axios from "axios";
 // import axios from "../../../axiosConfig";
 
 const PaymentHome = () => {

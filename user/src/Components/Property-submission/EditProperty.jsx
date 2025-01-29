@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Aminities from "./Aminities";
 
+
 function EditProperty() {
   const navigate = useNavigate()
 

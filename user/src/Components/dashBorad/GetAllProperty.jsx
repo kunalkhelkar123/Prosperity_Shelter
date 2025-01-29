@@ -5,7 +5,8 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../NavBar";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteProperty from "../Property-submission/DeleteProperty";
-import axiosinstance from "../../../axiosConfig";
+import axios from "axios";
+// import axios from "../../../axiosConfig";
 
 function GetAllProperty() {
   const [properties, setProperties] = useState([]);
@@ -39,10 +40,10 @@ function GetAllProperty() {
       try {
         let response;
         if (sortOption === "all") {
-          response = await axiosinstance.get("api/property/properties");
+          response = await axios.get("api/property/properties");
           // console.log("response in iffff ", response.data);
         } else {
-          response = await axiosinstance.get(
+          response = await axios.get(
             `api/property/properties?sort=${sortOption}`
           );
           // console.log("response in else ", response.data);
@@ -182,8 +183,8 @@ function GetAllProperty() {
             <li key={index}>
               <button
                 className={`px-3 py-1 ${currentPage === index + 1
-                    ? "bg-red-400 text-white"
-                    : "bg-red-500"
+                  ? "bg-red-400 text-white"
+                  : "bg-red-500"
                   } mr-1 rounded-full`}
                 onClick={() => paginate(index + 1)}
               >

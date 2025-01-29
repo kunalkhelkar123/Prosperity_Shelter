@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import axiosinstance from '../../../axiosConfig';
+import axios from "axios";
 import React, { useState,useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -127,7 +127,7 @@ console.log("idddd==> ",id)
 useEffect(() => {
   const fetchPropertyDetails = async () => {
     try {
-      const response = await axiosinstance.get(`api/property/properties/${id}`);
+      const response = await axios.get(`api/property/properties/${id}`);
       const propertyDetails = response.data;
 
       console.log("fetch data ==> ", propertyDetails)
@@ -143,7 +143,7 @@ useEffect(() => {
 const handleUpdate= async(e)=>{
   e.preventDefault();
   try{
-    const response=await axiosinstance.put(`/api/property/propertyDetails/${id}`,formData)
+    const response=await axios.put(`/api/property/propertyDetails/${id}`,formData)
    
     toast.success("Property updated Successfully",response.data);
     console.log(response.data);

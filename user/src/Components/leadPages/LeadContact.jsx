@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 
 import NavBar from "../NavBar";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function LeadContact() {
   const [users, setUsers] = useState([]);
@@ -31,7 +32,7 @@ function LeadContact() {
 
   const fetchDescriptions = async (leadId) => {
     try {
-      const response = await axiosinstance.get(`/api/property/getDescriptions/${leadId}`);
+      const response = await axios.get(`/api/property/getDescriptions/${leadId}`);
       // console.log("Fetched Descriptions:", response.data.data);
       setDescriptions((prev) => ({
         ...prev,
@@ -56,7 +57,7 @@ function LeadContact() {
     if (!window.confirm("Are you sure you want to delete this lead?")) return;
 
     try {
-      const response = await axiosinstance.delete("/api/property/deleteLead", {
+      const response = await axios.delete("/api/property/deleteLead", {
         data: { leadId: id },
       });
 
@@ -79,7 +80,7 @@ function LeadContact() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axiosinstance.get("/api/property/getleads");
+        const response = await axios.get("/api/property/getleads");
          //console.log("Fetched Users:", response.data);
         setUsers(response.data.data);
       } catch (err) {

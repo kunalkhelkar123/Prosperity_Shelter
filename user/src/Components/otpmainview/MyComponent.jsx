@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import OtpInput from "./OtpInput";
 
 function MyComponent() {
@@ -31,7 +31,7 @@ function MyComponent() {
     console.log(regexPhoneNum.test(phoneNumber));
 
     try {
-      const response = await axiosinstance.post(
+      const response = await axios.post(
         "/api/otp/send-otp",
         {
           name,

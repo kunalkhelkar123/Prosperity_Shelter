@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import NavBar from "../NavBar";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +11,7 @@ function Upcomingvisits() {
     useEffect(() => {
         const fetchVisites = async () => {
             try {
-                const response = await axiosinstance.get("/api/adminstaffvisites/getvisits");
+                const response = await axios.get("/api/adminstaffvisites/getvisits");
 
                 if (response.status === 200 && response.data.length > 0) {
                     const data = response.data;
@@ -61,7 +61,7 @@ function Upcomingvisits() {
 
     const handleAttendClick = async (visiteId) => {
         try {
-            const response = await axiosinstance.post("/api/adminstaffvisites/updateAttend", {
+            const response = await axios.post("/api/adminstaffvisites/updateAttend", {
                 visiteId: visiteId,
                 attend: true,
             });

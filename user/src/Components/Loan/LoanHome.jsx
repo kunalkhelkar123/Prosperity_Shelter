@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import NavBar from "../Client/NavBar";
 
 const Loans = () => {
@@ -14,7 +14,7 @@ const Loans = () => {
     useEffect(() => {
         const fetchLoanDetails = async () => {
             try {
-                const response = await axiosinstance.get("/api/client/loan");
+                const response = await axios.get("/api/client/loan");
                 setLoanDetails(response.data);
                 setLoading(false);
             } catch (err) {
@@ -52,7 +52,7 @@ const Loans = () => {
 
         try {
             const updatedLoan = { ...selectedLoan };
-            await axiosinstance.put("/api/client/loan", updatedLoan);  // Send data in body
+            await axios.put("/api/client/loan", updatedLoan);  // Send data in body
             setLoanDetails((prev) =>
                 prev.map((loan) => (loan.id === updatedLoan.id ? updatedLoan : loan))
             );

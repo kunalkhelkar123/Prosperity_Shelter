@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import StaffNavbar from "../StaffNavBar";
 import { useNavigate } from "react-router-dom";
 function DailyScrum() {
@@ -27,7 +27,7 @@ function DailyScrum() {
             return;
         }
         try {
-            const response = await axiosinstance.post("/api/dailyscrum/adddailyscrum", {
+            const response = await axios.post("/api/dailyscrum/adddailyscrum", {
                 description,
                 date,
                 name: user.name,  // Assuming `user.name` exists

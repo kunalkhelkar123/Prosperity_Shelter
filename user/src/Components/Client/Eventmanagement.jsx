@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa'; // Import WhatsApp icon from react-icons
-import axiosinstance from '../../../axiosConfig';
+import axios from "axios";
 import NavBar from "./NavBar"
 import { useNavigate } from "react-router-dom";
 
@@ -35,7 +35,7 @@ Enjoy your celebration and here's to many more successful years together!`
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axiosinstance.get('/api/client/getclientsdate');
+                const response = await axios.get('/api/client/getclientsdate');
                 if (response.data.success) {
                     setClients(response.data.data);
                 }
@@ -76,7 +76,7 @@ Enjoy your celebration and here's to many more successful years together!`
             return;
         }
         try {
-            const response = await axiosinstance.post('/api/client/sendWish', {
+            const response = await axios.post('/api/client/sendWish', {
                 clientName: selectedClient.clientName,
                 email: selectedClient.email,
                 mobileNumber: selectedClient.mobileNumber,

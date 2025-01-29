@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 
 function Visites() {
   const [visites, setVisites] = useState([]);
@@ -12,7 +12,7 @@ function Visites() {
   useEffect(() => {
     const fetchVisites = async () => {
       try {
-        const response = await axiosinstance.get("/api/adminstaffvisites/getvisits");
+        const response = await axios.get("/api/adminstaffvisites/getvisits");
 
         if (response.status === 200 && response.data.length > 0) {
           const total = response.data.length;

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import toast, { Toaster } from "react-hot-toast";
 
 const OtpInput = ({ length = 6, phoneNumber = "", onOtpSubmit = () => {} }) => {
@@ -57,7 +57,7 @@ const OtpInput = ({ length = 6, phoneNumber = "", onOtpSubmit = () => {} }) => {
       console.log("Verifying OTP:", otp);
 
       try {
-        const response = await axiosinstance.post(
+        const response = await axios.post(
           "/api/otp/verify-otp",
           {
             phoneNumber,

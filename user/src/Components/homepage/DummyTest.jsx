@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import axiosinstance from '../../../axiosConfig';
+
 
 function DummyTest() {
   const [dummyArr, setAllProperties] = useState([]);
@@ -15,7 +15,7 @@ function DummyTest() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await axiosinstance.get('api/property/properties');
+        const response = await axios.get('api/property/properties');
         // console.log('Data from database using proxy', response.data);
         setAllProperties(response.data);
       } catch (error) {

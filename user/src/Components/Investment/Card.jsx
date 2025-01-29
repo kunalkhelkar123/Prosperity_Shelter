@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 
 const Card = ({ data }) => {
   const [imageUrl, setImageUrl] = useState(""); // State for image URL
@@ -24,7 +24,7 @@ const Card = ({ data }) => {
   // useEffect(() => {
   //   const fetchImageUrl = async () => {
   //     try {
-  //       const response = await axiosinstance.get(`/api/property/getImageUrl`, {
+  //       const response = await axios.get(`/api/property/getImageUrl`, {
   //         params: { key: featureImage }, // Pass the S3 key to the backend
   //       });
   //       setImageUrl(response.data.signedUrl); // Update state with signed URL

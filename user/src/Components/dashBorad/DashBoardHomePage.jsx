@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -76,11 +77,11 @@ function DashBoardHomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosinstance.get("/api/property/getleads-count");
+        const response = await axios.get("/api/property/getleads-count");
         setLead(response.data);
         // console.log("leads data ==>", response.data);
 
-        const allProperties = await axiosinstance.get("/api/property/property-count");
+        const allProperties = await axios.get("/api/property/property-count");
         setAllProperty(allProperties.data);
         // console.log(allProperties.data);
       } catch (error) {
@@ -104,72 +105,72 @@ function DashBoardHomePage() {
       <div className="w-full grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-3">
         <div className="border border-gray-100 bg-[#390255] text-white p-2 h-44 flex justify-center items-center relative">
           <div className="flex flex-col justify-center items-center pr-[150px]">
-            <p className="text-3xl mt-8">{lead.totalLeads}</p>
-            <p className="text-base">Leads</p>
+            <p className="text-[29px] ml-[60px]  ">{lead.totalLeads}</p>
+            <p className="sm:text-base text-[13px] ml-16">Leads</p>
             <button
               onClick={() => navigate("/admin/leadsPage")}
-              className="text-[#FFF848] p-2 mt-2 ml-8  rounded-[10px] hover:bg-[#FFF848] hover:text-[#390255]"
-              style={{ fontSize: "18px", width: "120px" }}
+              className="text-[#FFF848] p-[-6px]  mt-2 ml-16 text-[13px]  rounded-[10px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
+              style={{  width: "90px" }}
             >
               Show Leads
             </button>
           </div>
-          <div className="text-center text-black flex justify-center items-center rounded-full border p-5 h-30 w-30 bg-slate-200 absolute right-6">
+          <div className="text-center text-black flex justify-center items-center rounded-full border p-2 h-30 w-30 bg-slate-200 absolute right-6">
             <span className="material-symbols-outlined text-5xl">groups</span>
           </div>
         </div>
         <div className="border border-gray-100 bg-[#390255] text-white p-2 h-44 flex justify-center items-center relative">
           <div className="flex justify-center items-center">
             <div className="flex flex-col justify-center items-center pr-[100px]">
-              <p className="text-3xl mt-8">{allProperty.totalProperties}</p>
-              <p className="text-base">My Properties</p>
+              <p className="text-[29px] ml-[0px] ">{allProperty.totalProperties}</p>
+              <p className="sm:text-base text-[13px]">My Properties</p>
               <button
                 onClick={() => navigate("/admin/myProperties")}
-                className="text-[#FFF848] p-2  mt-2 ml-4 rounded-[10px] hover:bg-[#FFF848] hover:text-[#390255]"
-                style={{ fontSize: "18px", width: "150px" }}
+                className="text-[#FFF848]  p-[-6px]  mt-2 ml-4 rounded-[10px] text-[13px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
+                style={{  width: "110px" }}
               >
                 Show Properties
               </button>
             </div>
-            <div className="text-center text-black flex justify-center items-center rounded-full border p-5 h-30 w-30 bg-red-200 absolute right-2">
+            <div className="text-center text-black flex justify-center items-center rounded-full border p-2 h-30 w-30 bg-red-200 absolute right-6">
               <span className="material-symbols-outlined text-5xl">home</span>
             </div>
           </div>
         </div>
         <div className="border border-gray-100 bg-[#390255]  text-white p-2 h-44 flex justify-center items-center relative">
           <div className="flex justify-center items-center">
-            <div className="flex flex-col justify-center items-center mt-10 pr-[150px]">
+            <div className="flex flex-col justify-center items-center  pr-[150px]">
               {/* <p className="text-3xl">0</p> */}
-              <p className="text-base">Upcoming Visits</p>
+              <p className=" sm:text-base text-[13px] ml-16 sm:ml-0">Upcoming Visits</p>
               <button
                 onClick={() => navigate("/admin/upcomingvisits")}
-                className="text-[#FFF848] p-2  mt-6 ml-4 rounded-[10px] hover:bg-[#FFF848] hover:text-[#390255]"
-                style={{ fontSize: "18px", width: "150px" }}
+                className="text-[#FFF848] p-[-6px]  mt-2 ml-16 sm:ml-0 rounded-[10px] text-[13px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
+                style={{  width: "100px" }}
               >
                 Show visits
               </button>
             </div>
-            <div className="text-center text-black flex justify-center items-center rounded-full border p-5 h-30 w-30 bg-blue-300 absolute right-10">
-              <span className="material-symbols-outlined text-5xl">visibility</span>
+            <div className="text-center text-black flex justify-center items-center rounded-full border p-2 h-30 w-30 bg-blue-300 absolute right-6">
+              <span className="material-symbols-outlined text-5xl">event</span>
             </div>
           </div>
         </div>
 
         <div className="border border-gray-100 bg-[#390255]  text-white p-2 h-44 flex justify-center items-center relative">
           <div className="flex justify-center items-center">
-            <div className="flex flex-col justify-center items-center mt-10 pr-[150px]">
+            <div className="flex flex-col justify-center items-center  pr-[150px]">
               {/* <p className="text-3xl">0</p> */}
-              <p className="text-base">Daily Scrums</p>
+              <p className="sm:text-base text-[13px] sm:ml-[70px] ml-12 sm:ml-0">Daily Scrums</p>
               <button
                 onClick={() => navigate("/admin/dailyscrums")}
-                className="text-[#FFF848] p-2  mt-6 ml-4 rounded-[10px] hover:bg-[#FFF848] hover:text-[#390255]"
-                style={{ fontSize: "18px", width: "150px" }}
+                className="text-[#FFF848] p-[-6px]  mt-2 ml-16 rounded-[10px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
+                style={{ fontSize: "13px", width: "90px" }}
               >
                 Show 
               </button>
             </div>
-            <div className="text-center text-black flex justify-center items-center rounded-full border p-5 h-30 w-30 bg-blue-300 absolute right-10">
-              <span className="material-symbols-outlined text-5xl">visibility</span>
+            <div className="text-center text-black flex justify-center items-center rounded-full border p-2 h-30 w-30 bg-blue-300 absolute right-6">
+              <span className="material-symbols-outlined text-5xl">note</span>
             </div>
           </div>
         </div>
@@ -177,17 +178,17 @@ function DashBoardHomePage() {
         <div className="border border-gray-100 bg-[#390255] text-white p-2 h-44 flex justify-center items-center relative">
           <div className="flex flex-col justify-center items-center pr-[150px]">
             {/* <p className="text-3xl mt-8">{lead.totalLeads}</p> */}
-            <p className="text-base ml-14 mt-4">Todays Birthday & Aniversary</p>
+            <p className="sm:text-base text-[13px] ml-14">Todays Birthday & Aniversary</p>
             <button
               onClick={() => navigate("/admin/events")}
-              className="text-[#FFF848] p-2 mt-2 ml-8  mt-4 rounded-[10px] hover:bg-[#FFF848] hover:text-[#390255]"
-              style={{ fontSize: "18px", width: "120px" }}
+              className="text-[#FFF848] p-[-6px] mt-2 ml-[60px]  mt-4 rounded-[10px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
+              style={{ fontSize: "13px", width: "90px" }}
             >
               Show Events
             </button>
           </div>
-          <div className="text-center text-black flex justify-center items-center rounded-full border p-5 h-30 w-30 bg-slate-200 absolute right-6">
-            <span className="material-symbols-outlined text-5xl">groups</span>
+          <div className="text-center text-black flex justify-center items-center rounded-full border p-2 h-30 w-30 bg-slate-200 absolute right-6">
+            <span className="material-symbols-outlined text-5xl">event</span>
           </div>
         </div>
         {/* <div className="border border-gray-100 bg-[#390255] text-white p-2 h-44 flex justify-center items-center relative">

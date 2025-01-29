@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import NavBar from "../NavBar";
 import { useNavigate } from "react-router-dom";
 
@@ -24,7 +24,7 @@ function DailyScrumsList() {
     useEffect(() => {
         const fetchScrums = async () => {
             try {
-                const response = await axiosinstance.get("/api/dailyscrum/getdailyscrum");
+                const response = await axios.get("/api/dailyscrum/getdailyscrum");
 
                 if (response.status === 200 && response.data.length > 0) {
                     setScrums(response.data);

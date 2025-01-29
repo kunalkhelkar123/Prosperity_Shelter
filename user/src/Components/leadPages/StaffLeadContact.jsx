@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StaffNavBar from "../StaffNavBar";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
 
 function LeadContact() {
@@ -47,7 +47,7 @@ function LeadContact() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axiosinstance.get("/api/property/getleads");
+        const response = await axios.get("/api/property/getleads");
       //   console.log("Fetched Users:", response.data);
         setUsers(response.data.data);
       } catch (err) {
@@ -78,7 +78,7 @@ function LeadContact() {
 
       // console.log("formData ==> ", newDescription)
       // Send the new description to the API
-      const response = await axiosinstance.post("/api/property/addDescription", newDescription);
+      const response = await axios.post("/api/property/addDescription", newDescription);
        //console.log("Description added successfully:", response.data);
       // console.error("Description added successfully:");
       // alert("Description added successfully:.");
@@ -106,7 +106,7 @@ function LeadContact() {
 
   const fetchDescriptions = async (leadId) => {
     try {
-      const response = await axiosinstance.get(`/api/property/getDescriptions/${leadId}`);
+      const response = await axios.get(`/api/property/getDescriptions/${leadId}`);
        //console.log("Fetched Descriptions:", response.data.data);
       setDescriptions((prev) => ({
         ...prev,
@@ -134,7 +134,7 @@ function LeadContact() {
     if (!window.confirm("Are you sure you want to delete this lead?")) return;
 
     try {
-      const response = await axiosinstance.delete("/api/property/deleteLead", {
+      const response = await axios.delete("/api/property/deleteLead", {
         data: { leadId: id },
       });
 

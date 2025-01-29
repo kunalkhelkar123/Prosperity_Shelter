@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import axiosinstance from "../../../../axiosConfig";
+// import axios from "../../../../axiosConfig";
 import CommertialHeading from "./CommertialHeading";
 import Cardcommertial from "./Cardcommertial";
 import PaginationButtonCommertial from "./PaginationButtonCommertial";
  import Corespace_navbar from "../../Corespace_Navigation/Corespace_navbar";
 import Corespace_footer from "../../Corespace_footer/Corespace_footer";
+import axios from "axios";
 const CommertialApp = () => {
   const [coinData, setCoinsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +19,7 @@ const CommertialApp = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await axiosinstance.get(
+        const response = await axios.get(
           "/api/property/Commercial_properties"
         );
         // console.log("Data from database using proxy:", response.data);

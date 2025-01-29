@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,7 +21,7 @@ export default function DeleteProperty({ propertyId, onDelete }) {
         return;
       }
 
-      const response = await axiosinstance.delete(`/api/property/deletepropertyDetails/${propertyId}`);
+      const response = await axios.delete(`/api/property/deletepropertyDetails/${propertyId}`);
       console.log("Response from delete property:", response);
 
       if (response.status == "200") {

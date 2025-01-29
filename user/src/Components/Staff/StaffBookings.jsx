@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
 import StaffLeftSideNavBar from "./StaffLeftSideNavBar";
 import StaffLeftTopNavBar from "./StaffLeftTopNavbar";
@@ -59,7 +59,7 @@ function Booking() {
         setSelectedMonth(currentMonth);
 
         if (userId) {
-          const response = await axiosinstance.post("/api/staff/get-bookings", { id: userId });
+          const response = await axios.post("/api/staff/get-bookings", { id: userId });
 
           if (response.status === 200) {
             if (response.data.length > 0) {
@@ -147,7 +147,7 @@ function Booking() {
 
       console.log("user ", user);
       console.log("newBookingData ", newBookingData);
-      const response = await axiosinstance.post("/api/staff/add-booking", newBookingData);
+      const response = await axios.post("/api/staff/add-booking", newBookingData);
 
       if (response.status === 201) {
         setBookings([...bookings, response.data]);

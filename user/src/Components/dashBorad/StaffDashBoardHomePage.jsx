@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -70,7 +70,7 @@ function DashBoardHomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosinstance.get(
+        const response = await axios.get(
           "/api/property/getleads-count"
         );
         setLead(response.data);
@@ -78,7 +78,7 @@ function DashBoardHomePage() {
         // console.log("leads data ==>", response.data);
 
 
-        const allProperties = await axiosinstance.get(
+        const allProperties = await axios.get(
           "/api/property/property-count"
         );
         setAllProperty(allProperties.data);

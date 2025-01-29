@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Aminities from "./Aminities";
 
 import GoogleMapComonent from "./GoogleMapComonent";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
@@ -115,7 +115,7 @@ function PropertySubmission() {
       // console.log("data ==>", data)
       // console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
 
-      const response = await axiosinstance.post("/api/property/propertyDetails", data);
+      const response = await axios.post("/api/property/propertyDetails", data);
 
       if (response.status == 201) {
 

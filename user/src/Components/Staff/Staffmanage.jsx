@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NavBar from "../NavBar";
-import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 import LeftSideNavBar from "./LeftSideNavBar"; // Import the LeftSideNavBar component
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import AddStaff from "./AddStaff";
@@ -42,7 +42,7 @@ function Managestaff() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axiosinstance.get("/api/property/staff");
+        const response = await axios.get("/api/property/staff");
         console.log("Fetched staff:", response.data);
         setUsers(response.data.data);
       } catch (err) {
@@ -56,7 +56,7 @@ function Managestaff() {
   const handleEdit = async (userId, isActive) => {
     try {
       let updatedStatus = isActive === "true" ? "false" : "true";
-      const response = await axiosinstance.post("/api/property/updateStatus", {
+      const response = await axios.post("/api/property/updateStatus", {
         userId,
         isActive: updatedStatus,
       });
@@ -80,7 +80,7 @@ function Managestaff() {
 
   const handleSave = async () => {
     try {
-      const response = await axiosinstance.post("/api/property/updateUser", editedUser);
+      const response = await axios.post("/api/property/updateUser", editedUser);
       if (response.data.success) {
         setDataChanges(!datachanges);
         setEditUserId(null);
@@ -100,7 +100,7 @@ function Managestaff() {
 
   const handleDelete = async (userId) => {
     try {
-      const response = await axiosinstance.delete("/api/property/deleteUser", {
+      const response = await axios.delete("/api/property/deleteUser", {
         data: { userId },
       });
 

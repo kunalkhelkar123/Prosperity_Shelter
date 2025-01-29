@@ -84,14 +84,14 @@ const LoginForm = ({ onClose }) => {
       </button>
       <div className='flex flex-col items-center'>
         <h1 className="text-2xl m-2 font-bold text-left animate__animated animate__slideInLeft" style={{ animationDelay: '0.5s' }}>Login to get this property details</h1>
-        <img src={City} alt="Image 2" className="h-[460px] w-[480px] mt-3" />
+        <img src={City} alt="Image 2" className="sm:h-[460px] w-[480px] mt-3" />
       </div>
       {/* Image Section */}
       {/* Text Content and Form Section */}
       <div className="w-full md:w-1/2 md:ml-4">
         <h1 className="text-2xl font-bold mb-4">We Have Over 1 Lakh Buyers For You </h1>
         <p className="text-gray-600 mb-4">
-          HomiGrow Reality provides you with the best real estate options. Whether you are looking for a flat, house, land, or commercial property, we've got you covered.
+          <strong className='text-black'>Prosperity Shelters</strong> provides you with the best real estate options. Whether you are looking for a flat, house, land, or commercial property, we've got you covered.
         </p>
         {/* Form Section */}
         <form onSubmit={handleSubmit2}>

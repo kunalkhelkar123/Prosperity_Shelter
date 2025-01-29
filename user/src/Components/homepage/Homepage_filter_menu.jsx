@@ -205,7 +205,7 @@ function Homepage_filter_menu() {
           </h1>
         </div>
 
-        <div className="bg-gray-800  w-[50%] grid grid-cols-0 sm:grid-cols-3 grid-row-4  bg-opacity-90 grid-flow-row p-3  gap-1 rounded-md  items-center sm:grid-col-2 ">
+        <div className="bg-gray-800  w-[75%] sm:w-[50%] grid grid-cols-0 sm:grid-cols-3 grid-row-4  bg-opacity-90 grid-flow-row p-3  gap-1 rounded-md  items-center sm:grid-col-2 ">
           <Link to="/Investmentapp">
             <button
               onClick={() => handleSelectoptions("Investment")}
@@ -240,12 +240,12 @@ function Homepage_filter_menu() {
             Post Your Property
           </button>
           {showLoginForm && (
-            <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-70 flex justify-center items-center">
+            <div className="fixed top-0 left-0 z-50 w-[455px] sm:w-full left-[-26px] h-full bg-black bg-opacity-70 flex justify-center items-center">
               <LoginForm onClose={handleToggleLoginForm} />
             </div>
           )}
 
-          <div className="flex flex-row sm:col-span-3 flex-wrap justify-start gap-1 bg-slate-300 p-2 rounded-md  w-ful ">
+          <div className="flex flex-row sm:col-span-3 flex-wrap justify-start gap-1 bg-slate-300 p-2 rounded-md  w-full ">
             <select
               id="area"
               value={selectedArea}

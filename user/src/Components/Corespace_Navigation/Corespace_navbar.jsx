@@ -437,7 +437,16 @@ function Corespace_navbar() {
             className={`sm:bg-[#390255] h-[100vh] pr-[5px] sm:pr-[0px] ml-auto flex flex-col justify-center items-center sm:w-[25vw] lg:w-[20vw] xl:w-[16vw] sm:p-[0px] ${content ? "" : "hidden"}`}
           >
             {content && (
-              <div className="text-white h-[350px] sm:h-[100vh] flex flex-col justify-center items-center gap-[2rem] bg-[#390255] px-[20px] sm:px-[0px] rounded-lg sm:rounded-[0px]">
+              <>
+                 
+              <div className="text-white h-[390px] sm:h-[100vh] flex flex-col justify-center items-center gap-[2rem] bg-[#390255]  rounded-lg sm:rounded-[0px]">
+                 <button>
+              <img
+                src={CORESPACE_LOGO}
+                className="  pt-[4px] h-[3rem] w-[4rem] ml-4 sm:h-[2rem] sm:w-[5rem] md:h-[2rem] md:w-[4rem] lg:h-[2rem] lg:w-[6rem] xl:h-[4rem] xl:w-[6rem]"
+              />
+            </button>
+                
                 <Link to="/" onClick={contentHandler}>
                   <button className="hidden sm:block">
                     <strong>HOME</strong>
@@ -499,7 +508,7 @@ function Corespace_navbar() {
                     </button>
                   </div>
                 </Link>
-              </div>
+              </div></>
             )}
           </div>
         </div>

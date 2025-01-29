@@ -188,12 +188,12 @@ function Homepage_filter_menu() {
     <>
       {/* {isPopupOpen2 && <ScratchCardPopup onClose={closePopup2} />} */}
       <Corespace_navbar />
-      <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
+      {/* <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
 
-<OffersPopup  isOpen={isPopupOpen2} onClose={closePopup2}  />
+<OffersPopup  isOpen={isPopupOpen2} onClose={closePopup2}  /> */}
       <div
         style={{ "--image-url": `url(${City})` }}
-        className="h-[600px] w-[100%] bg-cover bg-repeat-round relative bg-[image:var(--image-url)]"
+        className="sm:h-[540px] h-[700px]  w-[100%] bg-cover bg-repeat-round relative bg-[image:var(--image-url)]"
       ></div>
 
       {/* <img className='relative w-full h-[550px] bg-cover bg-center bg-no-repeat mb-8 md:h-[550px]' src={City} alt="City"></img> */}
@@ -201,11 +201,15 @@ function Homepage_filter_menu() {
       <div className="flex flex-col absolute w-full  justify-center  items-center top-0 md:mt-40   mt-28 sm:mt-36">
         <div className="mb-5 text-center">
           <h1 className=" text-4xl sm:text-6xl font-semibold text-[#fff848] hover:text-white  tracking-wider">
-            Prosperity Shelters{" "}
+          WELCOME TO <br/>    PROSPERITY SHELTERS {" "}
+          </h1>
+          <h1 className=" text-2xl mb-[-40px]  mt-[20px] sm:mb-[-30px] sm:text-4xl font-semibold text-gray-200 hover:text-white  tracking-wider">
+          {/* let’s find the perfect home */}
+          LETS'S FIND THE PERFECT HOME WITH US
           </h1>
         </div>
 
-        <div className="bg-gray-800  w-[75%] sm:w-[50%] grid grid-cols-0 sm:grid-cols-3 grid-row-4  bg-opacity-90 grid-flow-row p-3  gap-1 rounded-md  items-center sm:grid-col-2 ">
+        <div className="bg-gray-800  mt-[40px] w-[75%] sm:w-[50%] grid grid-cols-0 sm:grid-cols-3 grid-row-4  bg-opacity-90 grid-flow-row p-3  gap-1 rounded-md  items-center sm:grid-col-2 ">
           <Link to="/Investmentapp">
             <button
               onClick={() => handleSelectoptions("Investment")}

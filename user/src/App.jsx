@@ -20,6 +20,9 @@ import ContactUs from "./Components/ContactUs";
 import SearchApp from "./Components/Search/SearchApp";
 import filterdata from "./Components/homepage/Homepage_filter_menu";
 import ViewAllApp from "./Components/ViewAll/ViewAllApp";
+import HotProperties from './Components/HotProperties/HotProperties'
+import Offers from './Components/offers/offers'
+
 
 // import PropertySubmission from "../../admin/src/components/Property-submission/PropertySubmission";
 
@@ -92,6 +95,8 @@ function App() {
           <Route path="/Popupform" element={<PopupForm />} />
           <Route path="/Searchapp" element={<SearchApp />} />
           <Route path="/ViewAllapp" element={<ViewAllApp />} />
+          <Route path="/HotProperties" element={<HotProperties />} />
+
 
 
 
@@ -114,6 +119,8 @@ function App() {
           <Route path="/admin/payment" element={<Payment />} />
           <Route path="/admin/events" element={<EventManagement />} />
           <Route path="/admin/profile" element={<ProfilHome />} />
+          <Route path="/admin/offers" element={<Offers />} />
+
       
 
 

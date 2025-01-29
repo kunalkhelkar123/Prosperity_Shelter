@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CryptoJS from "crypto-js";
+
 // ... existing imports and state setup
 
 function LogIn() {
@@ -78,6 +80,72 @@ function LogIn() {
       setLoading(false); // Set loading state to false after the request completes
     }
   };
+
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   const { email, password } = formData;
+  //   const SECRET_KEY = "kunaljdsdbfhdsbf765havsd78@jhasdvr64646%#%#%^";
+  //   // Basic email validation
+  //   if (!email.trim()) {
+  //     return toast.error("Please enter your email");
+  //   }
+
+  //   // Basic password validation
+  //   if (!password.trim()) {
+  //     return toast.error("Please enter your password");
+  //   }
+
+  //   try {
+  //     setLoading(true);  // Set loading state to true while the request is being made
+
+  //     const response = await axios.post("/api/auth/login", formData);
+
+  //     console.log("Login response:", response.data);
+  //     console.log("Login response accessToken:", response.data.accessToken);
+
+  //     // Check if login was successful
+  //     if (response.status === 200) {
+  //       sessionStorage.setItem("token", response.data.accessToken);
+  //       // sessionStorage.setItem("admin", JSON.stringify(response.data.admin));
+  //       const encryptedAdmin = CryptoJS.AES.encrypt(
+  //         JSON.stringify(response.data.admin),
+  //         SECRET_KEY
+  //       ).toString();
+  //       sessionStorage.setItem("admin", encryptedAdmin);
+  //       console.log("Access token from session ==> ", sessionStorage.getItem("token"));
+  //       console.log("Access token from admin ==> ", sessionStorage.getItem("admin"));
+
+  //       // Redirect user to dashboard upon successful login
+  //       navigate("/admin/dashboard");
+
+  //       // Clear form data
+  //       setFormData({
+  //         email: "",
+  //         password: "",
+  //       });
+
+  //       // Display success message
+  //       toast.success("Logged in successfully!");
+  //     } else {
+  //       // If response status is not 200, display error message
+  //       toast.error("Login failed. Please check your credentials.");
+  //     }
+  //   } catch (error) {
+  //     // Handle error response
+  //     console.error("Error logging in:", error);
+
+  //     // Display error message based on response status
+  //     if (error.response && error.response.status === 401) {
+  //       toast.error("Incorrect email or password.");
+  //     } else {
+  //       toast.error("An error occurred during login.");
+  //     }
+  //   } finally {
+  //     setLoading(false); // Set loading state to false after the request completes
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover opacity">

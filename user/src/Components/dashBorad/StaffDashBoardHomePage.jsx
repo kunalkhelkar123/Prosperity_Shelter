@@ -75,16 +75,29 @@ function DashBoardHomePage() {
         );
         setLead(response.data);
 
+        // console.log("leads data ==>", response.data);
+
+
         const allProperties = await axiosinstance.get(
           "/api/property/property-count"
         );
         setAllProperty(allProperties.data);
+
+        // console.log(allProperties.data);
+
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
   }, []);
+
+
+  useEffect(() => {
+    if (lead) {
+      // console.log("Updated leads data length ==>", lead.length);
+    }
+  }, [lead]);
 
   return (
     <div className="bg-purple-100 min-h-screen w-full px-4 sm:px-6 md:px-8 lg:px-12 py-8">

@@ -19,7 +19,7 @@ function DashBoardHomePage() {
       const admin = JSON.parse(sessionStorage.getItem("admin"));
       setUser(admin)
 
-      console.log("admin ==> ", admin)
+      // console.log("admin ==> ", admin)
       if (!token || !admin || admin.role !== "admin") {
         navigate("/admin");
       }
@@ -30,17 +30,59 @@ function DashBoardHomePage() {
     }
   }, [navigate]);
 
+
+//   useEffect(() => {
+//     const token = sessionStorage.getItem("token");
+//     const encryptedAdmin = sessionStorage.getItem("admin");
+
+//     // If there's no token or encryptedAdmin data, or if the token is invalid, redirect to login
+//     if (!token || !encryptedAdmin) {
+//         navigate("/admin");
+//         return;
+//     }
+
+//     try {    
+//         // Decrypt the admin data if encrypted
+//         const bytes = CryptoJS.AES.decrypt(encryptedAdmin, "kunaljdsdbfhdsbf765havsd78@sdfty");
+//         const decryptedAdmin = bytes.toString(CryptoJS.enc.Utf8);
+
+//         // If decryption fails or the decrypted data is empty, redirect to login
+//         if (!decryptedAdmin) {
+//             navigate("/admin");
+//             return;
+//         }
+
+//         const admin = JSON.parse(decryptedAdmin);
+
+//         // Check if the admin role is valid
+//         if (admin && admin.role !== "admin") {
+//             navigate("/admin");
+//         }
+
+//         console.log("admin ==> ", admin);
+//     } catch (error) {
+//         // Handle any errors, such as invalid token format or decryption failure
+//         console.error("Error decoding token or admin data:", error);
+//         navigate("/admin");
+//     }
+// }, [navigate]);
+
+
   // Fetch data when token is verified
+  
+  
+  
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axiosinstance.get("/api/property/getleads-count");
         setLead(response.data);
-        console.log("leads data ==>", response.data);
+        // console.log("leads data ==>", response.data);
 
         const allProperties = await axiosinstance.get("/api/property/property-count");
         setAllProperty(allProperties.data);
-        console.log(allProperties.data);
+        // console.log(allProperties.data);
       } catch (error) {
         console.log("Error fetching data:", error);
       }
@@ -50,7 +92,7 @@ function DashBoardHomePage() {
 
   useEffect(() => {
     if (lead) {
-      console.log("Updated leads data length ==>", lead.length);
+      // console.log("Updated leads data length ==>", lead.length);
     }
   }, [lead]);
 

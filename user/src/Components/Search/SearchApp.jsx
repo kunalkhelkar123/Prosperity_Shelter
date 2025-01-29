@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useLayoutEffect,memo } from "react";
+import React, { useState, useEffect, useLayoutEffect, memo } from "react";
 
 import axios from "axios";
 import CardSearch from "./CardSearch";
@@ -13,7 +13,7 @@ const SearchApp = () => {
   const [currentOutput, setCurrentOutput] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(9);
-  const [showMassage, setShowMassage] = useState(false); 
+  const [showMassage, setShowMassage] = useState(false);
 
 
   useLayoutEffect(() => {
@@ -22,8 +22,8 @@ const SearchApp = () => {
 
   const location = useLocation();
   const { state } = location;
-  
- 
+
+  console.log("search data state ", state)
   useEffect(() => {
     const updateCurrentOutput = () => {
       const lastPostIndex = currentPage * postPerPage;
@@ -32,38 +32,38 @@ const SearchApp = () => {
     };
     setAllProperties(state.data);
     // console.log("data incoming",state.data);
-    console.log("data incoming length",state.data.length);
-    if (state.data.length == 0 || state.data == null || state.data == undefined ){
+    console.log("data incoming length", state.data.length);
+    if (state.data.length == 0 || state.data == null || state.data == undefined) {
       setShowMassage(true);
-    } 
+    }
 
     updateCurrentOutput();
-  }, [allProperties, currentPage, postPerPage , showMassage]);
+  }, [allProperties, currentPage, postPerPage, showMassage]);
 
   return (
     <>
-    {(showMassage) ? (<h1 className="text-4xl text-center font-bold uppercase h-[300px] justify-center flex flex-col">For This configuration property  is not found</h1>) : (<div className="bg-white flex flex-col justify-center items-center">
-      <div className="items-center justify-center mt-4">
-        <HeadingSearch />
-      </div>
-      <div className="flex flex-row justify-center  items-center gap-6 flex-wrap">
-        {currentOutput.map((card) => (
-          <div key={card.id}>
-            <CardSearch data={card} />
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center items-center mt-8 mb-8">
-        <PaginationButtonSearch
-          totalPosts={allProperties.length}
-          postsPerPage={postPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </div>
-    </div>  )}
+      {(showMassage) ? (<h1 className="text-4xl text-center font-bold uppercase h-[300px] justify-center flex flex-col">For This configuration property  is not found</h1>) : (<div className="bg-white flex flex-col justify-center items-center">
+        <div className="items-center justify-center mt-4">
+          <HeadingSearch />
+        </div>
+        <div className="flex flex-row justify-center  items-center gap-6 flex-wrap">
+          {currentOutput.map((card) => (
+            <div key={card.id}>
+              <CardSearch data={card} />
+            </div>
+          ))}
+        </div>
+        <div className="flex justify-center items-center mt-8 mb-8">
+          <PaginationButtonSearch
+            totalPosts={allProperties.length}
+            postsPerPage={postPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
+      </div>)}
     </>
   );
 };
 
-export default memo(SearchApp) ;
+export default memo(SearchApp);

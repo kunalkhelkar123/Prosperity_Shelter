@@ -7,9 +7,6 @@ const staff = require("./routes/staff");
 const visitesadmin = require("./routes/visitesadmin");
 const dailyscrum = require("./routes/dailyscrum")
 const client = require("./routes/client")
-
-
-
 const otpRoute = require("./routes/user");
 const propertyDetails = require("./routes/propertyDetails");
 const verifyToken = require("./middleware/verifyToken")

@@ -35,6 +35,11 @@ const SignUp = () => {
 
     try {
       const response = await axios.post('/api/auth/register', formData);
+
+      if (response.status == "201") {
+        return toast.error('user already present with same mail id');
+
+      }
       console.log('Data:', response.data);
 
       toast.success('Registration successful!');

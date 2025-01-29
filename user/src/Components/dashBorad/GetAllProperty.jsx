@@ -21,7 +21,7 @@ function GetAllProperty() {
       const token = sessionStorage.getItem("token");
       const admin = JSON.parse(sessionStorage.getItem("admin"));
 
-      console.log("admin ==> ", admin)
+      // console.log("admin ==> ", admin)
       if (!token || !admin || admin.role !== "admin") {
         navigate("/admin");
       }
@@ -39,13 +39,13 @@ function GetAllProperty() {
       try {
         let response;
         if (sortOption === "all") {
-          response = await axiosinstance.get("/api/property/properties");
-          console.log("response in iffff ", response.data);
+          response = await axiosinstance.get("api/property/properties");
+          // console.log("response in iffff ", response.data);
         } else {
           response = await axiosinstance.get(
-            `/api/property/properties?sort=${sortOption}`
+            `api/property/properties?sort=${sortOption}`
           );
-          console.log("response in else ", response.data);
+          // console.log("response in else ", response.data);
         }
         const sortedData = sortProperties(response.data); // Sort the fetched properties
         setProperties(sortedData);
@@ -120,7 +120,7 @@ function GetAllProperty() {
           >
             <div className="">
               <img
-                src={`/api/uploads/${properties.featureImage}`}
+                src={properties.featureImage}
                 alt={`Property ${index}`}
                 className="h-full w-48 rounded-lg"
               />

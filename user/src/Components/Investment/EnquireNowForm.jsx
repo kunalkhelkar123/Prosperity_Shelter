@@ -55,7 +55,7 @@ const EnquireNowForm = () => {
 
       if (response.ok) {
         alert("Form submitted successfully!");
-        console.log("Server Response:", result);
+        // console.log("Server Response:", result);
 
         setFormData({
           name: "",

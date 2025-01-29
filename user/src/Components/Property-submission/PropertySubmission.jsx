@@ -17,7 +17,7 @@ function PropertySubmission() {
       const token = sessionStorage.getItem("token");
       const admin = JSON.parse(sessionStorage.getItem("admin"));
 
-      console.log("admin ==> ", admin)
+      // console.log("admin ==> ", admin)
       if (!token || !admin || admin.role !== "admin") {
         navigate("/admin");
       }
@@ -51,10 +51,14 @@ function PropertySubmission() {
     featureImage: null,
     backgroundImage: null,
     offersImage: null,
+    brochurepdf: null,
     location: "",
     area: "",
     pinCode: "",
     amenities: []
+    , builderName: "",
+    builderDescription: "",
+    MahaRera: "",
   });
 
   const [image, setImage] = useState(null);
@@ -71,7 +75,7 @@ function PropertySubmission() {
   //   setImage(e.target.files[0]);
   // };
 
-    const handleChangeImage = (e) => {
+  const handleChangeImage = (e) => {
     const { name, files } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -96,54 +100,6 @@ function PropertySubmission() {
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const data = new FormData();
-  //   for (const key in formData) {
-  //     if (key !== "featureImage") {
-  //       data.append(key, formData[key]);
-  //     }
-  //   }
-  //   if (image) {
-  //     data.append("featureImage", image);
-  //   }
-
-  //   try {
-  //     const response = await axiosinstance.post("/api/property/propertyDetails", data);
-  //     toast.success("Property submitted successfully");
-  //     console.log("Property Details created:", response.data);
-  //     setFormData({
-  //       propertyTitle: "",
-  //       propertyType: [],
-  //       propertyDescription: "",
-  //       propertyID: "",
-  //       parentProperty: "",
-  //       status: "",
-  //       label: [],
-  //       material: [],
-  //       rooms: 0,
-  //       beds: 0,
-  //       baths: 0,
-  //       bhk: "",
-  //       yearBuilt: 0,
-  //       homeArea: "",
-  //       lotDimentions: "",
-  //       lotArea: "",
-  //       price: "",
-  //       area: "",
-  //       pincode: "",
-  //       location: "",
-  //       featureImage: null,
-  //       amenities: [],
-  //     });
-  //     setImage(null); // Reset image state
-  //     navigate("/admin/myProperties");
-  //   } catch (error) {
-  //     console.error("Error creating Property Details:", error);
-  //     toast.error("Failed to submit property");
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -156,18 +112,76 @@ function PropertySubmission() {
 
     try {
 
-      console.log("data ==>", data)
-      console.log("data ==>", formData.featureImage,formData.backgroundImage,formData.offersImage)
+      // console.log("data ==>", formData)
+      // console.log("data ==>", formData.featureImage, formData.backgroundImage, formData.offersImage)
 
       const response = await axiosinstance.post("/api/property/propertyDetails", data);
-      toast.success("Property submitted successfully");
-      console.log("Property Details created:", response.data);
+      toast.success("Property submitted successfully out");
+
+      if (response.status == "201") {
+
+        toast.success("Property submitted successfully");
+        setFormData({
+          propertyTitle: "",
+          propertyType: [],
+          propertyDescription: "",
+          propertyID: "",
+          parentProperty: "",
+          status: [],
+          label: [],
+          material: "",
+          rooms: "",
+          bedsroom: "",
+          kitchen: "",
+          bhk: "",
+          yearBuilt: "",
+          totalhomeArea: "",
+          builtDimentions: "",
+          openArea: "",
+          price: "",
+          featureImage: null,
+          backgroundImage: null,
+          offersImage: null,
+          brochurepdf: null,
+          location: "",
+          area: "",
+          pinCode: "",
+          amenities: []
+          , builderName: "",
+          builderDescription: "",
+          MahaRera: "",
+        })
+      }
+      // console.log("Property Details created:", response.data);
       // setFormData(""); // Reset form state as needed
       // navigate("/admin/myProperties")
     } catch (error) {
       console.error("Error creating Property Details:", error);
     }
   };
+
+  const handleChangePdf = (event) => {
+    const file = event.target.files[0];
+  
+    // Check if a file is selected
+    if (file) {
+      const maxSizeInMB = 5; // Maximum file size in MB
+      const maxSizeInBytes = maxSizeInMB * 1024 * 1024; // Convert to bytes
+  
+      if (file.size > maxSizeInBytes) {
+        alert(`The file size exceeds ${maxSizeInMB} MB. Please upload a smaller file.`);
+        event.target.value = ""; // Clear the input
+        return;
+      }
+  
+      // Proceed with the file upload
+      // console.log("File is valid:", file);
+      // Add your logic here to handle the file (e.g., upload to the server or set state)
+    } else {
+      console.log("No file selected");
+    }
+  };
+  
 
   const amenities = [
     { name: "Air Conditioning" },
@@ -187,46 +201,79 @@ function PropertySubmission() {
   ];
 
   const puneAreas = [
-    "Shivaji Nagar",
-    "Kothrud",
-    "Baner",
+    "Select Location",
+    "Ambegaon Budruk",
+    "Ambegaon Khurd",
     "Aundh",
-    "Viman Nagar",
-    "Koregaon Park",
-    "Hadapsar",
-    "Pimpri",
-    "Chinchwad",
-    "Wakad",
-    "Kalyani Nagar",
-    "Hinjewadi",
-    "Bavdhan",
-    "Pashan",
-    "Kharadi",
-    "Magarpatta",
+    "Baner",
+    "Balewadi",
+    "Bibwewadi",
+    "Bhosari",
     "Camp",
-    "Deccan",
-    "Pune University",
-    "Yerwada",
-    "Swargate",
-    "Karve Nagar",
+    "Chinchwad",
+    "Deccan Gymkhana",
+    "Dhankawadi",
     "Dhanori",
-    "Wanowrie",
-    "Nigdi",
-    "Tathawade",
-    "Warje",
+    "Erandwane",
+    "Fergusson College Road",
+    "Hadapsar",
+    "Hinjewadi",
+    "Kamshet",
+    "Katraj",
+    "Kondhwa",
+    "Kothrud",
+    "Koregaon Park",
+    "Kharadi",
+    "Lake Town Housing Society",
     "Lohegaon",
-    "Sahakar Nagar",
-    "Balewadi"
+    "Magarpatta",
+    "Marketyard",
+    "Manjri",
+    "Mundhwa",
+    "Narhe",
+    "Parvati",
+    "Pashan",
+    "Pimpri",
+    "Pimple Saudagar",
+    "Rajmachi Fort",
+    "Shivaji Nagar",
+    "Shriram Nagar",
+    "Shubhada Society",
+    "Sinhagad Road",
+    "Swargate",
+    "Undri",
+    "Vadgaon Sheri",
+    "Varkhade Nagar",
+    "Viman Nagar",
+    "Wakad",
+    "Wanowrie",
+    "Warje",
+    "Yerwada",
+    "Yewlewadi",
+    "Lonavala",
+    "Karjat",
+    "Khandala",
+    "Pawna Lake",
+    "Tungarli Lake",
+    "Mulshi",
+    "Bhivpuri",
+    "Wai",
+    "Khopoli",
+    "Yewlewadi Nearby Areas"
   ];
+
+
+
 
   return (
 
-    <><NavBar />
+    <>
+    <NavBar />
       <div className="flex justify-center items-center bg-slate-50">
         <ToastContainer />
         <div className=" ">
-          <div className="flex justify-between items-center">
-            <h1 className="text-4xl pl-10 font-black text-gray-900 dark:text-black mb-8 mt-4">
+          <div className="flex justify-between items-center mt-20">
+            <h1 className="text-4xl pl-10 font-black text-gray-900 dark:text-black  mt-4">
               Add New Property
             </h1>
             <div className="">
@@ -235,7 +282,7 @@ function PropertySubmission() {
                 onClick={() => navigate("/admin/myProperties")}
               >
                 {" "}
-                All Properties
+                Show All Properties
               </button>
             </div>
           </div>
@@ -269,25 +316,66 @@ function PropertySubmission() {
                   >
                     <option value="">Select Property Type</option>
                     <option value="Apartment">Apartment</option>
-                    <option value="Resedentil">Resedentil</option>
+                    <option value="Residential">Residential</option>
                     <option value="Commercial">Commercial</option>
                     <option value="Investment">Investment</option>
                     <option value="Town House">Town House</option>
+                    <option value="Pent House">Pent House</option>
+                    <option value="Ploting">Ploting</option>
+                    <option value="Open Space">Open Space</option>
+                    <option value="Shop">Shop</option>
+                    <option value="Office">Office</option>
                   </select>
                   <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                     Property Description
                   </label>
-                  <input required
-                    className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                  <textarea
+                    required
+                    className="placeholder:italic h-36 bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
                     placeholder="Enter the Property Description"
-                    type="textarea"
                     name="propertyDescription"
                     value={formData.propertyDescription}
                     onChange={handleChange}
                   />
+
+                  <label className="mb-22 pb-7 text-lg  block font-medium  text-gray-900 dark:text-black">
+                    Builder Name *
+                  </label>
+                  <input required
+                    className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                    placeholder="Enter the Buildername"
+                    type="text"
+                    name="builderName"
+                    value={formData.builderName}
+                    onChange={handleChange}
+                  />
+
+                  <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                    Builder Description
+                  </label>
+                  <textarea
+                    required
+                    className="placeholder:italic h-36 bg-white w-full border border-slate-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                    placeholder="Enter the Builder Description"
+                    name="builderDescription"
+                    value={formData.builderDescription}
+                    onChange={handleChange}
+                  />
+
+                  <label className="mb-22 pb-7 text-lg  block font-medium  text-gray-900 dark:text-black">
+                    MahaRera Number
+                  </label>
+                  <input required
+                    className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                    placeholder="Enter the Buildername"
+                    type="text"
+                    name="MahaRera"
+                    value={formData.MahaRera}
+                    onChange={handleChange}
+                  />
+
                 </div>
               </div>
-
               <div className=" bg-white mt-8 p-2">
                 <h1 className="text-xl font-bold text-gray-900 mb-8">
                   Additional
@@ -297,7 +385,7 @@ function PropertySubmission() {
                     <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                       Property ID
                     </label>
-                    <input required
+                    <input
                       className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder="Enter the Property ID"
                       type="text"
@@ -310,7 +398,7 @@ function PropertySubmission() {
                     <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                       Parent Property{" "}
                     </label>
-                    <select required
+                    {/* <select required
                       id="status"
                       className="bg-gray-50   border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       value={formData.parentProperty}
@@ -320,13 +408,22 @@ function PropertySubmission() {
                       <option value="">Select Parent Property</option>
                       <option value="Diamond Manor Apartment">Golden Lakh Katraj</option>
                       <option value="Quality House For Sale">Raman Mayara Pune</option>
-                    </select>
+                    </select> */}
+                    <input required
+                      className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                      placeholder="Enter the Parent Property"
+                      type="text"
+                      name="parentProperty"
+                      value={formData.parentProperty}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div>
                     <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                       Status{" "}
                     </label>
                     <select
+                      required
                       id="status"
                       className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       value={formData.status}
@@ -334,8 +431,8 @@ function PropertySubmission() {
                       name="status"
                     >
                       <option value="">Select Status</option>
-                      <option value="For Rent">For Rent</option>
                       <option value="For Sale">For Sale</option>
+                      <option value="For Rent">For Rent</option>
                     </select>
                   </div>
                   <div>
@@ -343,6 +440,7 @@ function PropertySubmission() {
                       Label
                     </label>
                     <select
+                      required
                       id="label"
                       className="bg-gray-50 border h-[50px] border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       value={formData.label}
@@ -350,8 +448,8 @@ function PropertySubmission() {
                       name="label"
                     >
                       <option value="">Select Label</option>
-                      <option value="Rented">Rented</option>
-                      <option value="Sold">Sold</option>
+                      <option value="Hot">Hot and Upcomming </option>
+                      <option value="Normal">Normal</option>
                     </select>
                   </div>
                   <div>
@@ -374,9 +472,10 @@ function PropertySubmission() {
                   </div>
                   <div>
                     <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                      Rooms
+                      Total Rooms
                     </label>
                     <input
+                      required
                       className="placeholder:italic  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder=""
                       type="number"
@@ -387,9 +486,10 @@ function PropertySubmission() {
                   </div>
                   <div>
                     <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                      BedRooms
+                      Total BedRooms
                     </label>
                     <input
+                      required
                       className="placeholder:italic h-[50px]  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder=""
                       type="number"
@@ -400,9 +500,10 @@ function PropertySubmission() {
                   </div>
                   <div>
                     <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                      Kitchnes
+                      Number of Balcony
                     </label>
                     <input
+                      required
                       className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder=""
                       type="number"
@@ -420,7 +521,7 @@ function PropertySubmission() {
                       onChange={handleChange}
                       name="bhk"
                     >
-                      <option value="" selected>Select the Bhk</option>
+                      <option value="" selected>Select the Configuration </option>
                       <option value="Rk">RK</option>
                       <option value="1 BHK">1BHK</option>
                       <option value="2 BHK">2BHK</option>
@@ -429,15 +530,16 @@ function PropertySubmission() {
                       <option value="5 Bhk">5Bhk</option>
                       <option value="penthouse">PentHouse</option>
                       <option value="Garage">Garage</option>
+                      <option value="others">Open Space</option>
                       <option value="others">Others</option>
-
                     </select>
                   </div>
                   <div>
                     <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                      Year built
+                      Year built or Possession Year
                     </label>
                     <input
+                      required
                       className="placeholder:italic h-[50px]  bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder="Enter the Year built"
                       type="number"
@@ -451,6 +553,7 @@ function PropertySubmission() {
                       Total Home Area(sqrt)
                     </label>
                     <input
+                      required
                       className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder="Enter the Total Home Area"
                       type="text"
@@ -464,6 +567,7 @@ function PropertySubmission() {
                       Built dimensions
                     </label>
                     <input
+                      required
                       className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                       placeholder="Enter the built area"
                       type="text"
@@ -472,7 +576,7 @@ function PropertySubmission() {
                       onChange={handleChange}
                     />
                     <p className="text-xs text-gray-400 p-2">
-                      e.g. 20×30, 20x30x40, 20x30x40x50.
+                      e.g. 20x30, 20x30x40, 20x30x40x50.
                     </p>
                   </div>
                   <div>
@@ -493,13 +597,13 @@ function PropertySubmission() {
 
               <div className="w-full ">
                 <div className="bg-white mt-8 p-2">
-                  <h1 className="text-xl font-bold text-gray-900 mb-8">Price</h1>
+                  <h1 className="text-xl font-bold text-gray-900 mb-4">Price</h1>
                   <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                        Price(Rs)
+                      <label className="block   text-lg font-medium text-gray-900 dark:text-black">
+                        Price ( Rs in Lakhs )
                       </label>
-                      <select required
+                      {/* <select required
                         id="price"
                         className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         value={formData.price}
@@ -511,16 +615,26 @@ function PropertySubmission() {
                         <option value="1Cr-2Cr">1 Crore-2 Crore</option>
                         <option value="2Cr-3Crk">2 Crore-3 Crore</option>
                         <option value="4Cr-Above">4 Crore-Above</option>
-                      </select>
+                      </select> */}
+
+                      <input
+                        required
+                        className="placeholder:italic   bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
+                        placeholder="Enter the price in lakhs"
+                        type="text"
+                        name="price"
+                        value={formData.price}
+                        onChange={handleChange}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div className="bg-white mt-8 p-2">
                 <h1 className="text-xl font-bold text-gray-900 mb-8">Location</h1>
-                <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                {/* <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
                   Location
-                </label>
+                </label> */}
                 {/* <input
                 className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                 placeholder=""
@@ -529,7 +643,7 @@ function PropertySubmission() {
                 value={formData.location}
                 onChange={handleChange}
               /> */}
-                <select className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <select required className="bg-gray-50  border border-gray-300text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value={formData.location} onChange={handleChange} name="location">
                   {
                     puneAreas.map((area, index) => {
@@ -543,6 +657,7 @@ function PropertySubmission() {
                   Area
                 </label>
                 <input
+                  required
                   className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                   placeholder="Enter the Area"
                   type="text"
@@ -551,9 +666,10 @@ function PropertySubmission() {
                   onChange={handleChange}
                 />
                 <label className="block  mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-                  pin-code
+                  Area Pin-code
                 </label>
                 <input
+                  required
                   className="h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3  focus:outline-none focus:border-sky-500 focus:ring-sky-500  sm:text-sm"
                   placeholder="Enter the Pin code"
                   type="text"
@@ -566,49 +682,67 @@ function PropertySubmission() {
 
                 {/* <GoogleMapComonent /> */}
               </div>
-             
 
-             {/* //////////////// */}
 
-<div>
-             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-              Property Image
-            </label>
-            <input
-              className="b h-[50px]"
-              id="small_size"
-              type="file"
-              name="featureImage"
-              onChange={handleChangeImage}
-            />
-          </div>
-          <div>
-            <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-              Property Background Image
-            </label>
-            <input
-              className="b h-[50px]"
-              id="small_size"
-              type="file"
-              name="backgroundImage"
-              onChange={handleChangeImage}
-            />
-          </div>
-          <div>
-            <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-              Offers Image
-            </label>
-            <input
-              className="b h-[50px]"
-              id="small_size"
-              type="file"
-              name="offersImage"
-              onChange={handleChangeImage}
-            />
-          </div>
+              {/* //////////////// */}
 
-             {/* ////////////// */}
-              <div className=" bg-white mt-8 p-2 mx-3">
+              <div>
+                <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                  Property Image
+                </label>
+                <input
+                  required
+                  className="b h-[50px]"
+                  id="small_size"
+                  type="file"
+                  name="featureImage"
+                  onChange={handleChangeImage}
+                />
+              </div>
+              <div>
+                <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                  Property Background Image
+                </label>
+                <input
+                  required
+                  className="b h-[50px]"
+                  id="small_size"
+                  type="file"
+                  name="backgroundImage"
+                  onChange={handleChangeImage}
+                />
+              </div>
+              <div>
+                <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                  Offers Banner
+                </label>
+                <input
+                  className="b h-[50px]"
+                  id="small_size"
+                  type="file"
+                  name="offersImage"
+                  onChange={handleChangeImage}
+                />
+              </div>
+
+              <div>
+                <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
+                  Brochure PDF (only pdf, size less than 5 MB)
+                </label>
+                <input
+                  required
+                  className="b h-[50px]"
+                  id="small_size"
+                  type="file"
+                  name="brochurepdf"
+                  accept=".pdf" // Restrict to PDF files
+                  onChange={handleChangePdf}
+                />
+              </div>
+
+
+              {/* ////////////// */}
+              {/* <div className=" bg-white mt-8 p-2 mx-3">
                 <h1 className="text-xl font-bold text-gray-900 mb-8">
                   Aminities
                 </h1>
@@ -626,7 +760,7 @@ function PropertySubmission() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div> */}
               <hr />
               <div className=" mt-8 p-2 ">
                 <button className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500  hover:bg-white  hover:text-red-500  hover: border border-red-500">
@@ -649,423 +783,9 @@ function PropertySubmission() {
             </form>
           </div>
         </div>
-      </div></>
+      </div>
+</>
   );
 }
 
 export default PropertySubmission;
-
-
-
-
-
-
-
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-
-// const PropertySubmission = () => {
-//   const [formData, setFormData] = useState({
-//     parentProperty: '',
-//     status: '',
-//     label: '',
-//     material: '',
-//     rooms: '',
-//     bedsroom: '',
-//     kitchen: '',
-//     bhk: '',
-//     yearBuilt: '',
-//     totalhomeArea: '',
-//     builtDimentions: '',
-//     openArea: '',
-//     price: '',
-//     location: '',
-//     area: '',
-//     pinCode: '',
-//     featureImage: null,
-//     backgroundImage: null,
-//     offersImage: null,
-//     amenities: []
-//   });
-
-//   const navigate = useNavigate();
-
-//   // Your amenities array and handle functions
-//   const amenities = ['Swimming Pool', 'Gym', 'Security', 'Parking', 'Elevator'];
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleChangeImage = (e) => {
-//     const { name, files } = e.target;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: files[0],
-//     }));
-//   };
-
-//   const handleAmenityChange = (e) => {
-//     const { value, checked } = e.target;
-//     setFormData((prevData) => {
-//       const amenities = checked
-//         ? [...prevData.amenities, value]
-//         : prevData.amenities.filter((amenity) => amenity !== value);
-
-//       return { ...prevData, amenities };
-//     });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     const formDataToSend = new FormData();
-
-//     // Append form data excluding amenities to the FormData
-//     for (const key in formData) {
-//       if (key !== 'amenities') {
-//         formDataToSend.append(key, formData[key]);
-//       }
-//     }
-
-//     // Append amenities as an array
-//     formData.amenities.forEach((amenity) => {
-//       formDataToSend.append('amenities[]', amenity);
-//     });
-
-//     // Make API request to submit the form data
-//     try {
-//       const response = await fetch('/api/property/propertyDetails', {
-//         method: 'POST',
-//         body: formDataToSend,
-//       });
-
-//       if (response.ok) {
-//         alert('Property submitted successfully!');
-//       } else {
-//         alert('Error submitting property');
-//       }
-//     } catch (error) {
-//       alert('Error submitting property');
-//       console.error(error);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <div>
-//         <form onSubmit={handleSubmit}>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Parent Property
-//             </label>
-//             <select
-//               required
-//               id="status"
-//               className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-//               value={formData.parentProperty}
-//               onChange={handleChange}
-//               name="parentProperty"
-//             >
-//               <option value="">Select Parent Property</option>
-//               <option value="Diamond Manor Apartment">Golden Lakh Katraj</option>
-//               <option value="Quality House For Sale">Raman Mayara Pune</option>
-//             </select>
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Status
-//             </label>
-//             <select
-//               id="status"
-//               className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-//               value={formData.status}
-//               onChange={handleChange}
-//               name="status"
-//             >
-//               <option value="">Select Status</option>
-//               <option value="For Rent">For Rent</option>
-//               <option value="For Sale">For Sale</option>
-//             </select>
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Label
-//             </label>
-//             <select
-//               id="label"
-//               className="bg-gray-50 border h-[50px] border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-//               value={formData.label}
-//               onChange={handleChange}
-//               name="label"
-//             >
-//               <option value="">Select Label</option>
-//               <option value="Rented">Rented</option>
-//               <option value="Sold">Sold</option>
-//             </select>
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Material
-//             </label>
-//             <select
-//               required
-//               id="material"
-//               className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-//               value={formData.material}
-//               onChange={handleChange}
-//               name="material"
-//             >
-//               <option value="">Select Material</option>
-//               <option value="Block">Block</option>
-//               <option value="Brick">Brick</option>
-//               <option value="Concrete">Concrete</option>
-//             </select>
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Rooms
-//             </label>
-//             <input
-//               className="placeholder:italic bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder=""
-//               type="number"
-//               name="rooms"
-//               value={formData.rooms}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               BedRooms
-//             </label>
-//             <input
-//               className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder=""
-//               type="number"
-//               name="bedsroom"
-//               value={formData.bedsroom}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Kitchnes
-//             </label>
-//             <input
-//               className="placeholder:italic bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder=""
-//               type="number"
-//               name="kitchen"
-//               value={formData.kitchen}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black" >
-//               Select the BHK
-//             </label>
-//             <select
-//               required
-//               id="bhk"
-//               className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-//               value={formData.bhk}
-//               onChange={handleChange}
-//               name="bhk"
-//             >
-//               <option value="" selected>Select the Bhk</option>
-//               <option value="Rk">RK</option>
-//               <option value="1 BHK">1BHK</option>
-//               <option value="2 BHK">2BHK</option>
-//               <option value="3 Bhk">3Bhk</option>
-//               <option value="4 Bhk">4Bhk</option>
-//               <option value="5 Bhk">5Bhk</option>
-//               <option value="penthouse">PentHouse</option>
-//               <option value="Garage">Garage</option>
-//               <option value="others">Others</option>
-//             </select>
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Year built
-//             </label>
-//             <input
-//               className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder="Enter year built"
-//               type="number"
-//               name="yearBuilt"
-//               value={formData.yearBuilt}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Total Home Area
-//             </label>
-//             <input
-//               className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder=""
-//               type="number"
-//               name="totalhomeArea"
-//               value={formData.totalhomeArea}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Built Dimensions
-//             </label>
-//             <input
-//               className="placeholder:italic bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder=""
-//               type="text"
-//               name="builtDimentions"
-//               value={formData.builtDimentions}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Open Area
-//             </label>
-//             <input
-//               className="placeholder:italic bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder=""
-//               type="number"
-//               name="openArea"
-//               value={formData.openArea}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Price
-//             </label>
-//             <input
-//               className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder="Enter price"
-//               type="number"
-//               name="price"
-//               value={formData.price}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Location
-//             </label>
-//             <input
-//               className="placeholder:italic bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder=""
-//               type="text"
-//               name="location"
-//               value={formData.location}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Area
-//             </label>
-//             <input
-//               className="placeholder:italic h-[50px] bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder="Enter the area"
-//               type="number"
-//               name="area"
-//               value={formData.area}
-//               onChange={handleChange}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Pin Code
-//             </label>
-//             <input
-//               className="placeholder:italic bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
-//               placeholder=""
-//               type="number"
-//               name="pinCode"
-//               value={formData.pinCode}
-//               onChange={handleChange}
-//             />
-//           </div>
-
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Property Image
-//             </label>
-//             <input
-//               className="b h-[50px]"
-//               id="small_size"
-//               type="file"
-//               name="featureImage"
-//               onChange={handleChangeImage}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Property Background Image
-//             </label>
-//             <input
-//               className="b h-[50px]"
-//               id="small_size"
-//               type="file"
-//               name="backgroundImage"
-//               onChange={handleChangeImage}
-//             />
-//           </div>
-//           <div>
-//             <label className="block mt-5 mb-5 text-lg font-medium text-gray-900 dark:text-black">
-//               Offers Image
-//             </label>
-//             <input
-//               className="b h-[50px]"
-//               id="small_size"
-//               type="file"
-//               name="offersImage"
-//               onChange={handleChangeImage}
-//             />
-//           </div>
-
-//           <div className="bg-white mt-8 p-2 mx-3">
-//             <h2 className="text-xl font-bold text-gray-900 mb-8">Select Amenities:</h2>
-//             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-//               {amenities.map((amenity, index) => (
-//                 <div key={index}>
-//                   <input
-//                     type="checkbox"
-//                     id={amenity}
-//                     value={amenity}
-//                     onChange={handleAmenityChange}
-//                   />
-//                   <label htmlFor={amenity} className="ml-2">{amenity}</label>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-
-//           <div className="mt-8 p-2 ">
-//             <button
-//               className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500 hover:bg-white hover:text-red-500 hover:border border-red-500"
-//               type="submit"
-//             >
-//               Submit
-//             </button>
-//             <button
-//               className="bg-red-500 text-white p-3 font-semibold rounded-lg border-red-500 hover:bg-white hover:text-red-500 hover:border border-red-500"
-//               onClick={() => navigate("/admin/dashboard")}
-//             >
-//               Cancel
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default PropertySubmission;

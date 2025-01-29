@@ -1,116 +1,198 @@
 const express = require('express');
-// const mysql = require("mysql2/promise");
 const router = express.Router();
-const PropertyDetails = require('../models/PropertyDetails');
-// const { verifyTokenAndAdmin } = require('./verifyToken');
-const CryptoJs = require('crypto-js');
-const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
-const axios = require("axios");
-const db = require('../db')
+const dotenv = require("dotenv");
+const { S3Client, PutObjectCommand, GetObjectCommand, GetObjectCommandInput, DeleteObjectCommand } = require('@aws-sdk/client-s3'); // AWS SDK v3
+const db = require('../db');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 
-
-// Multer configuration
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/'); // Save uploaded files to the uploads folder
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to the filename to make it unique
+dotenv.config();
+// AWS S3 Configuration
+const s3 = new S3Client({
+  region: process.env.AWS_REGION, // Add your AWS region
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID, // Add your AWS Access Key
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, // Add your AWS Secret Key
   },
 });
 
-const upload = multer({ storage: storage });
+const bucketName = process.env.AWS_BUCKET_NAME;
+
+// Multer configuration for handling file uploads with file validation
+const storage = multer.memoryStorage();
+const fileFilter = (req, file, cb) => {
+  // Allow only certain file types
+  if (file.mimetype === 'application/pdf' || file.mimetype.startsWith('image/')) {
+    cb(null, true);
+  } else {
+    cb(new Error('Invalid file type. Only PDF and image files are allowed.'), false);
+  }
+};
 
 
+const upload = multer({ storage, fileFilter });
 
-
-router.post('/propertyDetails', upload.fields([
-  { name: 'featureImage', maxCount: 1 },
-  { name: 'backgroundImage', maxCount: 1 },
-  { name: 'offersImage', maxCount: 1 }
-]), async (req, res) => {
+// Upload file to S3
+const uploadToS3 = async (file, bucketName) => {
+  const params = {
+    Bucket: bucketName, // Your S3 bucket name
+    Key: `${Date.now()}-${file.originalname}`, // Unique file name in the bucket
+    Body: file.buffer, // File buffer (in memory)
+    ContentType: file.mimetype, // File MIME type
+  };
   try {
-    // Extract form data
-    const {
-      propertyID,
-      propertyTitle,
-      propertyType,
-      propertyDescription,
-      parentProperty,
-      builderName,
-      status,
-      label,
-      material,
-      rooms,
-      bedsroom,
-      kitchen,
-      bhk,
-      yearBuilt,
-      totalhomeArea,
-      builtDimentions,
-      openArea,
-      price,
-      location,
-      area,
-      pinCode,
-      amenities,
-    } = req.body;
-
-    // Extract file paths or names for images
-    const featureImage = req.files['featureImage'] ? req.files['featureImage'][0].filename : null;
-    const backgroundImage = req.files['backgroundImage'] ? req.files['backgroundImage'][0].filename : null;
-    const offersImage = req.files['offersImage'] ? req.files['offersImage'][0].filename : null;
-
-    // Save property details to MySQL
-    const query = `
-      INSERT INTO property_details (
-        propertyID, propertyTitle, propertyType, propertyDescription, parentProperty, 
-        builderName, status, label, material, rooms, bedsroom, kitchen, bhk, 
-        yearBuilt, totalhomeArea, builtDimentions, openArea, price, location, 
-        area, pinCode, amenities, featureImage, backgroundImage, offersImage
-      ) 
-      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
-    `;
-
-    const values = [
-      propertyID, propertyTitle, propertyType, propertyDescription, parentProperty,
-      builderName, status, label, material, rooms, bedsroom, kitchen, bhk,
-      yearBuilt, totalhomeArea, builtDimentions, openArea, price, location,
-      area, pinCode, amenities, featureImage, backgroundImage, offersImage
-    ];
-
-    // Insert into database
-    try {
-
-      console.log("values ==> ", featureImage, backgroundImage, offersImage)
-      await db.query(query, values);
-      res.status(201).json({ message: "Property details saved successfully." });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send({ error: "Failed to save property details." });
-    }
+    const command = new PutObjectCommand(params); // Create the PutObjectCommand
+    await s3.send(command); // Send the command to S3
+    return `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`; // Return the file's public URL
   } catch (error) {
-    console.log("Error:", error);
+    console.error('Error uploading to S3:', error);
+    throw new Error('Failed to upload file to S3');
+  }
+};
+
+
+// Function to generate a signed URL
+const generateSignedUrl = async (bucketName, key) => {
+  const command = new GetObjectCommand({
+    Bucket: bucketName,
+    Key: key,
+  });
+
+  try {
+    // Generate a signed URL with expiration (e.g., 1 hour)
+    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 5* 60 });
+    console.log("Generated signed URL:", signedUrl);
+    // return signedUrl;
+  } catch (error) {
+    console.error("Error generating signed URL:", error);
+    throw new Error("Failed to generate signed URL");
+  }
+};
+
+
+router.post(
+  '/propertyDetails',
+  upload.fields([
+    { name: 'featureImage', maxCount: 1 },
+    { name: 'backgroundImage', maxCount: 1 },
+    { name: 'offersImage', maxCount: 1 },
+    { name: 'brochurepdf', maxCount: 1 },
+  ]),
+  async (req, res) => {
+    try {
+      // Upload files to S3 and get their URLs
+      const featureImage =
+        req.files['featureImage'] &&
+        (await uploadToS3(req.files['featureImage'][0], bucketName));
+      const backgroundImage =
+        req.files['backgroundImage'] &&
+        (await uploadToS3(req.files['backgroundImage'][0], bucketName));
+      const offersImage =
+        req.files['offersImage'] &&
+        (await uploadToS3(req.files['offersImage'][0], bucketName));
+      const brochurepdf =
+        req.files['brochurepdf'] &&
+        (await uploadToS3(req.files['brochurepdf'][0], bucketName));
+
+      // Extract form data from the request body
+      const {
+        propertyID,
+        propertyTitle,
+        propertyType,
+        propertyDescription,
+        parentProperty,
+        builderName,
+        status,
+        label,
+        material,
+        rooms,
+        bedsroom,
+        kitchen,
+        bhk,
+        yearBuilt,
+        totalhomeArea,
+        builtDimentions,
+        openArea,
+        price,
+        location,
+        area,
+        pinCode,
+        amenities,
+        builderDescription,
+        MahaRera,
+      } = req.body;
+
+      // Insert property details into MySQL database
+      const query = `
+        INSERT INTO property_details (
+          propertyID, propertyTitle, propertyType, propertyDescription, parentProperty, 
+          builderName, status, label, material, rooms, bedsroom, kitchen, bhk, 
+          yearBuilt, totalhomeArea, builtDimentions, openArea, price, location, 
+          area, pinCode, amenities, featureImage, backgroundImage, offersImage, brochurepdf,
+          builderDescription, MahaRera
+        ) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+      `;
+      const values = [
+        propertyID,
+        propertyTitle,
+        propertyType,
+        propertyDescription,
+        parentProperty,
+        builderName,
+        status,
+        label,
+        material,
+        rooms,
+        bedsroom,
+        kitchen,
+        bhk,
+        yearBuilt,
+        totalhomeArea,
+        builtDimentions,
+        openArea,
+        price,
+        location,
+        area,
+        pinCode,
+        amenities,
+        featureImage,
+        backgroundImage,
+        offersImage,
+        brochurepdf,
+        builderDescription,
+        MahaRera,
+      ];
+
+      console.log('adding details in db');
+      await db.query(query, values);
+      res.status(201).json({ message: 'Property details saved successfully.' });
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: error.message });
+    }
+  }
+);
+
+// Add API route for fetching signed URL
+router.get('/getImageUrl', async (req, res) => {
+  try {
+    const { key } = req.query; // S3 object key is passed in the query parameters
+    const bucketName = 'prosperityshelters'; // Your S3 bucket name
+    // console.log("key inget  ", key)
+    const signedUrl = await generateSignedUrl(bucketName, key);
+    console.log("signedUrl  ", signedUrl)
+    
+    res.json({ signedUrl });
+
+  } catch (error) {
+    console.error('Error:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
 
-// // get count of properties using mongoes
-// router.get('/property-count', async (req, res) => {
-//   try {
-//     const totalProperties = await PropertyDetails.countDocuments();
-//     res.status(200).json({totalProperties});
-//   } catch (error) {
-//     res.status(500).json({error: 'Fail to calculate Total user'});
-//   }
-// });
-
-
-// Get count of properties using mysql
 router.get('/property-count', async (req, res) => {
   const query = 'SELECT COUNT(*) AS totalProperties FROM property_details'; // SQL query to count properties
 
@@ -125,23 +207,7 @@ router.get('/property-count', async (req, res) => {
   }
 });
 
-//// get all property details in mongodb 
 
-// router.get('/properties', async (req, res) => {
-//   try {
-//     const property = await PropertyDetails.find();
-//     res.status(200).json(property);
-//     console.log('ok');
-//   } catch (error) {
-//     console.log('error');
-
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-
-
-// get all property details in mysql 
 router.get('/properties', async (req, res) => {
   const query = 'SELECT * FROM property_details'; // SQL query to fetch all properties
   try {
@@ -155,21 +221,18 @@ router.get('/properties', async (req, res) => {
 });
 
 
+router.get('/hotproperties', async (req, res) => {
+  const query = 'SELECT * FROM property_details WHERE label =?'; // SQL query to fetch all properties
+  try {
+    const [properties] = await db.query(query, ["Hot"]); // Execute the query
+    res.status(200).json(properties); // Send the fetched data as a JSON response
+    console.log('Fetched properties successfully');
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    res.status(500).json({ message: error.message });
+  }
+});
 
-
-//// get single property details using mongoes
-// router.get('/properties/:id', async (req, res) => {
-//   try {
-//     const property = await PropertyDetails.findById(req.params.id);
-//     res.status(200).json(property);
-//   } catch (error) {
-//     res.status(500).json(error);
-//     console.log(error);
-//   }
-// });
-
-
-// // //// get single property details using mysql
 router.get('/properties/:id', async (req, res) => {
   const propertyId = req.params.id; // Get property ID from the URL parameter
   const query = 'SELECT * FROM property_details WHERE _id = ?'; // SQL query to fetch the property by ID
@@ -188,102 +251,21 @@ router.get('/properties/:id', async (req, res) => {
 });
 
 
-
-
-
-// //  Edit Properties using mongoes 
-// router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, res) => {
-//   try {
-//     const property = await PropertyDetails.findById(req.params.id);
-
-//     if (!property) {
-//       return res.status(404).json({ message: 'Property not found' });
-//     }
-
-//     const {
-//       propertyTitle,
-//       propertyType,
-//       propertyDescription,
-//       builderName,
-//       propertyID,
-//       parentProperty,
-//       status,
-//       label,
-//       material,
-//       rooms,
-//       bedsroom,
-//       kitchen,
-//       bhk,
-//       yearBuilt,
-//       totalhomeArea,
-//       builtDimentions,
-//       openArea,
-//       price,
-//       location,
-//       area,
-//       pinCode,
-//       amenities,
-//     } = req.body;
-
-//     // Check if a new image is uploaded
-//     if (req.file) {
-//       const newFeatureImage = req.file.filename;
-
-//       // Delete old image from the file system
-//       if (property.featureImage) {
-//         fs.unlink(path.join(__dirname, '../uploads', property.featureImage), (err) => {
-//           if (err) console.error(err);
-//         });
-//       }
-
-//       property.featureImage = newFeatureImage;
-//     }
-
-//     // Update other fields
-//     property.propertyTitle = propertyTitle;
-//     property.propertyType = propertyType;
-//     property.propertyDescription = propertyDescription;
-//     property.propertyID = propertyID;
-//     property.parentProperty = parentProperty;
-//     property.builderName = builderName;
-//     property.status = status;
-//     property.label = label;
-//     property.material = material;
-//     property.rooms = rooms;
-//     property.bedsroom = bedsroom;
-//     property.kitchen = kitchen;
-//     property.bhk = bhk;
-//     property.yearBuilt = yearBuilt;
-//     property.totalhomeArea = totalhomeArea;
-//     property.builtDimentions = builtDimentions;
-//     property.openArea = openArea;
-//     property.price = price;
-//     property.location = location;
-//     property.area = area;
-//     property.pinCode = pinCode;
-//     property.amenities = amenities;
-
-//     const updatedPropertyDetails = await property.save();
-
-//     res.status(200).json(updatedPropertyDetails);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
-
-
-
-// Edit Properties using mysql     upload.single('featureImage')
-router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, res) => {
+router.put('/propertyDetails/:id', upload.fields([
+  // { name: 'featureImage', maxCount: 1 },
+  // { name: 'backgroundImage', maxCount: 1 },
+  // { name: 'offersImage', maxCount: 1 },
+  // { name: 'brochurepdf', maxCount: 1 }
+]), async (req, res) => {
   const propertyId = req.params.id; // Get the property ID from the URL parameter
 
   const {
+    propertyID,
     propertyTitle,
     propertyType,
     propertyDescription,
-    builderName,
-    propertyID,
     parentProperty,
+    builderName,
     status,
     label,
     material,
@@ -300,9 +282,14 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
     area,
     pinCode,
     amenities,
+    builderDescription,
+    MahaRera,
   } = req.body;
 
-  const featureImage = req.file ? req.file.filename : null; // Check if a new image is uploaded
+  // const featureImage = req.files['featureImage'] ? req.files['featureImage'][0].filename : null;
+  // const backgroundImage = req.files['backgroundImage'] ? req.files['backgroundImage'][0].filename : null;
+  // const offersImage = req.files['offersImage'] ? req.files['offersImage'][0].filename : null;
+  // const brochurepdf = req.files['brochurepdf'] ? req.files['brochurepdf'][0].filename : null;
 
   try {
     // Fetch the existing property details
@@ -312,19 +299,25 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
       return res.status(404).json({ message: 'Property not found' });
     }
 
-    // If a new feature image is uploaded, delete the old image from the file system
-    if (featureImage && property[0].featureImage) {
-      const oldImagePath = path.join(__dirname, '../uploads', property[0].featureImage);
-      fs.unlink(oldImagePath, (err) => {
-        if (err) console.error(`Failed to delete old image: ${err.message}`);
-      });
-    }
+    // Handle old image deletions only if new images are uploaded
+    // const deleteOldImage = (fileKey, oldFileName) => {
+    //   if (fileKey && oldFileName) {
+    //     const oldImagePath = path.join(__dirname, '../uploads', oldFileName);
+    //     fs.unlink(oldImagePath, (err) => {
+    //       if (err) console.error(`Failed to delete old image: ${err.message}`);
+    //     });
+    //   }
+    // };
+
+    // Delete old images if new ones are uploaded
+    // if (featureImage) deleteOldImage(featureImage, property[0].featureImage);
+    // if (backgroundImage) deleteOldImage(backgroundImage, property[0].backgroundImage);
+    // if (offersImage) deleteOldImage(offersImage, property[0].offersImage);
+    // if (brochurepdf) deleteOldImage(brochurepdf, property[0].brochurepdf);
 
     // Update the property in the database
-
     const query = [];
-    const values = []
-
+    const values = [];
 
     if (propertyTitle) {
       query.push('propertyTitle = ?');
@@ -346,7 +339,6 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
       query.push('status = ?');
       values.push(status);
     }
-
     if (label) {
       query.push('label = ?');
       values.push(label);
@@ -411,23 +403,42 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
       query.push('amenities = ?');
       values.push(amenities);
     }
-    if (featureImage) {
-      query.push('featureImage = ?');
-      values.push(featureImage);
+
+    // if (featureImage) {
+    //   query.push('featureImage = ?');
+    //   values.push(featureImage);
+    // }
+    // if (backgroundImage) {
+    //   query.push('backgroundImage = ?');
+    //   values.push(backgroundImage);
+    // }
+    // if (offersImage) {
+    //   query.push('offersImage = ?');
+    //   values.push(offersImage);
+    // }
+    // if (brochurepdf) {
+    //   query.push('brochurepdf = ?');
+    //   values.push(brochurepdf);
+    // }
+
+    if (builderName) {
+      query.push('builderName = ?');
+      values.push(builderName);
+    }
+    if (MahaRera) {
+      query.push('MahaRera = ?');
+      values.push(MahaRera);
+    }
+    if (builderDescription) {
+      query.push('builderDescription = ?');
+      values.push(builderDescription);
     }
 
+    // Add the propertyId for the WHERE clause
     values.push(propertyId);
 
-
-    // console.log("query ==> ", query);
-    // console.log("values ==> ", values);
-
-
-    await db.query(`UPDATE property_details SET ${query.join(', ')} WHERE _id = ?`,
-      values).then((res) => {
-        console.log("resss", res)
-      })
-
+    // Execute the update query
+    await db.query(`UPDATE property_details SET ${query.join(', ')} WHERE _id = ?`, values);
 
     res.status(200).json({ message: 'Property updated successfully' });
   } catch (error) {
@@ -436,46 +447,6 @@ router.put('/propertyDetails/:id', upload.single('featureImage'), async (req, re
   }
 });
 
-
-
-
-// Delete Property using mongoes
-// router.delete('/deletepropertyDetails/:id', async (req, res) => {
-//   try {
-//     const propertyID = req.params.id; // Extract the property ID from the request params
-//     console.log("Property ID from request:", propertyID);
-
-//     // Find the property by ID
-//     const property = await PropertyDetails.findById(propertyID);
-//     console.log("Property details:", property);
-
-//     // If property not found, return 404
-//     if (!property) {
-//       return res.status(404).json({ message: 'Property not found' });
-//     }
-
-//     // Delete the associated feature image from the file system (if exists)
-//     if (property.featureImage) {
-//       const imagePath = path.join(__dirname, '../uploads', property.featureImage);
-//       fs.unlink(imagePath, (err) => {
-//         if (err) {
-//           console.error(`Error deleting feature image: ${imagePath}`, err);
-//         } else {
-//           console.log(`Feature image deleted: ${imagePath}`);
-//         }
-//       });
-//     }
-
-//     // Delete the property record from the database
-//     await PropertyDetails.findByIdAndDelete(propertyID);
-
-//     // Respond with a success message
-//     res.status(200).json({ message: 'Property deleted successfully' });
-//   } catch (error) {
-//     console.error("Error in deleting property:", error);
-//     res.status(500).json({ message: 'Internal server error', error: error.message });
-//   }
-// });
 
 
 // // Delete Property using mysql
@@ -493,12 +464,12 @@ router.delete('/deletepropertyDetails/:id', async (req, res) => {
     }
 
     // Delete the feature image from the file system if it exists
-    if (property[0].featureImage) {
-      const imagePath = path.join(__dirname, '../uploads', property[0].featureImage);
-      fs.unlink(imagePath, (err) => {
-        if (err) console.error(`Failed to delete image: ${err.message}`);
-      });
-    }
+    // if (property[0].featureImage) {
+    //   const imagePath = path.join(__dirname, '../uploads', property[0].featureImage);
+    //   fs.unlink(imagePath, (err) => {
+    //     if (err) console.error(`Failed to delete image: ${err.message}`);
+    //   });
+    // }
 
     // Delete the property from the database
     try {
@@ -522,28 +493,6 @@ router.delete('/deletepropertyDetails/:id', async (req, res) => {
 });
 
 
-
-//// get only residential  property details using mongoes
-// router.get('/residential_properties', async (req, res) => {
-//   try {
-//     console.log("inside residential")
-//     const residentialProperties = await PropertyDetails.find({
-//       propertyType: 'Resedentil',
-//     });
-//     res.status(200).json(residentialProperties);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-
-
-
-
-
-
-
-// Get only residential property details using mysql
 router.get('/residential_properties', async (req, res) => {
   try {
     // Query to fetch only residential properties
@@ -1001,20 +950,6 @@ router.post("/submit-google-form", async (req, res) => {
 });
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//// get only Commercial property details using mongoes
-// router.get('/Commercial_properties', async (req, res) => {
-//   try {
-//     const residentialProperties = await PropertyDetails.find({
-//       propertyType: 'Commercial',
-//     });
-//     res.status(200).json(residentialProperties);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-// Get only Commercial property details using mysql
 router.get('/Commercial_properties', async (req, res) => {
   try {
     // Query to fetch only commercial properties
@@ -1032,82 +967,106 @@ router.get('/Commercial_properties', async (req, res) => {
   }
 });
 
-
-// get all property details with filters using search button using mongoes
-
-
-
 router.post('/filter_properties', async (req, res) => {
   try {
-    const { area, bhk, price } = req.body;
-    // Define filter object
-    const filters = {};
+    const { area, configuration, budget } = req.body;
+
+    console.log("area, configuration, budget", area, configuration, budget);
+
+    // Define the filter object
+    const filters = [];
+    const values = [];
+
     // Apply filters if they exist
-    if (area) filters.area = area;
-    if (bhk) filters.bhk = bhk;
-    if (price) filters.price = price;
-    // Find properties based on filters
-    const properties = await PropertyDetails.find(filters);
+    if (area) {
+      filters.push('location = ?');
+      values.push(area);
+    }
+    if (configuration) {
+      filters.push('bhk = ?');
+      values.push(configuration);
+    }
+
+    // Handling the budget field with ranges
+    if (budget) {
+      let budgetCondition = '';
+      let minBudget = 0;
+      let maxBudget = 0;
+
+      switch (budget) {
+        case 'below 20L':
+          minBudget = 1;
+          maxBudget = 2000000;
+          break;
+        case '20L-50L':
+          minBudget = 2000000;
+          maxBudget = 5000000;
+          break;
+        case '50L-1C':
+          minBudget = 5000000;
+          maxBudget = 10000000;
+          break;
+        case '1Cr-1.5Cr':
+          minBudget = 10000000;
+          maxBudget = 15000000;
+          break;
+        case '1.5Cr-2Cr':
+          minBudget = 15000000;
+          maxBudget = 20000000;
+          break;
+        case '2Cr-2.5Cr':
+          minBudget = 20000000;
+          maxBudget = 25000000;
+          break;
+        case '2.5Cr-3Cr':
+          minBudget = 25000000;
+          maxBudget = 30000000;
+          break;
+        case '3Cr-3.5Cr':
+          minBudget = 30000000;
+          maxBudget = 35000000;
+          break;
+        case '3.5Cr-4Cr':
+          minBudget = 35000000;
+          maxBudget = 40000000;
+          break;
+        case '4Cr-5Cr':
+          minBudget = 40000000;
+          maxBudget = 50000000;
+          break;
+        case 'Above 5Cr':
+          minBudget = 50000000;
+          maxBudget = 100000000; // Or any large value if you need to represent "Above"
+          break;
+        default:
+          // If budget is not in the predefined ranges, handle accordingly
+          break;
+      }
+
+      if (minBudget && maxBudget) {
+        filters.push('price BETWEEN ? AND ?');
+        values.push(minBudget);
+        values.push(maxBudget);
+      }
+    }
+
+    // Build the query dynamically based on the filters
+    let query = 'SELECT * FROM property_details';
+
+    if (filters.length > 0) {
+      query += ' WHERE ' + filters.join(' AND ');
+    }
+
+    // Execute the query
+    const [properties] = await db.query(query, values);
+
     res.status(200).json(properties);
-    console.log('details ', properties);
+    console.log('Details: ', properties);
   } catch (error) {
+    console.log("error while fetching properties in filter property route", error)
     res.status(500).json({ message: error.message });
   }
 });
-
-
-
-// // Get all property details with filters using search button using mysql
-// router.post('/filter_properties', async (req, res) => {
-//   try {
-//     const { area, bhk, price } = req.body;
-
-//     // Start with the basic SQL query
-//     let query = 'SELECT * FROM property_details WHERE 1=1';
-//     const values = [];
-
-//     // Dynamically add filters to the query based on the provided fields
-//     if (area) {
-//       query += ' AND area = ?';
-//       values.push(area);
-//     }
-//     if (bhk) {
-//       query += ' AND bhk = ?';
-//       values.push(bhk);
-//     }
-//     if (price) {
-//       query += ' AND price = ?';
-//       values.push(price);
-//     }
-
-//     // Execute the query with the filters
-//     const [properties] = await db.query(query, values);
-
-//     // If no properties are found
-//     if (properties.length === 0) {
-//       return res.status(404).json({ message: 'No properties found matching the filters' });
-//     }
-
-//     // Send the filtered properties
-//     res.status(200).json(properties);
-//     console.log('Filtered Properties:', properties);
-//   } catch (error) {
-//     console.error('Error fetching filtered properties:', error);
-//     res.status(500).json({ message: error.message });
-//   }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
 
 //// get  property details base on builder name using mongoes
 router.get('/builder_name/:builderName', async (req, res) => {

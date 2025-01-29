@@ -5,8 +5,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../NavBar";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteProperty from "../Property-submission/DeleteProperty";
-// import axiosinstance from "../../../axiosConfig";
-import axios from "axios";
+import axiosinstance from "../../../axiosConfig";
 
 function GetAllProperty() {
   const [properties, setProperties] = useState([]);
@@ -40,10 +39,10 @@ function GetAllProperty() {
       try {
         let response;
         if (sortOption === "all") {
-          response = await axios.get("api/property/properties");
+          response = await axiosinstance.get("api/property/properties");
           // console.log("response in iffff ", response.data);
         } else {
-          response = await axios.get(
+          response = await axiosinstance.get(
             `api/property/properties?sort=${sortOption}`
           );
           // console.log("response in else ", response.data);

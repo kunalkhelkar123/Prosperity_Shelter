@@ -4,11 +4,11 @@ import img from "../homepage/photobanks/BuildingHome1.webp";
 
 export default function TornaMoharSection() {
   return (
-    <div className="bg-[#8B1818] h-[700px] justify-center items-center flex">
+    <div className="bg-[#8B1818] sm:mt-0 mt-[300px] justify-center items-center flex">
       <div className="max-w-7xl  mx-auto px-4 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12  items-center">
           {/* Left Content */}
-          <div className="space-y-6 text-white">
+          <div className="space-y-6 text-white mt-[-150px">
             <span className="text-[#FF69B4] text-sm font-medium tracking-wider">
               NEWLY LAUNCHED
             </span>

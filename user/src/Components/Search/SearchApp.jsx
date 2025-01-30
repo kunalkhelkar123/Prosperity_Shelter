@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useLayoutEffect, memo } from "react";
-
+import { FaHome } from "react-icons/fa";
 import axios from "axios";
 import CardSearch from "./CardSearch";
 import HeadingSearch from "./HeadingSearch";
 import PaginationButtonSearch from "./PaginationButtonSearch";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import { Homepage_filter_menu } from "../../Components/homepage/Homepage_filter_menu";
 // import axios from "axios";
 
@@ -43,7 +43,18 @@ const SearchApp = () => {
 
   return (
     <>
-      {(showMassage) ? (<h1 className="text-4xl text-center font-bold uppercase h-[300px] justify-center flex flex-col">For This configuration property  is not found</h1>) : (<div className="bg-white flex flex-col justify-center items-center">
+      {(showMassage) ? (<div className="flex flex-col items-center justify-center sm:h-[600px] h-[900px] bg-gray-100 rounded-lg shadow-md p-6">
+        <FaHome className="text-red-500 text-6xl mb-4" />
+        <h1 className="text-2xl font-semibold text-gray-700">
+          Oops! No Properties Found
+        </h1>
+        <p className="text-gray-500 text-center mt-2">
+          Try adjusting your search criteria or explore other options.
+        </p>
+        <Link to="/Investmentapp" ><button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Browse All Properties
+        </button></Link>
+      </div>) : (<div className="bg-white flex flex-col justify-center items-center">
         <div className="items-center justify-center mt-4">
           <HeadingSearch />
         </div>

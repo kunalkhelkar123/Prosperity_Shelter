@@ -61,7 +61,7 @@ const generateSignedUrl = async (bucketName, key) => {
 
   try {
     // Generate a signed URL with expiration (e.g., 1 hour)
-    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 5* 60 });
+    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 5 * 60 });
     console.log("Generated signed URL:", signedUrl);
     // return signedUrl;
   } catch (error) {
@@ -83,7 +83,7 @@ router.post(
     try {
       // Upload files to S3 and get their URLs
 
-      console.log(" req.files['brochurepdf'] ",req.files['brochurepdf'])
+      console.log(" req.files['brochurepdf'] ", req.files['brochurepdf'])
       const featureImage =
         req.files['featureImage'] &&
         (await uploadToS3(req.files['featureImage'][0], bucketName));
@@ -127,7 +127,7 @@ router.post(
 
       // Insert property details into MySQL database
 
-      console.log("brochurepdf",brochurepdf)
+      console.log("brochurepdf", brochurepdf)
       const query = `
         INSERT INTO property_details (
           propertyID, propertyTitle, propertyType, propertyDescription, parentProperty, 
@@ -187,7 +187,7 @@ router.get('/getImageUrl', async (req, res) => {
     // console.log("key inget  ", key)
     const signedUrl = await generateSignedUrl(bucketName, key);
     console.log("signedUrl  ", signedUrl)
-    
+
     res.json({ signedUrl });
 
   } catch (error) {
@@ -973,11 +973,11 @@ router.get('/Commercial_properties', async (req, res) => {
 
 router.post('/filter_properties', async (req, res) => {
   try {
-    const { area, configuration, budget } = req.body;
+    const { area, configuration, budget2 } = req.body;
 
-    console.log("area, configuration, budget", area, configuration, budget);
+    console.log("Received Params:", area, configuration, budget2);
 
-    // Define the filter object
+    // Define the filter conditions and values
     const filters = [];
     const values = [];
 
@@ -991,83 +991,78 @@ router.post('/filter_properties', async (req, res) => {
       values.push(configuration);
     }
 
+    const budget=JSON.parse(budget2)
+
     // Handling the budget field with ranges
     if (budget) {
-      let budgetCondition = '';
-      let minBudget = 0;
-      let maxBudget = 0;
-
-      switch (budget) {
-        case 'below 20L':
-          minBudget = 1;
-          maxBudget = 2000000;
-          break;
-        case '20L-50L':
-          minBudget = 2000000;
-          maxBudget = 5000000;
-          break;
-        case '50L-1C':
-          minBudget = 5000000;
-          maxBudget = 10000000;
-          break;
-        case '1Cr-1.5Cr':
-          minBudget = 10000000;
-          maxBudget = 15000000;
-          break;
-        case '1.5Cr-2Cr':
-          minBudget = 15000000;
-          maxBudget = 20000000;
-          break;
-        case '2Cr-2.5Cr':
-          minBudget = 20000000;
-          maxBudget = 25000000;
-          break;
-        case '2.5Cr-3Cr':
-          minBudget = 25000000;
-          maxBudget = 30000000;
-          break;
-        case '3Cr-3.5Cr':
-          minBudget = 30000000;
-          maxBudget = 35000000;
-          break;
-        case '3.5Cr-4Cr':
-          minBudget = 35000000;
-          maxBudget = 40000000;
-          break;
-        case '4Cr-5Cr':
-          minBudget = 40000000;
-          maxBudget = 50000000;
-          break;
-        case 'Above 5Cr':
-          minBudget = 50000000;
-          maxBudget = 100000000; // Or any large value if you need to represent "Above"
-          break;
-        default:
-          // If budget is not in the predefined ranges, handle accordingly
-          break;
+      let minBudget = null;
+      let maxBudget = null;
+      console.log("budget ", budget)
+      if (budget == '20') {
+        minBudget = 1;
+        maxBudget = 2000000;
+      } else if (budget == '2050') {
+        // console.log("sda2")
+        minBudget = 2000000;
+        maxBudget = 5000000;
+      } else if (budget =='501') {
+        minBudget = 5000000;
+        maxBudget = 10000000;
+      } else if (budget == '115') {
+        minBudget = 10000000;
+        maxBudget = 15000000;
+      } else if (budget == "152") {
+        // console.log("sdsd")
+        minBudget = 15000000;
+        maxBudget = 20000000;
+      } else if (budget == '225') {
+        minBudget = 20000000;
+        maxBudget = 25000000;
+      } else if (budget == '253') {
+        minBudget = 25000000;
+        maxBudget = 30000000;
+      } else if (budget == '335') {
+        minBudget = 30000000;
+        maxBudget = 35000000;
+      } else if (budget == '354') {
+        minBudget = 35000000;
+        maxBudget = 40000000;
+      } else if (budget == '45') {
+        minBudget = 40000000;
+        maxBudget = 50000000;
+      } else if (budget == '5') {
+        minBudget = 50000000;
+        maxBudget = 999999999; // Large upper bound
+      } else {
+        console.log("Invalid budget range received.");
       }
 
-      if (minBudget && maxBudget) {
+      // Apply budget filter only if valid min/max values exist
+      if (minBudget !== null && maxBudget !== null) {
         filters.push('price BETWEEN ? AND ?');
-        values.push(minBudget);
-        values.push(maxBudget);
+        values.push(minBudget, maxBudget);
       }
     }
 
-    // Build the query dynamically based on the filters
-    let query = 'SELECT * FROM property_details';
+    // Build the final query dynamically
 
+    let query = 'SELECT * FROM property_details';
     if (filters.length > 0) {
       query += ' WHERE ' + filters.join(' AND ');
     }
 
+    // Debugging: Print the query and values
+    console.log("Final Query:", query);
+    console.log("Query Values:", values);
+
     // Execute the query
+    // console.log("budget22",budget)
     const [properties] = await db.query(query, values);
 
     res.status(200).json(properties);
-    console.log('Details: ', properties);
+    // console.log('Filtered Properties:', properties);
   } catch (error) {
-    console.log("error while fetching properties in filter property route", error)
+    console.log("Error in filter_properties route:", error);
     res.status(500).json({ message: error.message });
   }
 });

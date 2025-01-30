@@ -152,7 +152,7 @@ function Homepage_filter_menu() {
     const data = {
       area: selectedArea,
       configuration: selectedConfiguration,
-      budget: selectedBudget,
+      budget2: selectedBudget,
     };
 
     console.log("data ", data)
@@ -168,7 +168,7 @@ function Homepage_filter_menu() {
         // Handle response from the backend
         // setFilterData(data);
 
-        navigate("/Searchapp", { state: { data } });  
+        navigate("/Searchapp", { state: { data } });
 
         // console.log("data ", data);
         // console.log("filter data console", filterData);
@@ -187,11 +187,10 @@ function Homepage_filter_menu() {
   };
   return (
     <>
-      {/* {isPopupOpen2 && <ScratchCardPopup onClose={closePopup2} />} */}
       <Corespace_navbar />
       {/* <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
 
-<OffersPopup  isOpen={isPopupOpen2} onClose={closePopup2}  /> */}
+      <OffersPopup isOpen={isPopupOpen2} onClose={closePopup2} /> */}
       <div
         style={{ "--image-url": `url(${City})` }}
         className="sm:h-[540px] h-[700px]  w-[100%] bg-cover bg-repeat-round relative bg-[image:var(--image-url)]"
@@ -202,11 +201,11 @@ function Homepage_filter_menu() {
       <div className="flex flex-col absolute w-full  justify-center  items-center top-0 md:mt-40   mt-28 sm:mt-36">
         <div className="mb-5 text-center">
           <h1 className=" text-4xl sm:text-6xl font-semibold text-[#fff848] hover:text-white  tracking-wider">
-          WELCOME TO <br/>    PROSPERITY SHELTERS {" "}
+            WELCOME TO <br />    PROSPERITY SHELTERS {" "}
           </h1>
           <h1 className=" text-2xl mb-[-40px]  mt-[20px] sm:mb-[-30px] sm:text-4xl font-semibold text-gray-200 hover:text-white  tracking-wider">
-          {/* let’s find the perfect home */}
-          LETS'S FIND THE PERFECT HOME FOR YOU
+            {/* let’s find the perfect home */}
+            LETS'S FIND THE PERFECT HOME FOR YOU
           </h1>
         </div>
 
@@ -295,17 +294,17 @@ function Homepage_filter_menu() {
               <option value="" disabled hidden>
                 Choose a Budget
               </option>
-              <option value="below 20L">below 20L</option>
-              <option value="20L-50L  ">20L - 50L </option>
-              <option value="50 - 1C  ">50 - 1Cr</option>
-              <option value="1Cr-1.5Cr ">1Cr - 1.5Cr</option>
-              <option value="1.5Cr-2Cr ">1.5Cr - 2Cr</option>
-              <option value="2Cr-2.5Cr ">2Cr - 2.5Cr</option>
-              <option value="2.5Cr-3Cr ">2.5Cr - 3Cr</option>
-              <option value="3Cr-3.5Cr ">3Cr - 3.5Cr</option>
-              <option value="3.5Cr-4Cr ">3.5Cr - 4Cr</option>
-              <option value="4Cr-5Cr   " >4Cr - 5Cr</option>
-              <option value="Above 5Cr ">Above 5Cr</option>
+              <option value="20">below 20L</option>
+              <option value="2050  ">20L - 50L </option>
+              <option value="501">50 - 1Cr</option>
+              <option value="115 ">1Cr - 1.5Cr</option>
+              <option value="152">1.5Cr - 2Cr</option>
+              <option value="225">2Cr - 2.5Cr</option>
+              <option value="253">2.5Cr - 3Cr</option>
+              <option value="335">3Cr - 3.5Cr</option>
+              <option value="354">3.5Cr - 4Cr</option>
+              <option value="45" >4Cr - 5Cr</option>
+              <option value="5">Above 5Cr</option>
             </select>
             {/* <Link to={{ pathname: "/Searchapp", filterData }}> */}
             <button
@@ -328,15 +327,15 @@ function Homepage_filter_menu() {
       <div>
         <Homepage_torana />
       </div>
-      <div className="bg-gray-100 py-10 min-h-screen">
-        <div className="w-full px-4">
-          <div className="mb-10 w-full">
-            <div className=" p-8 w-full rounded-lg bg-gray-100 flex flex-col items-center justify-center gap-[130px]">
-              <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-                Our Partners <br /> (Builder)
+      <div className="bg-gray-100 pb-[40px]  min-h-screen">
+        <div className="w-full  ">
+          <div className=" w-full ">
+            <div className="   w-full rounded-lg bg-gray-100 flex flex-col items-center justify-center gap-[130px]">
+              <h2 className="text-4xl font-bold text-center mt-[80px] mb-[-70px] text-gray-800 ">
+                Our Partners (Builder)
               </h2>
               <Homepage_Brands />
-              <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
+              <h2 className="text-4xl font-bold  text-center mb-[-70px] text-gray-800 mb-8">
                 Partnered Banks
               </h2>
               <Homepage_Banks />

@@ -28,29 +28,34 @@ function Homepage_Brands() {
 
 
   const settings = {
-    dots: true,
     infinite: true,
-    speed: 350,
-    slidesToShow: 6,
-    slidesToScroll: 6,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1, // Ensure smooth scrolling one by one
     autoplay: true,
     autoplaySpeed: 2000,
+    centerMode: true, // Helps center the active slide properly
+    centerPadding: "0px", // Prevents half slides from showing
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
+          centerMode: true,
+          centerPadding: "0px",
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          centerMode: true,
+          centerPadding: "0px",
         },
       },
       {
@@ -58,21 +63,25 @@ function Homepage_Brands() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          infinite: true,
+          centerMode: true,
+          centerPadding: "0px",
         },
       },
     ],
   };
+  
   return (
     <>
-      <div className=" md:w-[100%] w-[100%] container mx-auto px-4  ">
-        <Slider {...settings}>
+      <div className=" md:w-[100%] w-[90%] container  mx-auto px-4  ">
+        <Slider {...settings} >
           {
             dummyArr.map((ele) => {
               return (
                 <div key={ele} className=''>
                   <img
                     src={ele.img}
-                    className='w-[90%] h-[100px] ml-[100px] p-[10px] border border-gray-300 rounded-lg flex gap-10'
+                    className='w-[90%] h-[100px]  p-[10px]  border border-gray-300 rounded-lg flex gap-10'
                     />
                 </div>
               )

@@ -15,7 +15,7 @@ const Moreaboutus_Home = () => {
 
   return (
     <div className="bg-white">
-      <div className="max-w-7xl h-[600px] mx-auto px-6 md:px-12 py-10 flex justify-center items-center bg-white">
+      <div className="max-w-7xl h-[600px] sm:mt-0 mt-[190px] mx-auto px-6 md:px-12 py-10 flex justify-center items-center bg-white">
         <div className="space-y-6 text-center">
           {/* Welcome Text */}
           <h2 className="text-[#C14D1D] text-[20px] font-medium uppercase tracking-wider flex justify-self-start">

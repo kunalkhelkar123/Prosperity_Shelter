@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from '../../assets/logo.png';
 import axios from 'axios';
+import bgImage from "./loginbg2.jpg"
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover opacity">
+    <div  style={{ backgroundImage: `url(${bgImage})` }} className="min-h-screen flex items-center justify-center bg-cover opacity">
       <div className="bg-[#390255] p-8 rounded-lg shadow-lg w-[400px]">
         <div className="text-center mb-6">
           <img src={logo} alt="Logo" className="h-20 mx-auto w-20 mb-4" />

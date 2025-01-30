@@ -184,15 +184,15 @@ function Booking() {
     </div>
     
     
-    <div className="flex flex-grow flex-col sm:flex-row">
+    <div className="flex flex-grow flex-col mt-[-35px] sm:mt-[-10] sm:flex-row">
       {/* Left Navigation (Collapsible on mobile) */}
       
   
       {/* Main Content */}
-      <div className="flex-grow p-4 overflow-auto">
+      <div className="flex-grow p-4 overflow-auto ">
         {activeTab === "bookings" && (
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-center mt-4 p-2 text-purple-950">
+            <h1 className="text-2xl sm:text-3xl font-bold text-center mt-6 p-2 text-purple-950">
               Booking Details
             </h1>
   
@@ -204,8 +204,8 @@ function Booking() {
             )}
   
             {/* Month Filter */}
-            <div className="flex flex-col sm:flex-row justify-end items-center gap-4 my-4">
-              <label className="text-sm sm:text-base">Filter by Month:</label>
+            <div className="flex flex-col sm:flex-row mt-[0px] sm:mt-[-10] justify-end items-center gap-4 my-4">
+              <label className="text-sm sm:text-base   sm:mt-38">Filter by Month:</label>
               <select
                 value={selectedMonth}
                 onChange={handleMonthFilterChange}
@@ -221,7 +221,7 @@ function Booking() {
   
             {/* Booking Summary */}
             <div className="flex justify-center sm:justify-between items-center my-4 gap-4 flex-wrap">
-              <div className="p-4 bg-teal-500 text-white rounded-md w-full sm:w-auto">
+              <div className="p-4 bg-teal-500 text-white rounded-md  sm:mt-[-100px] w-full sm:w-auto">
                 <h3 className="font-bold">Total Bookings</h3>
                 <p>{bookingcount}</p>
               </div>
@@ -334,7 +334,9 @@ function Booking() {
                 <div className="col-span-1 sm:col-span-2 md:col-span-3">
                   <button
                     onClick={handleAddBooking}
-                    className="w-full px-4 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800"
+                    className="w-full sm:w-auto px-6 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800"
+
+                    // className="w-full px-4 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800"
                   >
                     Add Details
                   </button>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import axios from "../../../axiosConfig";
 import NavBar from "../NavBar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -20,8 +19,9 @@ function DailyScrumsList() {
     const [selectedDate, setSelectedDate] = useState(getFormattedDate(new Date())); // Default to today's local date
     const [sortOrder, setSortOrder] = useState("asc"); // Default sort order: ascending
     const [currentPage, setCurrentPage] = useState(1); // Current page number
-    const [recordsPerPage] = useState(15); // Number of records to show per page
-    const navigate = useNavigate(); 
+    const [recordsPerPage] = useState(20); // Number of records to show per page
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchScrums = async () => {
             try {
@@ -29,7 +29,7 @@ function DailyScrumsList() {
 
                 if (response.status === 200 && response.data.length > 0) {
                     setScrums(response.data);
-                    setFilteredScrums(response.data);
+                    setFilteredScrums(response.data.filter(scrum => getFormattedDate(scrum.date) === selectedDate));
                 } else {
                     setMessage("No daily scrums available.");
                 }
@@ -40,7 +40,7 @@ function DailyScrumsList() {
         };
 
         fetchScrums();
-    }, []);
+    }, [selectedDate]); // Fetch scrums whenever the selected date changes
 
     // Search button handler
     const handleSearch = () => {
@@ -113,8 +113,8 @@ function DailyScrumsList() {
     return (
         <>
             <NavBar />
-            <div className="p-6 bg-purple-100">
-                <h1 className="text-4xl font-bold text-center mb-4 text-teal-950">
+            <div className="p-6 bg-purple-100 min-h-screen">
+                <h1 className="text-4xl font-bold text-center mb-4 mt-10 text-teal-950">
                     Daily Scrum List
                 </h1>
 
@@ -147,20 +147,20 @@ function DailyScrumsList() {
 
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left text-gray-500 border-collapse border border-gray-300">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-500">
                             <tr className="border-b border-gray-300">
-                                <th className="px-4 py-3 border-r border-gray-300">Sr. No</th>
-                                <th className="px-4 py-3 border-r border-gray-300">Name</th>
-                                <th className="px-4 py-3 border-r border-gray-300">Description</th>
-                                <th className="px-4 py-3 border-r border-gray-300">Date</th>
-                                <th className="px-4 py-3 border-r border-gray-300">Post Date and Time</th>
+                                <th className="px-4 py-3 border-r text-white border-gray-300">Sr. No</th>
+                                <th className="px-4 py-3 border-r text-white border-gray-300">Name</th>
+                                <th className="px-4 py-3 border-r text-white border-gray-300">Description</th>
+                                <th className="px-4 py-3 border-r text-white border-gray-300">Date</th>
+                                <th className="px-4 py-3 border-r text-white border-gray-300">Post Date and Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentRecords.map((scrum, index) => (
                                 <tr key={scrum.id} className="bg-white border-b border-gray-300">
-                                    <td className="px-4 py-3 border-r">{index + 1 + indexOfFirstRecord}</td>
-                                    <td className="px-4 py-3 border-r">{scrum.name}</td>
+                                    <td className="px-4 py-3 border-r text-black">{index + 1 + indexOfFirstRecord}</td>
+                                    <td className="px-4 py-3 border-r text-black"><strong>{scrum.name}</strong></td>
                                     <td className="px-4 py-3 border-r">{convertNewlinesToBr(scrum.description)}</td>
                                     <td className="px-4 py-3 border-r">{formatDate(scrum.date)}</td>
                                     <td className="px-4 py-3">{formatDateTime(scrum.created_at)}</td>

@@ -56,8 +56,8 @@ function DashBoradSliderBar() {
       {/* Sidebar */}
       <nav
   className={`bg-[#390255] ${
-    isOpen || window.innerWidth >= 640 ? "w-40" : "w-16"
-  } sm:w-64 md:w-72 h-screen fixed top-0 left-0 z-50 transition-all duration-300`}
+    isOpen || window.innerWidth >= 740 ? "w-40" : "w-16"
+  } sm:w-70 md:w-62 h-screen fixed top-0 left-0 z-50 transition-all duration-300`}
 >
   <div className="h-full flex flex-col">
     {/* Toggle Button */}
@@ -83,12 +83,12 @@ function DashBoradSliderBar() {
     </div>
 
     {/* Menu Links */}
-    <div className="flex-1 mt-10">
-      <div className="flex flex-col items-center sm:items-start text-[#FFF848]">
+    <div className="flex-1 mt-10 w-full ">
+      <div className="flex flex-col items-center sm:items-start  text-[#FFF848]">
         {menus.map((menu, index) => (
           <Link to={menu.link} key={index} className="w-full">
             <div
-              className={`flex items-center py-2 px-4 rounded-md text-sm font-medium hover:bg-[#FFF848] hover:text-[#390255] transition-all duration-200 ${
+              className={`flex items-center py-2 px-4  rounded-md text-sm font-medium hover:bg-[#FFF848] hover:text-[#390255] transition-all duration-200 ${
                 isOpen || window.innerWidth >= 640
                   ? "justify-start"
                   : "justify-center"
@@ -96,13 +96,13 @@ function DashBoradSliderBar() {
               onClick={() => check(menu)}
             >
               {menu.icons && (
-                <span className="material-symbols-outlined text-2xl mr-3">
+                <span className="material-symbols-outlined text-2xl mr-3 ">
                   {menu.icons}
                 </span>
               )}
               {/* Always show names on desktop */}
               {(isOpen || window.innerWidth >= 640) && (
-                <span className="whitespace-nowrap">{menu.name}</span>
+                <span className="whitespace-nowrap ">{menu.name}</span>
               )}
             </div>
           </Link>
@@ -114,7 +114,7 @@ function DashBoradSliderBar() {
 
       {/* Main Content Area */}
       <div
-        className={`flex-1 ml-[20%] sm:ml-[20%] md:ml-[20%] lg:ml-[20%] p-6 md:p-10 bg-purple-100 transition-all duration-300`}
+        className={`flex-1 ml-16  sm:lg:ml-[20%]   bg-purple-100 transition-all duration-300`}
       >
         <div className="max-w-7xl mx-auto">
           {/* Navigation Bar */}

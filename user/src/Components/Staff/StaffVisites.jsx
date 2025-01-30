@@ -135,50 +135,50 @@ const Visits = () => {
     };
 
     // Handle deleting a visit
-   // Handle deleting a visit
-   const handleDeleteVisit = async (visitId) => {
-    try {
-        console.log("Deleting visit with ID:", visitId); // Debugging line
-        
-        // Make the DELETE request to the backend
-        const response = await axios.delete(`/api/staff/deletevisit/${visitId}`);
-        
-        // Debugging line to check the response
-        console.log("Response from server:", response);
-        
-        if (response.status === 200) {
-           
-            alert(response.data.message); // Alert the success message from the backend
+    // Handle deleting a visit
+    const handleDeleteVisit = async (visitId) => {
+        try {
+            console.log("Deleting visit with ID:", visitId); // Debugging line
 
-            // Remove the deleted visit from the state
-            const updatedVisits = visits.filter((visit) => visit.id !== visitId);
-            setVisits(updatedVisits);
-            setFilteredVisits(
-                selectedMonth
-                    ? updatedVisits.filter((visit) => visit.month === selectedMonth)
-                    : updatedVisits
-            );
-        } else {
-            alert(response.data.error || "Failed to delete visit");
+            // Make the DELETE request to the backend
+            const response = await axios.delete(`/api/staff/deletevisit/${visitId}`);
+
+            // Debugging line to check the response
+            console.log("Response from server:", response);
+
+            if (response.status === 200) {
+
+                alert(response.data.message); // Alert the success message from the backend
+
+                // Remove the deleted visit from the state
+                const updatedVisits = visits.filter((visit) => visit.id !== visitId);
+                setVisits(updatedVisits);
+                setFilteredVisits(
+                    selectedMonth
+                        ? updatedVisits.filter((visit) => visit.month === selectedMonth)
+                        : updatedVisits
+                );
+            } else {
+                alert(response.data.error || "Failed to delete visit");
+            }
+        } catch (error) {
+            console.error("Error deleting visit:", error);
+            alert("Failed to delete visit");
         }
-    } catch (error) {
-        console.error("Error deleting visit:", error);
-        alert("Failed to delete visit");
-    }
-};
+    };
 
 
 
 
     return (
         <div>
-            <h1 className="text-4xl font-bold flex justify-center items-center mt-[-20px] p-2 text-purple-950">
+            <h1 className="text-4xl font-bold flex justify-center items-center mt-[20px] p-2 text-purple-950">
                 Visit Details
             </h1>
 
             {/* Month Filter */}
-            <div className="flex justify-end my-4">
-                <label className="mr-4">Filter by Month:</label>
+            <div className="flex justify-end mt-8 sm:mt-[-8]">
+                <label className="mr-2">Filter by Month:</label>
                 <select
                     value={selectedMonth}
                     onChange={handleMonthFilterChange}
@@ -202,40 +202,42 @@ const Visits = () => {
             </div>
 
             {/* Visit Table */}
-            <div className="relative flex justify-center items-center">
-                <table className="w-full text-sm text-left text-gray-500 border">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-200">
-                        <tr className="border-2 border-gray-300">
-                            <th className="px-4 py-3 border-2 border-gray-300">Sr. No</th>
-                            <th className="px-4 py-3 border-2 border-gray-300">Visitor Name</th>
-                            <th className="px-4 py-3 border-2 border-gray-300">Visit Date</th>
-                            <th className="px-4 py-3 border-2 border-gray-300">Purpose</th>
-                            <th className="px-4 py-3 border-2 border-gray-300">Followup By</th>
-                            <th className="px-4 py-3 border-2 border-gray-300">Month</th>
-                            <th className="px-4 py-3 border-2 border-gray-300">Action</th> {/* New Action Column */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredVisits.map((visit, index) => (
-                            <tr key={visit.id || index} className="border-2 border-gray-300">
-                                <td className="px-4 py-3 border-2 border-gray-300">{index + 1}</td>
-                                <td className="px-4 py-3 border-2 border-gray-300">{visit.visitor_name}</td>
-                                <td className="px-4 py-3 border-2 border-gray-300">{visit.visit_date}</td>
-                                <td className="px-4 py-3 border-2 border-gray-300">{visit.purpose}</td>
-                                <td className="px-4 py-3 border-2 border-gray-300">{visit.followup_by}</td>
-                                <td className="px-4 py-3 border-2 border-gray-300">{visit.month}</td>
-                                <td className="px-4 py-3 border-2 border-gray-300">
-                                    <button
-                                        onClick={() => handleDeleteVisit(visit.id)}
-                                        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-800"
-                                    >
-                                        Delete
-                                    </button>
-                                </td> {/* Delete Button */}
+            <div className="relative flex  ">
+                <div className="overflow-x-auto">
+                    <table className="w-[1318px] text-sm text-left justify-start text-gray-500 border">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                            <tr className="border-2 border-gray-300">
+                                <th className="px-4 py-3 border-2 border-gray-300">Sr. No</th>
+                                <th className="px-4 py-3 border-2 border-gray-300">Visitor Name</th>
+                                <th className="px-4 py-3 border-2 border-gray-300">Visit Date</th>
+                                <th className="px-4 py-3 border-2 border-gray-300">Purpose</th>
+                                <th className="px-4 py-3 border-2 border-gray-300">Followup By</th>
+                                <th className="px-4 py-3 border-2 border-gray-300">Month</th>
+                                <th className="px-4 py-3 border-2 border-gray-300">Action</th> {/* New Action Column */}
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {filteredVisits.map((visit, index) => (
+                                <tr key={visit.id || index} className="border-2 border-gray-300">
+                                    <td className="px-4 py-3 border-2 border-gray-300">{index + 1}</td>
+                                    <td className="px-4 py-3 border-2 text-l text-black border-gray-300"><strong>{visit.visitor_name}</strong></td>
+                                    <td className="px-4 py-3 border-2 border-gray-300">{visit.visit_date}</td>
+                                    <td className="px-4 py-3 border-2 border-gray-300">{visit.purpose}</td>
+                                    <td className="px-4 py-3 border-2 border-gray-300">{visit.followup_by}</td>
+                                    <td className="px-4 py-3 border-2 border-gray-300">{visit.month}</td>
+                                    <td className="px-4 py-3 border-2 border-gray-300">
+                                        <button
+                                            onClick={() => handleDeleteVisit(visit.id)}
+                                            className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-800"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td> {/* Delete Button */}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {/* Add Visit Form */}

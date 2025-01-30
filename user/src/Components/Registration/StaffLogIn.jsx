@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import bgImage from "./loginbg2.jpg"
 
 function StaffLogIn() {
   const navigate = useNavigate();
@@ -59,8 +60,11 @@ function StaffLogIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover bg-no-repeat opacity px-4 sm:px-6 lg:px-8">
-      <div className="bg-[#390255] p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div 
+        className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${bgImage})` }}
+    >
+       <div className="bg-[#390255] p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="text-center mb-6">
           <Link to={"/"}>
             <img

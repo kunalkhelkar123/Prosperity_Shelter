@@ -23,7 +23,7 @@ function Booking() {
     book_by: "",
   });
   const [error, setError] = useState(null);
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("All Months");
   const [expandedBookings, setExpandedBookings] = useState([]);
   const [showAllFor, setShowAllFor] = useState(null);
 
@@ -53,7 +53,7 @@ function Booking() {
         const currentMonth = new Date().toLocaleString('default', { month: 'long' });
         console.log("currentMonth", currentMonth);
 
-        setSelectedMonth(currentMonth);
+        // setSelectedMonth(currentMonth);
 
         if (userId) {
           const response = await axios.post("/api/staff/get-bookings");

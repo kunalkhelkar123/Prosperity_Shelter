@@ -188,9 +188,9 @@ function Homepage_filter_menu() {
   return (
     <>
       <Corespace_navbar />
-      {/* <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
+      <PopupForm isOpen={isPopupOpen} onClose={closePopup} />
 
-      <OffersPopup isOpen={isPopupOpen2} onClose={closePopup2} /> */}
+      <OffersPopup isOpen={isPopupOpen2} onClose={closePopup2} />
       <div
         style={{ "--image-url": `url(${City})` }}
         className="sm:h-[540px] h-[700px]  w-[100%] bg-cover bg-repeat-round relative bg-[image:var(--image-url)]"
@@ -335,7 +335,7 @@ function Homepage_filter_menu() {
                 Our Partners (Builder)
               </h2>
               <Homepage_Brands />
-              <h2 className="text-4xl font-bold  text-center mb-[-70px] text-gray-800 mb-8">
+              <h2 className="text-4xl font-bold mt-[-80px]  text-center mb-[-70px] text-gray-800 mb-8">
                 Partnered Banks
               </h2>
               <Homepage_Banks />

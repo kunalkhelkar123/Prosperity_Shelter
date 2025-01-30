@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CryptoJS from "crypto-js";
+import bgImage from "./loginbg2.jpg"
 
 // ... existing imports and state setup
 
@@ -148,7 +149,10 @@ function LogIn() {
   // };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover opacity">
+    <div 
+    className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+    style={{ backgroundImage: `url(${bgImage})` }}
+>
       <div className="bg-[#390255] p-8 rounded-lg shadow-lg w-[400px]">
         <div className="text-center mb-6">
           <Link to={"/"} ><img src={logo} alt="Logo" className="h-20 mx-auto w-20 mb-4" /></Link>

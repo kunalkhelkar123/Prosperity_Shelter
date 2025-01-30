@@ -17,22 +17,21 @@ function GetAllProperty() {
   const propertiesPerPage = 12;
 
 
-       useEffect(() => {
-          try{
-           const token = sessionStorage.getItem("token");
-           const user = JSON.parse(sessionStorage.getItem("user"));
-       
-           // Check if the token exists and user has the role 'staff'
-           if (!token || !user || user.role !== "staff") {
-               navigate("/staff");
-           }
-          }
-          catch(error)
-          {
-           navigate("/staff");
-   
-          }
-       }, [navigate]);
+  useEffect(() => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const user = JSON.parse(sessionStorage.getItem("user"));
+
+      // Check if the token exists and user has the role 'staff'
+      if (!token || !user || user.role !== "staff") {
+        navigate("/staff");
+      }
+    }
+    catch (error) {
+      navigate("/staff");
+
+    }
+  }, [navigate]);
 
 
 
@@ -73,7 +72,7 @@ function GetAllProperty() {
   const handleDelete = (deletedId) => {
 
     setProperties(properties.filter((property) => property._id !== deletedId));
- 
+
   };
 
   const indexOfLastProperty = currentPage * propertiesPerPage;
@@ -91,12 +90,12 @@ function GetAllProperty() {
   };
 
   return (
-    <div className="bg-slate-100">
+    <div className="bg-slate-100 pb-10">
       <StaffNavBar />
-      <div className="flex justify-center items-center my-2 ">
+      <div className="flex justify-center items-center my-2  ">
         <h1 className=" text-4xl font-bold">All List of Properties</h1>
       </div>
-      <div className="flex justify-center mt-4 absolute right-16">
+      {/* <div className="flex justify-center mt-4 absolute right-16">
         <label
           htmlFor="sortSelect"
           className="mr-2  text-black font-medium text-lg items-center px-2 mt-1"
@@ -115,9 +114,9 @@ function GetAllProperty() {
           <option value="new">Newest</option>
           <option value="old">Oldest</option>
         </select>
-      </div>
+      </div> */}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-20 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-0 ">
         {currentProperties.map((properties, index) => (
           <div
             className="flex  m-4 rounded-lg shadow-md bg-white bg-opacity-25"
@@ -179,32 +178,64 @@ function GetAllProperty() {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-4">
-        <ul className="flex">
-          {Array.from({
-            length: Math.ceil(properties.length / propertiesPerPage),
-          }).map((_, index) => (
+      <div className="flex justify-center mt-6  ">
+        <ul className="flex items-center space-x-2">
+
+          {/* Previous Button */}
+          <li>
+            <button
+              className={`px-3 py-2 text-sm font-semibold transition-all duration-300 rounded-lg shadow-md 
+          ${currentPage === 1
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-white text-red-600 border border-red-500 hover:bg-red-500 hover:text-white"}
+        `}
+              onClick={() => currentPage > 1 && paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              «
+            </button>
+          </li>
+
+          {/* Page Numbers */}
+          {Array.from({ length: Math.ceil(properties.length / propertiesPerPage) }).map((_, index) => (
             <li key={index}>
               <button
-                className={`px-3 py-1 ${
-                  currentPage === index + 1
-                    ? "bg-red-400 text-white"
-                    : "bg-red-500"
-                } mr-1 rounded-full`}
+                className={`px-4 py-2 text-sm font-semibold transition-all duration-300 rounded-lg shadow-md 
+            ${currentPage === index + 1
+                    ? "bg-red-600 text-white scale-105 shadow-lg"
+                    : "bg-white text-red-600 border border-red-500 hover:bg-red-500 hover:text-white"}
+          `}
                 onClick={() => paginate(index + 1)}
               >
                 {index + 1}
               </button>
             </li>
           ))}
+
+          {/* Next Button */}
+          <li>
+            <button
+              className={`px-3 py-2 text-sm font-semibold transition-all duration-300 rounded-lg shadow-md 
+          ${currentPage === Math.ceil(properties.length / propertiesPerPage)
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-white text-red-600 border border-red-500 hover:bg-red-500 hover:text-white"}
+        `}
+              onClick={() => currentPage < Math.ceil(properties.length / propertiesPerPage) && paginate(currentPage + 1)}
+              disabled={currentPage === Math.ceil(properties.length / propertiesPerPage)}
+            >
+              »
+            </button>
+          </li>
+
         </ul>
       </div>
+
       <button
-                    className="rounded-md p-2 bg-purple-950 text-white fixed bottom-4 right-4 shadow-md hover:bg-purple-800"
-                    onClick={() => navigate(-1)} // Navigate to the previous page
-                >
-                    <span className="material-symbols-outlined font-extrabold text-3xl">arrow_circle_left</span>
-                </button>
+        className="rounded-md p-2 bg-purple-950 text-white fixed bottom-4 right-4 shadow-md hover:bg-purple-800"
+        onClick={() => navigate(-1)} // Navigate to the previous page
+      >
+        <span className="material-symbols-outlined font-extrabold text-3xl">arrow_circle_left</span>
+      </button>
     </div>
   );
 }

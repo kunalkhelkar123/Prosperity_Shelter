@@ -48,9 +48,9 @@ const OffersPopup = ({ isOpen, onClose }) => {
 
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black  bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-[650px] w-full ease-in-out scale-95 hover:scale-100">
-                <div className="relative flex">
+                <div className="relative flex mt-[-20px]">
                     <h2 className="text-2xl mb-4">Our Offers</h2>
                     <button
                         onClick={onClose}
@@ -62,44 +62,41 @@ const OffersPopup = ({ isOpen, onClose }) => {
                 {offers.length > 0 ? (
                     <Carousel
                         showThumbs={false}
+                        showIndicators={false} // Removed dots
                         infiniteLoop
                         autoPlay
                         interval={2000}
-                        className="max-h-[400px]"
+                        className="max-h-[350px]"
                     >
                         {offers.map((offer, index) => (
                             <div key={index}>
-                                <h1>{offer.imageUrl}</h1>
                                 <img
-                                    src={offer.image} // Assuming `imageUrl` is the key for the image path
+                                    src={offer.image}
                                     alt={`Offer ${index + 1}`}
-                                    className="rounded-lg h-[480px]"
+                                    className="rounded-lg h-[380px]"
                                 />
                             </div>
                         ))}
                     </Carousel>
                 ) : (
-
                     <p className="text-gray-500">No offers available at the moment.</p>
                 )}
-                <div className="flex justify-end mt-16">
-                    <Link className="" to={"/hotproperties"}>
+                <div className="flex justify-end mt-16 ">
+                    <Link to={"/hotproperties"}>
                         <button
-                            className="bg-blue-500  text-white px-4 py-2  rounded"
+                            className="bg-[#390255] text-white px-2 py-2 mr-10 rounded"
                             style={{
-                                position: 'relative',  // Make sure it's in its own stacking context
-                                zIndex: 20,            // Set a higher z-index to place the button above the image
+                                position: 'relative',
+                                zIndex: 20,
                             }}
                         >
-                           Price On Call
+                            Check all Properties
                         </button>
                     </Link>
-
                     <button
                         onClick={onClose}
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        className="bg-[#390255] text-white px-4 py-2 rounded"
                         style={{ zIndex: 10 }}
-
                     >
                         Close
                     </button>
@@ -107,6 +104,7 @@ const OffersPopup = ({ isOpen, onClose }) => {
             </div>
         </div>
     );
+    
 };
 
 export default OffersPopup;

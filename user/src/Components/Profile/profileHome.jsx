@@ -356,75 +356,80 @@ const ProfilePage = () => {
                     )}
 
                     {activeTab === 'addProfile' &&  user?.subrole === 'admin' && (
-                        <div>
-                            <h2 className="text-2xl font-bold mb-4">Add Profile</h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                <div className="flex flex-col space-y-2">
-                                    <label className="font-semibold">Name:</label>
-                                    <input
-                                        className="border p-2 rounded"
-                                        value={newProfile.name}
-                                        onChange={(e) => handleInputChange('name', e.target.value)}
-                                    />
-                                </div>
-                                <div className="flex flex-col space-y-2">
-                                    <label className="font-semibold">Email:</label>
-                                    <input
-                                        className="border p-2 rounded"
-                                        value={newProfile.email}
-                                        onChange={(e) => handleInputChange('email', e.target.value)}
-                                    />
-                                </div>
-                                <div className="flex flex-col space-y-2">
-                                    <label className="font-semibold">Phone:</label>
-                                    <input
-                                        className="border p-2 rounded"
-                                        value={newProfile.phone}
-                                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                                    />
-                                </div>
-                                <div className="flex flex-col space-y-2">
-                                    <label className="font-semibold">Password:</label>
-                                    <input
-                                        className="border p-2 rounded"
-                                        // type="password"
-                                        type={showPassword.password ? 'text' : 'password'}
-
-                                        value={newProfile.password}
-                                        onChange={(e) => handleInputChange('password', e.target.value)}
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={() => togglePasswordVisibility('password')}
-                                        className="absolute text-black "
-                                        style={{ marginTop: "40px", marginLeft: "300px" }}
-                                    >
-                                        {showPassword.password ? 'Hide' : 'Show'}
-                                    </button>
-                                </div>
-                                <div className="flex flex-col space-y-2">
-                                    <label className="font-semibold">Role:</label>
-                                    <select
-                                        className="border p-2 rounded"
-                                        value={newProfile.subrole}
-                                        onChange={(e) => handleInputChange('subrole', e.target.value)}
-                                    >
-                                        <option value="">Select Role</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="hr">HR</option>
-                                        <option value="manager">Manager</option>
-
-
-                                    </select>
-                                </div>
+                        <div className="p-6 bg-white rounded-lg shadow-lg">
+                        <h2 className="text-2xl font-bold text-center mb-6">Add Profile</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="flex flex-col space-y-4">
+                                <label className="font-semibold text-gray-700">Name:</label>
+                                <input
+                                    className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                    value={newProfile.name}
+                                    onChange={(e) => handleInputChange('name', e.target.value)}
+                                    placeholder="Enter your name"
+                                />
                             </div>
-                            <button
-                                className="bg-green-500 text-white px-4 py-2 rounded mt-4"
-                                onClick={handleAddProfile}
-                            >
-                                Add Profile
-                            </button>
+                    
+                            <div className="flex flex-col space-y-4">
+                                <label className="font-semibold text-gray-700">Email:</label>
+                                <input
+                                    className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                    value={newProfile.email}
+                                    onChange={(e) => handleInputChange('email', e.target.value)}
+                                    placeholder="Enter your email"
+                                />
+                            </div>
+                    
+                            <div className="flex flex-col space-y-4">
+                                <label className="font-semibold text-gray-700">Phone:</label>
+                                <input
+                                    className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                    value={newProfile.phone}
+                                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                                    placeholder="Enter your phone number"
+                                />
+                            </div>
+                    
+                            <div className="flex flex-col space-y-4 relative">
+                                <label className="font-semibold text-gray-700">Password:</label>
+                                <input
+                                    className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                    type={showPassword.password ? 'text' : 'password'}
+                                    value={newProfile.password}
+                                    onChange={(e) => handleInputChange('password', e.target.value)}
+                                    placeholder="Enter your password"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => togglePasswordVisibility('password')}
+                                    className="absolute top-1/2 right-4 transform -translate-y-1/2 text-teal-500 font-medium"
+                                >
+                                    {showPassword.password ? 'Hide' : 'Show'}
+                                </button>
+                            </div>
+                    
+                            <div className="flex flex-col space-y-4">
+                                <label className="font-semibold text-gray-700">Role:</label>
+                                <select
+                                    className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                    value={newProfile.subrole}
+                                    onChange={(e) => handleInputChange('subrole', e.target.value)}
+                                >
+                                    <option value="">Select Role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="hr">HR</option>
+                                    <option value="manager">Manager</option>
+                                </select>
+                            </div>
                         </div>
+                    
+                        <button
+                            className="w-full sm:w-auto bg-teal-500 text-white px-6 py-3 rounded-lg mt-6 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                            onClick={handleAddProfile}
+                        >
+                            Add Profile
+                        </button>
+                    </div>
+                    
                     )}
                 </div>
             </div>

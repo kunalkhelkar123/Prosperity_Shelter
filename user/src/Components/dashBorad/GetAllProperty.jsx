@@ -38,11 +38,11 @@ function GetAllProperty() {
       try {
         let response;
         if (sortOption === "all") {
-          response = await axiox.get("api/property/properties");
+          response = await axiox.get("/api/property/properties");
           // console.log("response in iffff ", response.data);
         } else {
           response = await axiox.get(
-            `api/property/properties?sort=${sortOption}`
+            `/api/property/properties?sort=${sortOption}`
           );
           console.log("response in else ", response.data);
         }

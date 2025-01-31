@@ -38,6 +38,15 @@ function Managestaff() {
     }
   }, [navigate]);
 
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get("/api/property/staff");
+      console.log("Fetched staff:", response.data);
+      setUsers(response.data.data);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
+  };
 
 
   useEffect(() => {
@@ -63,6 +72,8 @@ function Managestaff() {
       });
 
       if (response.data.success) {
+        alert("User status updated successfully")
+        fetchUsers()
         setDataChanges(!datachanges);
         console.log("User status updated successfully");
       } else {
@@ -310,11 +321,11 @@ function Managestaff() {
           )}
         </div>
         <button
-                    className="rounded-md p-2 bg-purple-950 text-white fixed bottom-4 right-4 shadow-md hover:bg-purple-800"
-                    onClick={() => navigate(-1)} // Navigate to the previous page
-                >
-                    <span className="material-symbols-outlined font-extrabold text-3xl">arrow_circle_left</span>
-                </button>
+          className="rounded-md p-2 bg-purple-950 text-white fixed bottom-4 right-4 shadow-md hover:bg-purple-800"
+          onClick={() => navigate(-1)} // Navigate to the previous page
+        >
+          <span className="material-symbols-outlined font-extrabold text-3xl">arrow_circle_left</span>
+        </button>
       </div >
     </>
   );

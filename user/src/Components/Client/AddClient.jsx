@@ -84,7 +84,7 @@ const AddClient = () => {
                 });
 
                 // Optional: Close modal or redirect
-                onClose(); 
+                // onClose(); 
             } else {
                 // Handle the failure case
                 alert("Failed to add Client : " + response.data.message);

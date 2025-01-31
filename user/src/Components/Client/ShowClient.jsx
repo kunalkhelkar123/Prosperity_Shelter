@@ -114,7 +114,12 @@ const ShowClient = () => {
             startY: 20,
         });
 
-        doc.save("Client_List.pdf");
+        try { doc.save("Client_List.pdf"); }
+        catch (err) {
+            const pdfBlob = doc.output("blob");
+            const blobURL = URL.createObjectURL(pdfBlob);
+            window.open(blobURL, "_blank");
+        }
     };
 
     const generateEXCEL = () => {

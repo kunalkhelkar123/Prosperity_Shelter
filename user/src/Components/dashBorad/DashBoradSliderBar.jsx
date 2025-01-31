@@ -121,10 +121,10 @@ function DashBoradSliderBar() {
                         <div className="hidden sm:block ">
                             <div className=" flex flex-col justify-center items-center text-[#FFF848] mt-10  ">
                                 {menus.map((menu, index) => (
-                                    <a key={index} href={menu.link} className="text-[#FFF848]  py-2 px-2 rounded-md text-sm font-medium  hover:bg-[#FFF848]  hover:text-[#390255] flex items-center">
+                                    <Link key={index} to={menu.link} className="text-[#FFF848]  py-2 px-2 rounded-md text-sm font-medium  hover:bg-[#FFF848]  hover:text-[#390255] flex items-center">
                                         {menu.icons && <span className="material-symbols-outlined  p-2 text-2xl">{menu.icons}</span>}
                                         <span className=' items-center text-lg' onClick={() => check(menu)} >{menu.name}</span>
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         </div>

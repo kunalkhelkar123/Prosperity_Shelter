@@ -123,7 +123,7 @@ app.use("/api/otp", verifyToken, otpRoute);
 
 // Static File Serving
 const buildPath = path.join(__dirname, "../user/dist");
-// app.use(express.static(buildPath));
+app.use(express.static(buildPath));
 
 // Fallback Route for React (should be after API routes)
 app.get("*", (req, res) => {

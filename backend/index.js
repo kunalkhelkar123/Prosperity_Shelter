@@ -21,6 +21,15 @@ dotenv.config();
 
 const _dirname=path.dirname("");
 const buildpath=path.join(_dirname,"../user/dist");
+
+app.get('*', (req,res)=>{
+
+res.sendFile(path.resolve(_dirname, "user","dist", "index.html"));
+
+})
+
+
+
 app.use(express.static(buildpath));
 
 

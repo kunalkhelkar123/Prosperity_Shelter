@@ -591,40 +591,40 @@ router.get('/getleads', async (req, res) => {
   const page = parseInt(req.query.page, 10) || 1;
   const limit = parseInt(req.query.limit, 10) || 10;
 
-  let query = 'SELECT * FROM homi_grow.leads';
-  const filters = [];
-  const values = [];
+  let query = 'SELECT * FROM leads';
+  // const filters = [];
+  // const values = [];
 
-  if (emailId) {
-    filters.push('emailId = ?');
-    values.push(emailId);
-  }
+  // if (emailId) {
+  //   filters.push('emailId = ?');
+  //   values.push(emailId);
+  // }
 
-  if (contactNumber) {
-    filters.push('contactNumber = ?');
-    values.push(contactNumber);
-  }
+  // if (contactNumber) {
+  //   filters.push('contactNumber = ?');
+  //   values.push(contactNumber);
+  // }
 
-  if (preferredLocation) {
-    filters.push('preferredLocation = ?');
-    values.push(preferredLocation);
-  }
+  // if (preferredLocation) {
+  //   filters.push('preferredLocation = ?');
+  //   values.push(preferredLocation);
+  // }
 
-  if (filters.length > 0) {
-    query += ' WHERE ' + filters.join(' AND ');
-  }
+  // if (filters.length > 0) {
+  //   query += ' WHERE ' + filters.join(' AND ');
+  // }
 
-  const offset = (page - 1) * limit;
-  query += ' LIMIT ? OFFSET ?';
-  values.push(limit, offset);
+  // const offset = (page - 1) * limit;
+  // query += ' LIMIT ? OFFSET ?';
+  // values.push(limit, offset);
 
-  // console.log("Final Query: ", query);
-  // console.log("Values: ", values);
+  // // console.log("Final Query: ", query);
+  // // console.log("Values: ", values);
 
   try {
-    const [results] = await db.query(query, values);
+    const [results] = await db.query(query);
     if (results.length === 0) {
-      return res.status(404).json({ success: false, message: "No leads found" });
+      return res.status(202).json({ success: false, message: "No leads found" });
     }
     res.status(200).json({ success: true, data: results });
   } catch (error) {
@@ -635,7 +635,7 @@ router.get('/getleads', async (req, res) => {
 
 
 router.get('/getleads-count', async (req, res) => {
-  const query = 'SELECT COUNT(*) AS totalLeads FROM homi_grow.leads'; // SQL query to count leads
+  const query = 'SELECT COUNT(*) AS totalLeads FROM leads'; // SQL query to count leads
   try {
     const [result] = await db.query(query); // Execute the query
     const totalLeads = result[0].totalLeads; // Extract the count
@@ -650,7 +650,7 @@ router.get('/getleads-count', async (req, res) => {
 
 
 router.get('/staff', async (req, res) => {
-  const query = 'SELECT * FROM homi_grow.staff_master'; // SQL query to count leads
+  const query = 'SELECT * FROM staff_master'; // SQL query to count leads
   try {
     const [result] = await db.query(query); // Execute the query
     // const totalLeads = result; // Extract the count
@@ -753,7 +753,7 @@ router.post('/addenquiry', async (req, res) => {
   } = req.body;
 
   const query = `
-    INSERT INTO homi_grow.property_leads 
+    INSERT INTO property_leads 
     (name, email, mobile, propertyID, propertyTitle, budget, preferredLocation, propertyType, message) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
@@ -804,7 +804,7 @@ router.post("/addDescription", async (req, res) => {
   try {
     // Insert the new description and visit date into the 'lead_descriptions' table
     const query = `
-      INSERT INTO homi_grow.lead_descriptions (lead_id, lead_description, expected_visit_date, followup_by)
+      INSERT INTO lead_descriptions (lead_id, lead_description, expected_visit_date, followup_by)
       VALUES (?, ?, ?, ?)
     `;
 
@@ -839,7 +839,7 @@ router.get("/getDescriptions/:lead_id", async (req, res) => {
   try {
     const query = `
     SELECT lead_description, expected_visit_date, followup_by, created_at 
-    FROM homi_grow.lead_descriptions 
+    FROM lead_descriptions 
     WHERE lead_id = ?
   `;
 

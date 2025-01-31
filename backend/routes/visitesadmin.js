@@ -91,7 +91,7 @@ router.post('/updateAttend', async (req, res) => {
 
     try {
         // Query to update the 'attend' column in the database
-        const updateQuery = 'UPDATE homi_grow.visits_master SET attend = ? WHERE id = ?';
+        const updateQuery = 'UPDATE visits_master SET attend = ? WHERE id = ?';
 
         // Execute the query to update the attend status
         const [result] = await db.execute(updateQuery, [attend, visiteId]);

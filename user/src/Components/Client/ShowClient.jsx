@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from 'xlsx';
-import axiosinstance from "../../../axiosConfig";
+import axios from "axios";
+
 
 const ShowClient = () => {
     const [clients, setClients] = useState([]);
@@ -48,7 +49,7 @@ const ShowClient = () => {
     // Fetch client data from the backend
     const fetchClients = async () => {
         try {
-            const response = await axiosinstance.get("/api/client/getclients");
+            const response = await axios.get("/api/client/getclients");
             if (response.data.success) {
                 setClients(response.data.clients);
             } else {
@@ -187,7 +188,7 @@ const ShowClient = () => {
     const handleUpdateClient = async (e) => {
         e.preventDefault();
         try {
-            const response = await axiosinstance.put(`/api/client/updateclient/${selectedClient.client_id}`, updatedClient);
+            const response = await axios.put(`/api/client/updateclient/${selectedClient.client_id}`, updatedClient);
             if (response.data.success) {
                 alert("Client details updated successfully.");
                 setShowModal(false);
@@ -621,7 +622,7 @@ export default ShowClient;
 // import { jsPDF } from "jspdf";
 // import "jspdf-autotable";
 // import * as XLSX from 'xlsx';
-// import axiosinstance from "../../../axiosConfig";
+// import axios from "../../../axiosConfig";
 
 // const ShowClient = () => {
 //     const [clients, setClients] = useState([]);
@@ -651,7 +652,7 @@ export default ShowClient;
 //     // Fetch client data from the backend
 //     const fetchClients = async () => {
 //         try {
-//             const response = await axiosinstance.get("/api/client/getclients");
+//             const response = await axios.get("/api/client/getclients");
 //             if (response.data.success) {
 //                 setClients(response.data.clients);
 //             } else {

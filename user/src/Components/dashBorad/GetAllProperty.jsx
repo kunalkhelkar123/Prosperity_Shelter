@@ -5,8 +5,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "../NavBar";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteProperty from "../Property-submission/DeleteProperty";
-// import axiosinstance from "../../../axiosConfig";
-import axios from "axios";
+import axiosinstance from "../../../axiosConfig";
 
 function GetAllProperty() {
   const [properties, setProperties] = useState([]);
@@ -22,7 +21,7 @@ function GetAllProperty() {
       const token = sessionStorage.getItem("token");
       const admin = JSON.parse(sessionStorage.getItem("admin"));
 
-      // console.log("admin ==> ", admin)
+      console.log("admin ==> ", admin)
       if (!token || !admin || admin.role !== "admin") {
         navigate("/admin");
       }
@@ -40,13 +39,13 @@ function GetAllProperty() {
       try {
         let response;
         if (sortOption === "all") {
-          response = await axios.get("api/property/properties");
+          response = await axiosinstance.get("api/property/properties");
           // console.log("response in iffff ", response.data);
         } else {
-          response = await axios.get(
+          response = await axiosinstance.get(
             `api/property/properties?sort=${sortOption}`
           );
-          // console.log("response in else ", response.data);
+          console.log("response in else ", response.data);
         }
         const sortedData = sortProperties(response.data); // Sort the fetched properties
         setProperties(sortedData);
@@ -175,23 +174,55 @@ function GetAllProperty() {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-4">
-        <ul className="flex">
-          {Array.from({
-            length: Math.ceil(properties.length / propertiesPerPage),
-          }).map((_, index) => (
+      <div className="flex justify-center mt-6  ">
+        <ul className="flex items-center space-x-2">
+
+          {/* Previous Button */}
+          <li>
+            <button
+              className={`px-3 py-2 text-sm font-semibold transition-all duration-300 rounded-lg shadow-md 
+          ${currentPage === 1
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-white text-red-600 border border-red-500 hover:bg-red-500 hover:text-white"}
+        `}
+              onClick={() => currentPage > 1 && paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              «
+            </button>
+          </li>
+
+          {/* Page Numbers */}
+          {Array.from({ length: Math.ceil(properties.length / propertiesPerPage) }).map((_, index) => (
             <li key={index}>
               <button
-                className={`px-3 py-1 ${currentPage === index + 1
-                    ? "bg-red-400 text-white"
-                    : "bg-red-500"
-                  } mr-1 rounded-full`}
+                className={`px-4 py-2 text-sm font-semibold transition-all duration-300 rounded-lg shadow-md 
+            ${currentPage === index + 1
+                    ? "bg-red-600 text-white scale-105 shadow-lg"
+                    : "bg-white text-red-600 border border-red-500 hover:bg-red-500 hover:text-white"}
+          `}
                 onClick={() => paginate(index + 1)}
               >
                 {index + 1}
               </button>
             </li>
           ))}
+
+          {/* Next Button */}
+          <li>
+            <button
+              className={`px-3 py-2 text-sm font-semibold transition-all duration-300 rounded-lg shadow-md 
+          ${currentPage === Math.ceil(properties.length / propertiesPerPage)
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-white text-red-600 border border-red-500 hover:bg-red-500 hover:text-white"}
+        `}
+              onClick={() => currentPage < Math.ceil(properties.length / propertiesPerPage) && paginate(currentPage + 1)}
+              disabled={currentPage === Math.ceil(properties.length / propertiesPerPage)}
+            >
+              »
+            </button>
+          </li>
+
         </ul>
       </div>
       {/* <button

@@ -24,7 +24,7 @@ const buildpath=path.join(_dirname,"../user/dist");
 
 app.get('*', (req,res)=>{
 
-res.sendFile(path.resolve(_dirname, "user","dist", "index.html"));
+res.sendFile(path.resolve(_dirname, "user",buildpath, "index.html"));
 
 })
 

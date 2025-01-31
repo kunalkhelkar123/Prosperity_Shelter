@@ -10,7 +10,7 @@ const client = require("./routes/client")
 const otpRoute = require("./routes/user");
 const propertyDetails = require("./routes/propertyDetails");
 const verifyToken = require("./middleware/verifyToken")
-
+const path=require("path")
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -19,9 +19,9 @@ dotenv.config();
 // ----- Mongoose connection ------
 
 
-// const _dirname=path.dirname("");
-// const buildpath=path.join(_dirname,"../user/build");
-// app.use(express.static(buildpath));
+const _dirname=path.dirname("");
+const buildpath=path.join(_dirname,"../user/dist");
+app.use(express.static(buildpath));
 
 
 // mongoose

@@ -14,7 +14,7 @@ function ClientHome() {
     return (
         <>
             <NavBar />
-            <div className="flex h-screen">
+            <div className="flex  h-[1000px]">
                 {/* Sidebar */}
                 <div className="w-full sm:w-1/4 lg:w-1/5 bg-gray-800 text-white p-6 flex flex-col">
                     <h3 className="text-lg font-bold mb-4">Menu</h3>

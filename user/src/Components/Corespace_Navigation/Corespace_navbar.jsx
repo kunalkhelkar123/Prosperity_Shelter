@@ -474,7 +474,7 @@ function Corespace_navbar() {
                 <Link to="/hotproperties" onClick={contentHandler}>
                   <div>
                     <button className="hidden sm:block">
-                      <strong>HOT PROPERTIES</strong>
+                      <strong>LATEST PROPERTIES</strong>
                     </button>
                     <button className="sm:hidden">
                       <strong>

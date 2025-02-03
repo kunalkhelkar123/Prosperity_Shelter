@@ -8,6 +8,7 @@ import PaginationButtonSearch from "./PaginationButtonSearch";
 import { Link, useLocation } from "react-router-dom";
 // import { Homepage_filter_menu } from "../../Components/homepage/Homepage_filter_menu";
 // import axios from "axios";
+import NavBar from "../NavBar";
 
 const SearchApp = () => {
   const [allProperties, setAllProperties] = useState([]);
@@ -43,6 +44,7 @@ const SearchApp = () => {
 
   return (
     <>
+      <NavBar />
       {(showMassage) ? (<div className="flex flex-col items-center justify-center sm:h-[600px] h-[900px] bg-gray-100 rounded-lg shadow-md p-6">
         <FaHome className="text-red-500 text-6xl mb-4" />
         <h1 className="text-2xl font-semibold text-gray-700">
@@ -54,26 +56,31 @@ const SearchApp = () => {
         <Link to="/Investmentapp" ><button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
           Browse All Properties
         </button></Link>
-      </div>) : (<div className="bg-white flex flex-col justify-center items-center">
-        <div className="items-center justify-center mt-4">
-          <HeadingSearch />
-        </div>
-        <div className="flex flex-row justify-center  items-center gap-6 flex-wrap">
-          {currentOutput.map((card) => (
-            <div key={card.id}>
-              <CardSearch data={card} />
+      </div>) : (
+        <>
+          <NavBar />
+          <div className="bg-white flex flex-col justify-center mt-[90px] items-center">
+            <div className="items-center justify-center mt-4">
+              <HeadingSearch />
             </div>
-          ))}
-        </div>
-        <div className="flex justify-center items-center mt-8 mb-8">
-          <PaginationButtonSearch
-            totalPosts={allProperties.length}
-            postsPerPage={postPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-        </div>
-      </div>)}
+            <div className="flex flex-row justify-center  items-center gap-6 flex-wrap">
+              {currentOutput.map((card) => (
+                <div key={card.id}>
+                  <CardSearch data={card} />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center items-center mt-8 mb-8">
+              <PaginationButtonSearch
+                totalPosts={allProperties.length}
+                postsPerPage={postPerPage}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+              />
+            </div>
+          </div>
+
+        </>)}
     </>
   );
 };

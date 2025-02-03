@@ -990,8 +990,11 @@ router.post('/filter_properties', async (req, res) => {
       filters.push('bhk = ?');
       values.push(configuration);
     }
+    let budget = "";
+    if (budget2) {
 
-    const budget=JSON.parse(budget2)
+      budget = JSON.parse(budget2)
+    }
 
     // Handling the budget field with ranges
     if (budget) {
@@ -1005,7 +1008,7 @@ router.post('/filter_properties', async (req, res) => {
         // console.log("sda2")
         minBudget = 2000000;
         maxBudget = 5000000;
-      } else if (budget =='501') {
+      } else if (budget == '501') {
         minBudget = 5000000;
         maxBudget = 10000000;
       } else if (budget == '115') {

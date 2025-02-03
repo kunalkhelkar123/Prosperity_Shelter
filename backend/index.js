@@ -92,7 +92,7 @@ const verifyToken = require("./middleware/verifyToken");
 dotenv.config();
 
 const app = express();
-const port = 4000;
+const port = 4001;
 
 // ----- Mongoose Connection ------
 // mongoose
@@ -123,6 +123,7 @@ app.use("/api/otp", verifyToken, otpRoute);
 
 // Static File Serving
 const buildPath = path.join(__dirname, "../user/dist");
+
 app.use(express.static(buildPath));
 
 // Fallback Route for React (should be after API routes)

@@ -42,25 +42,25 @@ function ContactUs() {
           if (response.data.success) {
             alert(response.data.message);
 
-            const googleFormData = {
-              "entry.455838840": formData.fullName,
-              "entry.728196848": formData.emailId,
-              "entry.2034244725": formData.contactNumber,
-              "entry.587021357": formData.subject,
-              "entry.799190995": formData.message,
-              "entry.1506441273": formData.Refer,
-              "entry.294442026": formData.preferredLocation,
-              "entry.923813635": formData.visitDate,
-              "entry.1974781562": formData.budget,
-              "entry.29152889": formData.configuration,
-              "entry.1437426984": formData.area,
-            };
+            // const googleFormData = {
+            //   "entry.455838840": formData.fullName,
+            //   "entry.728196848": formData.emailId,
+            //   "entry.2034244725": formData.contactNumber,
+            //   "entry.587021357": formData.subject,
+            //   "entry.799190995": formData.message,
+            //   "entry.1506441273": formData.Refer,
+            //   "entry.294442026": formData.preferredLocation,
+            //   "entry.923813635": formData.visitDate,
+            //   "entry.1974781562": formData.budget,
+            //   "entry.29152889": formData.configuration,
+            //   "entry.1437426984": formData.area,
+            // };
 
-            const senddata = await axios.post(
-              "/api/property/submit-google-form",
-              googleFormData
-            );
-            console.log("datatatata==>>>>", senddata);
+            // const senddata = await axios.post(
+            //   "/api/property/submit-google-form",
+            //   googleFormData
+            // );
+            // console.log("datatatata==>>>>", senddata);
 
             setFormData({
               // Reset the form data
@@ -78,12 +78,12 @@ function ContactUs() {
             });
           } else {
             // If success is false, show an error alert
-            alert("Error submitting the lead. Please try again.");
+            // alert("Error submitting the lead. Please try again.");
           }
         });
     } catch (error) {
       console.error("There was an error submitting the lead:", error);
-      alert("Error submitting the lead. Please try again.");
+      // alert("Error submitting the lead. Please try againqqq.");
     }
   };
 

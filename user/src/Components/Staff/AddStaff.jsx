@@ -13,7 +13,7 @@ function AddStaff({ onClose }) {
   });
   const navigate = useNavigate();
 
-
+  const [showPassword, setShowPassword] = useState(false);
 
 
 
@@ -21,7 +21,7 @@ function AddStaff({ onClose }) {
     try {
       const token = sessionStorage.getItem("token");
       const admin = JSON.parse(sessionStorage.getItem("admin"));
-    
+
       console.log("admin ==> ", admin)
       if (!token || !admin || admin.role !== "admin") {
         navigate("/admin");
@@ -72,7 +72,7 @@ function AddStaff({ onClose }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg border w-full sm:w-96 mx-auto" style={{width:"340px"}}>
+    <div className="bg-white p-6 rounded-lg shadow-lg border w-full sm:w-96 mx-auto" style={{ width: "340px" }}>
       <h2 className="text-xl font-semibold text-gray-800 mb-4">Add New Staff</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
@@ -117,7 +117,7 @@ function AddStaff({ onClose }) {
         <div className="space-y-2">
           <label htmlFor="password" className="block text-sm font-medium text-gray-600">Password</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             id="password"
             value={staffDetails.password}
@@ -125,6 +125,14 @@ function AddStaff({ onClose }) {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             required
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute  ml-[-40px]  pt-[40px] transform -translate-y-1/2 text-sm text-black"
+          >
+            {showPassword ? "Hide" : "Show"}
+
+          </button>
         </div>
 
         <div className="space-y-2">

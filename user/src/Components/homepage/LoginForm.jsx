@@ -2,18 +2,20 @@
 import { useState } from 'react';
 import City from "../homepage/city.jpeg";
 import { IoClose } from 'react-icons/io5'; // Importing React icon for close
-
+import axios from "axios"
 const LoginForm = ({ onClose }) => {
   const [formDatanew, setFormData] = useState({
-    name: '',
-    email: '',
-    mobile: ''
+    fullName: '',
+    emailId: '',
+    contactNumber: '',
+    message: "Want to post property",
+
   });
 
   const [errors, setErrors] = useState({
-    name: '',
-    email: '',
-    mobile: ''
+    fullName: '',
+    emailId: '',
+    contactNumber: ''
   });
 
   const handleChange2 = (e) => {
@@ -24,22 +26,68 @@ const LoginForm = ({ onClose }) => {
     });
   };
 
-  const handleSubmit2 = (e) => {
+  // const handleSubmit2 = (e) => {
+  //   e.preventDefault();
+  //   if (validateForm2()) {
+  //     // Submit form data
+  //     // console.log('Form submitted:', formDatanew);
+  //   }
+  // };
+
+
+  const handleSubmit2 = async (e) => {
     e.preventDefault();
-    if (validateForm2()) {
-      // Submit form data
-      // console.log('Form submitted:', formDatanew);
+    localStorage.setItem("submit", "true");
+
+    // Validate phone number before submitting
+    // if (!validatePhoneNumber(formDatanew.contactNumber)) {
+    //   alert("Please enter a valid contactNumber number.");
+    //   return;
+    // }
+
+    try {
+      // window.location.reload();
+      // Send the form data to the backend
+      const response = await axios
+        .post("/api/property/leads", formDatanew)
+        .then((response) => {
+          if (response.data.success) {
+            alert(response.data.message); // Show success alert
+            setFormData({
+              // Reset the form data
+              fullName: "",
+              emailId: "",
+              contactNumber: "",
+              subject: "",
+              message: "",
+              Refer: "",
+              preferredLocation: "",
+              visitDate: "",
+              budget: "",
+              configuration: "",
+              area: "",
+            });
+            onClose();
+          } else {
+            // If success is false, show an error alert
+            alert("Error submitting the lead. Please try again.");
+          }
+        });
+    } catch (error) {
+      console.error("There was an error submitting the lead:", error);
+      alert("Error submitting the lead. Please try again.");
     }
   };
+
 
   const validateForm2 = () => {
     let valid = true;
     const newErrors2 = { ...errors };
 
-    if (formDatanew.mobile.charAt(0) === '0') {
+    if (formDatanew.contactNumber.charAt(0) === '0') {
       setErrors(prevErrors1 => ({
         ...prevErrors1,
-        mobile: 'Mobile number should not start with 0.'
+        contactNumber: 'Mobile number should not start with 0.'
       }));
     } else {
       // console.log('Form submitted:', formDatanew);
@@ -56,20 +104,20 @@ const LoginForm = ({ onClose }) => {
 
     // Email validation
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!emailRegex.test(formDatanew.email)) {
-      newErrors2.email = 'Please enter a valid email address.';
+    if (!emailRegex.test(formDatanew.emailId)) {
+      newErrors2.emailId = 'Please enter a valid email address.';
       valid = false;
     } else {
-      newErrors2.email = '';
+      newErrors2.emailId = '';
     }
 
     // Mobile number validation (10 digits)
     const mobileRegex = /^\d{10}$/;
-    if (!mobileRegex.test(formDatanew.mobile)) {
-      newErrors2.mobile = 'Please enter a valid 10-digit mobile number.';
+    if (!mobileRegex.test(formDatanew.contactNumber)) {
+      newErrors2.contactNumber = 'Please enter a valid 10-digit mobile number.';
       valid = false;
     } else {
-      newErrors2.mobile = '';
+      newErrors2.contactNumber = '';
     }
 
     setErrors(newErrors2);
@@ -95,49 +143,49 @@ const LoginForm = ({ onClose }) => {
         </p>
         {/* Form Section */}
         <form onSubmit={handleSubmit2}>
-          <label htmlFor="name" className="block text-black mb-2">
+          <label htmlFor="fullName" className="block text-black mb-2">
             Your Name:
           </label>
           <input
-            placeholder='Enter Your Name'
+            placeholder='Enter Your fullName'
             type="text"
-            id="name"
-            name="name"
+            id="fullName"
+            name="fullName"
             className="w-full h-10 border rounded-md mb-4 px-3"
-            value={formDatanew.name}
+            value={formDatanew.fullName}
             onChange={handleChange2}
             required
           />
-          {errors.name && <div className="text-red-500">{errors.name}</div>}
-          <label htmlFor="email" className="block text-black mb-2">
+          {errors.fullName && <div className="text-red-500">{errors.fullName}</div>}
+          <label htmlFor="emailId" className="block text-black mb-2">
             Your Email:
           </label>
           <input
             placeholder='Write Your Email Id Please'
             type="email"
-            id="email"
-            name="email"
+            id="emailId"
+            name="emailId"
             className="w-full h-10 border rounded-md mb-4 px-3"
-            value={formDatanew.email}
+            value={formDatanew.emailId}
             onChange={handleChange2}
             required
           />
-          {errors.email && <div className="text-red-500">{errors.email}</div>}
-          <label htmlFor="mobile" className="block text-black mb-2">
+          {errors.emailId && <div className="text-red-500">{errors.emailId}</div>}
+          <label htmlFor="contactNumber" className="block text-black mb-2">
             Your Mobile Number:
           </label>
           <input
             placeholder="Write Mobile Number"
             type="tel"
-            id="mobile"
-            name="mobile"
+            id="contactNumber"
+            name="contactNumber"
             className="w-full h-10 border rounded-md mb-4 px-3"
-            value={formDatanew.mobile}
+            value={formDatanew.contactNumber}
             onChange={handleChange2}
             pattern="[0-9]{10}"
             required
           />
-          {errors.mobile && <div className="text-red-500">{errors.mobile}</div>}
+          {errors.contactNumber && <div className="text-red-500">{errors.contactNumber}</div>}
           {/* Button Section */}
           <div>
             <button type="submit" className="bg-yellow-600 hover:bg-purple-900 text-white h-12 w-full rounded-md mb-2">Submit</button>

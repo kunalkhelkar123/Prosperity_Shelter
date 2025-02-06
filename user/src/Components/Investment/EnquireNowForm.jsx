@@ -3,7 +3,7 @@
 import React, { useState, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import office from "../Investment/office.jpg";
-
+import axios from "axios"
 const EnquireNowForm = () => {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -14,9 +14,9 @@ const EnquireNowForm = () => {
   console.log(propertyID, propertyTitle);
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
+    fullName: "",
+    emailId: "",
+    contactNumber: "",
     propertyID: propertyID,
     propertyTitle: propertyTitle,
     budget: "",
@@ -40,43 +40,36 @@ const EnquireNowForm = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(
-        "http://localhost:4000/api/property/addenquiry",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        alert("Form submitted successfully!");
-        // console.log("Server Response:", result);
-
-        setFormData({
-          name: "",
-          email: "",
-          mobile: "",
-          propertyID: propertyID,
-          propertyTitle: propertyTitle,
-          budget: "",
-          preferredLocation: "",
-          propertyType: "",
-          message: "",
+      // window.location.reload();
+      // Send the form data to the backend
+      const response = await axios
+        .post("/api/property/leads", formData)
+        .then((response) => {
+          if (response.data.success) {
+            alert(response.data.message); // Show success alert
+            setFormData({
+              // Reset the form data
+              fullName: "",
+              emailId: "",
+              contactNumber: "",
+              subject: "",
+              message: "",
+              Refer: "",
+              preferredLocation: "",
+              visitDate: "",
+              budget: "",
+              configuration: "",
+              area: "",
+            });
+            onClose();
+          } else {
+            // If success is false, show an error alert
+            // alert("Error submitting the lead. Please try again.");
+          }
         });
-      } else {
-        console.error("Submission failed:", result);
-        alert(result.message || "Failed to submit the form. Please try again.");
-      }
     } catch (error) {
-      console.error("Error submitting the form:", error);
-      alert(
-        "An error occurred while submitting the form. Please try again later."
-      );
+      console.error("There was an error submitting the lead:", error);
+      alert("Error submitting the lead. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -110,8 +103,8 @@ const EnquireNowForm = () => {
         </label>
         <input
           type="text"
-          id="name"
-          value={formData.name}
+          id="fullName"
+          value={formData.fullName}
           onChange={handleInputChange}
           className="w-full h-10 border rounded-md mb-4 px-3 focus:outline-none focus:ring-2 focus:ring-[#390255]"
           required
@@ -122,8 +115,8 @@ const EnquireNowForm = () => {
         </label>
         <input
           type="email"
-          id="email"
-          value={formData.email}
+          id="emailId"
+          value={formData.emailId}
           onChange={handleInputChange}
           className="w-full h-10 border rounded-md mb-4 px-3 focus:outline-none focus:ring-2 focus:ring-[#390255]"
           required
@@ -134,8 +127,8 @@ const EnquireNowForm = () => {
         </label>
         <input
           type="text"
-          id="mobile"
-          value={formData.mobile}
+          id="contactNumber"
+          value={formData.contactNumber}
           onChange={handleInputChange}
           className="w-full h-10 border rounded-md mb-4 px-3 focus:outline-none focus:ring-2 focus:ring-[#390255]"
           required

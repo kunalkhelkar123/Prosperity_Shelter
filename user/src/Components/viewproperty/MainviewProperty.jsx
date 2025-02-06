@@ -73,9 +73,9 @@ function MainviewProperty(props) {
 
   // contact form
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
+    fullName: '',
+    emailId: '',
+    contactNumber: '',
     area: '',
     configuration: '',
     budget: '',
@@ -96,40 +96,55 @@ function MainviewProperty(props) {
     return true; // For now, bypass phone validation
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    localStorage.setItem("submit", "true");
 
     // Validate phone number before submitting
-    if (!validatePhoneNumber(formData.phone)) {
-      alert('Please enter a valid phone number.');
-      return;
+    // if (!validatePhoneNumber(formDatanew.contactNumber)) {
+    //   alert("Please enter a valid contactNumber number.");
+    //   return;
+    // }
+
+    try {
+      // window.location.reload();
+      // Send the form data to the backend
+      const response = await axios
+        .post("/api/property/leads", formData)
+        .then((response) => {
+          if (response.data.success) {
+            alert(response.data.message); // Show success alert
+            setFormData({
+              // Reset the form data
+              fullName: "",
+              emailId: "",
+              contactNumber: "",
+              subject: "",
+              message: "",
+              Refer: "",
+              preferredLocation: "",
+              visitDate: "",
+              budget: "",
+              configuration: "",
+              area: "",
+            });
+            onClose();
+          } else {
+            // If success is false, show an error alert
+            // alert("Error submitting the lead. Please try again.");
+          }
+        });
+    } catch (error) {
+      console.error("There was an error submitting the lead:", error);
+      alert("Error submitting the lead. Please try again.");
     }
-
-    const serviceID = 'your_service_id';
-    const templateID = 'your_template_id';
-    const userID = 'your_user_id'; // Use your Public Key here
-
-    emailjs.send(serviceID, templateID, formData, userID).then(
-      (result) => {
-        console.log('Email sent successfully:', result.text);
-        alert('Message sent successfully!');
-      },
-      (error) => {
-        console.error('Error sending email:', error.text);
-        alert('An error occurred, please try again.');
-      },
-    );
-
-    // Clear the form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      area: '',
-      configuration: '',
-      budget: '',
-    });
   };
+
+
+
+
+
+
 
   const puneAreas = [
     'Shivaji Nagar',
@@ -315,14 +330,14 @@ function MainviewProperty(props) {
                     <div>
                       <label className="block mb-2">
                         Name:
-                        <input type="text" name="name" value={formData.name} placeholder="Enter Your Name" onChange={handleChange} className="w-full p-2 border border-gray-300 rounded mt-1" required />
+                        <input type="text" name="fullName" value={formData.fullName} placeholder="Enter Your Name" onChange={handleChange} className="w-full p-2 border border-gray-300 rounded mt-1" required />
                       </label>
                       <label className="block mb-2">
                         Email:
                         <input
                           type="email"
-                          name="email"
-                          value={formData.email}
+                          name="emailId"
+                          value={formData.emailId}
                           placeholder="Enter Email-Address"
                           onChange={handleChange}
                           className="w-full p-2 border border-gray-300 rounded mt-1"
@@ -333,14 +348,14 @@ function MainviewProperty(props) {
                         Phone:
                         <input
                           type="text"
-                          name="phone"
-                          value={formData.phone}
+                          name="contactNumber"
+                          value={formData.contactNumber}
                           onChange={handleChange}
                           placeholder="Enter Your Number"
                           className="w-full p-2 border border-gray-300 rounded mt-1"
                           required
                         />
-                        {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+                        {errors.contactNumber && <p className="text-red-500 text-sm">{errors.contactNumber}</p>}
                       </label>
                     </div>
                     <div>

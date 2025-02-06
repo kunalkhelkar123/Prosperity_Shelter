@@ -201,6 +201,7 @@ const ProfilePage = () => {
                                 My Profile
                             </button>
                         </li>
+                        {user && user.subrole === 'admin' && (
                         <li className="mb-4">
                             <button
                                 className={`w-full text-left ${activeTab === 'showProfiles' ? 'text-teal-300' : ''}`}
@@ -209,6 +210,7 @@ const ProfilePage = () => {
                                 Show Profiles
                             </button>
                         </li>
+                        )}
                         {user && user.subrole === 'admin' && (
                             <li className="mb-4">
                                 <button

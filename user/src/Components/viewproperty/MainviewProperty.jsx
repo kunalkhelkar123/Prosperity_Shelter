@@ -128,7 +128,7 @@ function MainviewProperty(props) {
               configuration: "",
               area: "",
             });
-            onClose();
+            // onClose();
           } else {
             // If success is false, show an error alert
             // alert("Error submitting the lead. Please try again.");
@@ -198,7 +198,6 @@ function MainviewProperty(props) {
   // let arr_content= [{heading:"Type",Description:"Residential"},{heading:"Type",Description:"Residential"},{heading:"Type",Description:"Residential"},{heading:"Type",Description:"Residential"}]
   let project = {
     titleName: 'About Project',
-
     titleValue: propertyTitle,
     titleDesc: propertyDescription,
   };
@@ -297,13 +296,12 @@ function MainviewProperty(props) {
                         <br /><span className="font-bold">Total rooms : </span>{rooms}
                         <br /><span className="font-bold">Total Bedrooms : </span>{bedsroom}
                       </div>
-
                       <div>
                         <br /><span className="font-bold">Total Balcony : </span>{kitchen}
                         <br /><span className="font-bold">Location : </span>{area}
                         <br /><span className="font-bold">Price : </span>{price}
-                        <br /><span className="font-bold">MahaRa : </span>{/* Insert MahaRa value here */}
-                        <br /><span className="font-bold">Dimensions : </span>{builtDimentions}
+                        <br /><span className="font-bold">MahaRa : </span>{MahaRera}
+                        <br /><span className="font-bold">Built in Area : </span>{builtDimentions}
                       </div>
                     </div>
 
@@ -359,7 +357,7 @@ function MainviewProperty(props) {
                       </label>
                     </div>
                     <div>
-                      <label className="block mb-2">
+                      {/* <label className="block mb-2">
                         Area:
                         <select name="area" value={formData.area} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded mt-1" required>
                           <option value="">Select Area</option>
@@ -398,7 +396,7 @@ function MainviewProperty(props) {
                           <option value="DE">4Cr - 6Cr</option>
                           <option value="DE">above 6Cr</option>
                         </select>
-                      </label>
+                      </label> */}
                       <div className="flex justify-end mt-4">
                         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
                           Send

@@ -13,7 +13,13 @@ function NavBar() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  function check() {
+   
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("admin");
+      navigate("/staff/submit")
+  }
   return (
     <nav className="bg-[#390255]">
       {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:w-full">
@@ -59,19 +65,17 @@ function NavBar() {
                 Home
               </Link>
               <Link
-                to="/staff/myProperties"
+                to="/staff/bookings"
                 className="text-[#FFF848] px-3 py-2 rounded-md text-lg font-medium hover:bg-gray-700"
               >
-                Properties
+               Bookings
               </Link>
               <button
                 className="text-[#FFF848] bg-[#390255] px-3 py-2 text-base flex justify-center items-center rounded-md hover:bg-[#FFF848] hover:text-[#390255]"
-                onClick={() => navigate("/staff/submit")}
+                onClick={() => check()}
               >
-                <span className="material-symbols-outlined text-center text-lg">
-                  add
-                </span>
-                Add Property
+                
+                Logout
               </button>
             </div>
           </div>
@@ -88,16 +92,22 @@ function NavBar() {
               Home
             </Link>
             <Link
-              to="/staff/myProperties"
+              to="/staff/bookings"
               className="text-[#FFF848]  px-3 py-2 rounded-md text-base font-medium"
             >
-              Properties
+              Bookings
             </Link>
+            {/* <Link
+              to="/staff/bookings"
+              className="text-[#FFF848]  px-3 py-2 rounded-md text-base font-medium"
+            >
+              Bookings
+            </Link> */}
             <button
               className="text-[#FFF848] border px-3 py-2 border-purple-600 bg-[#390255]   justify-center items-center rounded-md text-base hover:bg-[#FFF848] hover:text-purple-950"
-              onClick={() => navigate("/staff/submit")}
+              onClick={() => check()}
             >
-              Submit Property
+             Logout
             </button>
           </div>
         </div>

@@ -64,7 +64,7 @@ function LeftSideNavBar({ setActiveTab, activeTab }) {
 
       {/* You can add any footer or additional content here */}
       <div className="mt-auto text-center text-gray-600 text-sm">
-        <p>© 2025 Your Company</p>
+        <p>© 2025 RealityOne</p>
       </div>
     </div>
   );

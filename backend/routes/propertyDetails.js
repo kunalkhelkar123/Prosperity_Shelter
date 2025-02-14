@@ -74,10 +74,10 @@ const generateSignedUrl = async (bucketName, key) => {
 router.post(
   '/propertyDetails',
   upload.fields([
-    { name: 'featureImage', maxCount: 1 },
-    { name: 'backgroundImage', maxCount: 1 },
-    { name: 'offersImage', maxCount: 1 },
-    { name: 'brochurepdf', maxCount: 1 },
+    { name: 'featureImage', maxCount: 2 },
+    { name: 'backgroundImage', maxCount: 2 },
+    { name: 'offersImage', maxCount: 2 },
+    { name: 'brochurepdf', maxCount: 2 },
   ]),
   async (req, res) => {
     try {

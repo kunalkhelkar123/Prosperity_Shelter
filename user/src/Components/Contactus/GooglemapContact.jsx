@@ -17,9 +17,9 @@ const GoogleMapsGrid = () => {
       </div>
 
       {/* Bottom Two Maps Side by Side */}
-      <div className="grid grid-cols-1 flex justify-center items-center md:grid-cols-2 gap-6">
+      {/* <div className="grid grid-cols-1 flex justify-center items-center md:grid-cols-2 gap-6"> */}
         {/* Left Map */}
-        <div className="relative w-full h-[500px] shadow-lg rounded-lg overflow-hidden">
+        {/* <div className="relative w-full h-[500px] shadow-lg rounded-lg overflow-hidden">
           <div className="absolute top-2 left-2 bg-white text-gray-800 text-sm font-semibold px-3 py-1 rounded-md shadow-md z-10">
             Victory Realty - East Pune
           </div>
@@ -31,10 +31,10 @@ const GoogleMapsGrid = () => {
             referrerPolicy="no-referrer-when-downgrade"
             title="Victory Realty - East Pune"
           ></iframe>
-        </div>
+        </div> */}
 
         {/* Right Map */}
-        <div className="relative w-full h-[500px] shadow-lg rounded-lg overflow-hidden">
+        {/* <div className="relative w-full h-[500px] shadow-lg rounded-lg overflow-hidden">
           <div className="absolute top-2 left-2 bg-white text-gray-800 text-sm font-semibold px-3 py-1 rounded-md shadow-md z-10">
             The Stellar Complex
           </div>
@@ -46,8 +46,8 @@ const GoogleMapsGrid = () => {
             referrerPolicy="no-referrer-when-downgrade"
             title="The Stellar Complex"
           ></iframe>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div>
   );
 };

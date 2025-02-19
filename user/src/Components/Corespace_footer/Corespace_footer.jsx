@@ -151,7 +151,7 @@ function Corespace_footer() {
 
         {/* Copyright section */}
         <div className="bg-blue-100 text-center py-6 font-semibold">
-          © 2025 Prosperity Shelters designed by Saksen Technologies All Rights Reserved.
+          © 2025 Prosperity Shelters designed by Reality-One All Rights Reserved.
         </div>
       </footer>
     </>

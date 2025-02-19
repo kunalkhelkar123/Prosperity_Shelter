@@ -15,7 +15,7 @@ const Companyfooter2 = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Saksen Technologies
+           Reality-One
           </a>
         </p>
       </div>

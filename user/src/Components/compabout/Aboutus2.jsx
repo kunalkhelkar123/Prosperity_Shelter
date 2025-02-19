@@ -14,7 +14,7 @@ export default function TurningHouses() {
 
           <p className="text-gray-600  leading-relaxed">
             In the dynamic world of real estate, where timing can be the difference between finding your dream home and
-            settling for less, <strong>Right Time Realtors LLP</strong> stands out as a beacon of reliability and
+            settling for less, <strong>Prosperity Shelters Pvt Ltd</strong> stands out as a beacon of reliability and
             expertise. With a passion for helping clients navigate the intricate world of real estate, this company has
             become synonymous with making every property transaction happen at precisely the right moment.
           </p>

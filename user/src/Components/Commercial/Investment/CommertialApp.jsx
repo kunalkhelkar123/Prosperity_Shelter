@@ -6,7 +6,7 @@ import PaginationButtonCommertial from "./PaginationButtonCommertial";
  import Corespace_navbar from "../../Corespace_Navigation/Corespace_navbar";
 import Corespace_footer from "../../Corespace_footer/Corespace_footer";
 import axios from "axios";
-const CommertialApp = () => {
+const CommertialProperties = () => {
   const [coinData, setCoinsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(9);
@@ -68,4 +68,4 @@ const CommertialApp = () => {
   );
 };
 
-export default CommertialApp;
+export default CommertialProperties;

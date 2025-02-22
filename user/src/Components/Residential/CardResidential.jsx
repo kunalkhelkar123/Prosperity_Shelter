@@ -37,7 +37,7 @@ const CardResidential = ({data}) => {
 
   const submithandle = () => {
     setViewobj(data);
-    navigate('/Appresidential/ViewDetail', {state: {viewobj: data}});
+    navigate('/Residentails-Properties/ViewDetail', {state: {viewobj: data}});
   };
 
   return (
@@ -87,7 +87,7 @@ const CardResidential = ({data}) => {
 
       {/* Buttons Section */}
       <div className="flex mt-2 flex-row justify-between w-[100%] px-3">
-        <Link to="/Investmentapp/Enquire">
+        <Link to="/AllProperties/Enquire">
           <button className=" border-[#FFF848] bg-[#FFF848] hover:bg-[#390255]  hover:border-[#390255] hover:text-white px-2 py-1 text-center align-middle text-sm font-semibold leading-normal text-[#390255]  h-[45px] w-[135px] rounded-md mb-2">
             Enquire Now
           </button>

@@ -21,10 +21,10 @@ function Aboutus() {
         <Abouttop />
       </div>
       <div className=" bg-[#f1f1f1] w-full px-4 py-8 flex flex-col items-center">
-        <div className="mt-8 w-[75%] bg-white  border-gray-300 shadow-xl border-2">
+        <div className="mt-8 w-full bg-white  border-gray-300 shadow-xl border-2">
           <Aboutus2 />
         </div>
-        <div className=" mt-8 w-[75%] bg-white  border-gray-300 shadow-xl border-2">
+        <div className=" mt-8 full bg-white  border-gray-300 shadow-xl border-2">
           <Aboutus3 />
         </div>
         <div className="mt-8 ">

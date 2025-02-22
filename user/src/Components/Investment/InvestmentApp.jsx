@@ -6,7 +6,7 @@ import axios from "axios";
 
 import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
 import Corespace_footer from "../Corespace_footer/Corespace_footer";
-const InvestmentApp = () => {
+const AllProperties = () => {
   const [allProperties, setAllProperties] = useState([]);
   const [currentOutput, setCurrentOutput] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -75,4 +75,4 @@ const InvestmentApp = () => {
   );
 };
 
-export default InvestmentApp;
+export default AllProperties;

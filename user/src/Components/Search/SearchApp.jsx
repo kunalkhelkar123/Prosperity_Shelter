@@ -53,7 +53,7 @@ const SearchApp = () => {
         <p className="text-gray-500 text-center mt-2">
           Try adjusting your search criteria or explore other options.
         </p>
-        <Link to="/Investmentapp" ><button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+        <Link to="/AllProperties" ><button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
           Browse All Properties
         </button></Link>
       </div>) : (

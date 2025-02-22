@@ -42,8 +42,16 @@ function Homepage_filter_menu() {
 
 
   useEffect(() => {
+ 
+    const storedTime = sessionStorage.getItem("isShowPopupFormTimestamp");
+    const currentTime = Date.now(); // Current time in milliseconds
 
-
+    // If the timestamp is found and more than 1 hour has passed, clear the session storage
+    if (storedTime && currentTime - parseInt(storedTime) > 1800000) {
+      sessionStorage.removeItem("isShowPopupForm");
+      sessionStorage.removeItem("isShowOffersPopup");
+      sessionStorage.removeItem("isShowPopupFormTimestamp"); // Remove the timestamp too
+    }
     const value1 = sessionStorage.getItem("isShowPopupForm")
     const value2 = sessionStorage.getItem("isShowOffersPopup")
 
@@ -228,7 +236,7 @@ function Homepage_filter_menu() {
         </div>
 
         <div className="bg-gray-800  mt-[40px] w-[75%] sm:w-[50%] grid grid-cols-0 sm:grid-cols-3 grid-row-4  bg-opacity-90 grid-flow-row p-3  gap-1 rounded-md  items-center sm:grid-col-2 ">
-          <Link to="/Investmentapp">
+          <Link to="/AllProperties">
             <button
               onClick={() => handleSelectoptions("Investment")}
               className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm w-full px-5 py-2.5  mb-2"
@@ -236,7 +244,7 @@ function Homepage_filter_menu() {
               Investment
             </button>
           </Link>
-          <Link to="/Commertialapp">
+          <Link to="/Commertial-Properties">
             <button
               onClick={() => handleSelectoptions("Commercial")}
               className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 w-full mb-2"
@@ -244,7 +252,7 @@ function Homepage_filter_menu() {
               Commercial
             </button>
           </Link>
-          {/* <Link to="/Appresidential">
+          {/* <Link to="/Residentails-Properties">
             <button
               onClick={() => handleSelectoptions('Residential')}
               className="focus:outline-none text-black bg-[#fff848] hover:bg-[#390255] hover:text-white font-medium rounded-lg text-sm w-full px-5 py-2.5  mb-2"

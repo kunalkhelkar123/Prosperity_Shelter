@@ -37,7 +37,7 @@ const Card = ({ data }) => {
   // }, [featureImage]);
 
   const handleViewDetails = () => {
-    navigate("/Investmentapp/ViewDetail", { state: { viewobj: data } });
+    navigate("/AllProperties/ViewDetail", { state: { viewobj: data } });
   };
 
   return (
@@ -94,7 +94,7 @@ const Card = ({ data }) => {
 
       {/* Buttons */}
       <div className="flex mt-2 justify-between w-full px-3">
-        <Link to="/Investmentapp/Enquire" state={{ propertyID, propertyTitle }}>
+        <Link to="/AllProperties/Enquire" state={{ propertyID, propertyTitle }}>
           <button className="bg-[#FFF848] hover:bg-[#390255] hover:text-white px-2 py-1 rounded-md text-sm font-semibold">
             Enquire Now
           </button>

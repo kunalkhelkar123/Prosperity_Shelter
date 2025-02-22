@@ -28,8 +28,8 @@
 //         case "/Home":
 //           setActiveButton("/Home");
 //           break;
-//         case "/Appresidential":
-//           setActiveButton("/Appresidential");
+//         case "/Residentails-Properties":
+//           setActiveButton("/Residentails-Properties");
 //           break;
 //           case "/Aboutus":
 //           setActiveButton("/Aboutus");
@@ -37,20 +37,20 @@
 //           case "/Contactus":
 //           setActiveButton("/Contactus");
 //           break;
-//         case "/Appresidential/ViewDetail":
-//           setActiveButton("/Appresidential");
+//         case "/Residentails-Properties/ViewDetail":
+//           setActiveButton("/Residentails-Properties");
 //           break;
-//         case "/Commertialapp":
-//           setActiveButton("/Commertialapp");
+//         case "/Commertial-Properties":
+//           setActiveButton("/Commertial-Properties");
 //           break;
-//         case "/Commertialapp/ViewDetail":
-//           setActiveButton("/Commertialapp");
+//         case "/Commertial-Properties/ViewDetail":
+//           setActiveButton("/Commertial-Properties");
 //           break;
-//         case "/Investmentapp":
-//           setActiveButton("/Investmentapp");
+//         case "/AllProperties":
+//           setActiveButton("/AllProperties");
 //           break;
-//         case "/Investmentapp/ViewDetail":
-//           setActiveButton("/Investmentapp");
+//         case "/AllProperties/ViewDetail":
+//           setActiveButton("/AllProperties");
 //           break;
 //         default:
 //           setActiveButton("");
@@ -102,11 +102,11 @@
 //               </Link>
 //             </div>
 //             <div>
-//               <Link to="/Appresidential">
+//               <Link to="/Residentails-Properties">
 //                 <button
 //                   onClick={() => handleButtonClick(location.pathname)}
 //                   className={`relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium ${
-//                     activeButton === "/Appresidential"
+//                     activeButton === "/Residentails-Properties"
 //                       ? "active text-black bg-[#ffff0c]"
 //                       : "text-white"
 //                   } hover:bg-[#ffff0c] hover:text-black hover:font-medium rounded-full hover:text-sm px-5 py-2.5 focus:outline-none md:py-[8px] lg:py-[12px] sm:text-sm sm:pt-[7px] sm:pb-[8px] sm:pl-[9px] sm:pr-[9px]`}
@@ -116,11 +116,11 @@
 //               </Link>
 //             </div>
 //             <div>
-//               <Link to="/Commertialapp">
+//               <Link to="/Commertial-Properties">
 //                 <button
 //                   onClick={() => handleButtonClick(location.pathname)}
 //                   className={`relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium ${
-//                     activeButton === "/Commertialapp"
+//                     activeButton === "/Commertial-Properties"
 //                       ? "active text-black bg-[#ffff0c]"
 //                       : "text-white"
 //                   } hover:bg-[#ffff0c] hover:text-black hover:font-medium rounded-full hover:text-sm px-5 py-2.5 focus:outline-none md:py-[8px] lg:py-[12px] sm:text-sm sm:pt-[7px] sm:pb-[8px] sm:pl-[9px] sm:pr-[9px]`}
@@ -131,11 +131,11 @@
 //             </div>
 
 //             <div>
-//               <Link to="/Investmentapp">
+//               <Link to="/AllProperties">
 //                 <button
 //                   onClick={() => handleButtonClick(location.pathname)}
 //                   className={`hover:bg-[#ffff0c] hover:text-black ${
-//                     activeButton === "/Investmentapp"
+//                     activeButton === "/AllProperties"
 //                       ? "active text-black bg-[#ffff0c]"
 //                       : "text-white"
 //                   } focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 md:py-[8px] lg:py-[12px] sm:text-sm sm:pt-[7px] sm:pb-[8px] sm:pl-[9px] sm:pr-[9px] lg:px-[15px]`}
@@ -301,8 +301,8 @@ function Corespace_navbar() {
         case "/Home":
           setActiveButton("/Home");
           break;
-        case "/Appresidential":
-          setActiveButton("/Appresidential");
+        case "/Residentails-Properties":
+          setActiveButton("/Residentails-Properties");
           break;
         case "/Aboutus":
           setActiveButton("/Aboutus");
@@ -310,20 +310,20 @@ function Corespace_navbar() {
         case "/Contactus":
           setActiveButton("/Contactus");
           break;
-        case "/Appresidential/ViewDetail":
-          setActiveButton("/Appresidential");
+        case "/Residentails-Properties/ViewDetail":
+          setActiveButton("/Residentails-Properties");
           break;
-        case "/Commertialapp":
-          setActiveButton("/Commertialapp");
+        case "/Commertial-Properties":
+          setActiveButton("/Commertial-Properties");
           break;
-        case "/Commertialapp/ViewDetail":
-          setActiveButton("/Commertialapp");
+        case "/Commertial-Properties/ViewDetail":
+          setActiveButton("/Commertial-Properties");
           break;
-        case "/Investmentapp":
-          setActiveButton("/Investmentapp");
+        case "/AllProperties":
+          setActiveButton("/AllProperties");
           break;
-        case "/Investmentapp/ViewDetail":
-          setActiveButton("/Investmentapp");
+        case "/AllProperties/ViewDetail":
+          setActiveButton("/AllProperties");
           break;
         default:
           setActiveButton("");
@@ -372,30 +372,30 @@ function Corespace_navbar() {
               </button>
             </Link>
 
-            <Link to="/Appresidential">
+            <Link to="/Residentails-Properties">
               <button
                 onClick={() => handleButtonClick(location.pathname)}
-                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px]  sm:text-[14px] font-medium ${activeButton === "/Appresidential" ? "bg-[#ffff0c] text-black" : "text-white"
+                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px]  sm:text-[14px] font-medium ${activeButton === "/Residentails-Properties" ? "bg-[#ffff0c] text-black" : "text-white"
                   }`}
               >
                 <strong>RESIDENTIAL</strong>
               </button>
             </Link>
 
-            <Link to="/Commertialapp">
+            <Link to="/Commertial-Properties">
               <button
                 onClick={() => handleButtonClick(location.pathname)}
-                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[14px] font-medium ${activeButton === "/Commertialapp" ? "bg-[#ffff0c] text-black" : "text-white"
+                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[14px] font-medium ${activeButton === "/Commertial-Properties" ? "bg-[#ffff0c] text-black" : "text-white"
                   }`}
               >
                 <strong>COMMERCIAL</strong>
               </button>
             </Link>
 
-            <Link to="/Investmentapp">
+            <Link to="/AllProperties">
               <button
                 onClick={() => handleButtonClick(location.pathname)}
-                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[14px] font-medium ${activeButton === "/Investmentapp" ? "bg-[#ffff0c] text-black" : "text-white"
+                className={`hover:bg-[#ffff0c] hover:text-black  px-2 py-1 rounded-[20px] text-[12px] sm:text-[14px] font-medium ${activeButton === "/AllProperties" ? "bg-[#ffff0c] text-black" : "text-white"
                   }`}
               >
                 <strong>INVESTMENT</strong>

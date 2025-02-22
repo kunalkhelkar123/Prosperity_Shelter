@@ -21,7 +21,7 @@ function Corespace_footer() {
             <p>Looking for investment or office space?</p>
           </div>
 
-          <Link to="/Investmentapp">
+          <Link to="/AllProperties">
             <div className="group flex items-center justify-center bg-yellow-300 hover:bg-yellow-400 rounded-md px-6 py-2 w-[174px]">
               <span className="font-bold text-black">Get Started</span>
               <svg
@@ -49,11 +49,11 @@ function Corespace_footer() {
               <h2 className="text-xl font-semibold">Quick Links</h2>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/Commertialapp">Commercial Property</Link>
+                  <Link to="/Commertial-Properties">Commercial Property</Link>
                 </li>
-                {/* <li><Link to="/Appresidential">Residential Property</Link></li> */}
+                {/* <li><Link to="/Residentails-Properties">Residential Property</Link></li> */}
                 <li>
-                  <Link to="/Investmentapp">Property Management Services</Link>
+                  <Link to="/AllProperties">Property Management Services</Link>
                 </li>
               </ul>
             </div>
@@ -71,15 +71,19 @@ function Corespace_footer() {
             <div className="space-y-4">
               <h2 className="text-xl font-semibold">Company</h2>
               <ul className="space-y-2">
+              <li>
+                  <Link to="/">Home</Link>
+                </li>
                 <li>
                   <Link to="/Aboutus">About Us</Link>
                 </li>
-                {/* <li>
-                  <Link to="/Blog">Blog</Link>
-                </li> */}
+                
                 {/* <li>Careers</li> */}
                 <li>
                   <Link to="/Contactus">Contact Us</Link>
+                </li>
+                <li>
+                  <Link to="/AllProperties">Properties</Link>
                 </li>
               </ul>
             </div>
@@ -150,9 +154,19 @@ function Corespace_footer() {
         </div>
 
         {/* Copyright section */}
-        <div className="bg-blue-100 text-center py-6 font-semibold">
-          © 2025 Prosperity Shelters designed by <Link to="https://realityone.in/" target="_blank" className="text-blue-600 hover:text-red-600">Reality-One Solutions</Link> All Rights Reserved.
+        <div className="bg-blue-100 text-center py-6 font-semibold text-sm sm:text-base md:text-lg">
+          © 2025 Prosperity Shelters designed by
+          <br className="block sm:hidden" />  {/* The <br> tag only shows on mobile */}
+          <Link
+            to="https://realityone.in/"
+            target="_blank"
+            className="text-blue-600 hover:text-red-600 px-2">
+            Reality-One Solutions
+          </Link>
+          All Rights Reserved.
         </div>
+
+
       </footer>
     </>
   );

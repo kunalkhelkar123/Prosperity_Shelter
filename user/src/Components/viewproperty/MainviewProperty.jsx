@@ -220,7 +220,7 @@ function MainviewProperty(props) {
           <div
             className="relative bg-gradient-to-b h-36 pl-4 sm:h-72 bg-cover bg-center"
             style={{
-              backgroundImage: `url(${backgroundImage})`,
+              backgroundImage: `url('${backgroundImage}')`,
             }}
           >
             {/* Fade overlay */}
@@ -230,6 +230,7 @@ function MainviewProperty(props) {
             <div className="relative z-10">
               <div className="text-slate-100 pt-20 pl-4 sm:pl-44 text-x sm:text-5xl font-bold subpixel-antialiased">
                 {propertyTitle}
+               
               </div>
               <div className="flex flex-row sm:flex-row mt-5 pl-4 sm:pl-44 text-red-600">
                 <img
@@ -246,7 +247,7 @@ function MainviewProperty(props) {
         <div>
           <div className="flex flex-col sm:flex-row justify-center gap-[30px] sm:gap-[10px] md:gap-[50px] xl:gap-[20px]">
             {/* <div className='flex flex-col justify-center md:flex-row md:justify-between xl:w-[95%]'> */}
-            <div className="w-[100%] ml-5 px-[20px] md:w-[60%] md:px-[0px] md:py-[20px] xl:w-[70%] ">
+            <div className="w-[90%] ml-5 px-[20px] md:w-[60%] md:px-[0px] md:py-[20px] xl:w-[70%] ">
               <div className=" bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 lg:py-5 flex flex-wrap justify-center gap-6 p-6 sm:justify-around mt-5 ">
                 {icons_Array.map((ele) => {
                   return (

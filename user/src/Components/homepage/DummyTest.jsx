@@ -69,7 +69,7 @@ function DummyTest() {
           <p className="text-white text-sm">
             The latest residential offerings from the best builders in Pune, handpicked by our team of experts just for you and backed by our widely acclaimed transaction and financial services.
           </p>
-          <Link to="/Investmentapp">
+          <Link to="/AllProperties">
             <button className="border-[#FFF848] bg-[#FFF848] hover:bg-[#390255]  hover:border-[#390255] hover:text-white p-2 mt-4 rounded-lg ">View All</button>
           </Link>
         </div>

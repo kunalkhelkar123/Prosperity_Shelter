@@ -5,8 +5,11 @@ import Corespace_navbar from "./Components/Corespace_Navigation/Corespace_navbar
 import Corespace_footer from "./Components/Corespace_footer/Corespace_footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Test from "./Components/homepage/Test";
-import InvestmentApp from "./Components/Investment/InvestmentApp";
-import AppResidential from "./Components/Residential/AppResidential";
+// import AllProperties from "./Components/Investment/AllProperties";
+import AllProperties from "./Components/Investment/InvestmentApp";
+import ResidentailsProperties from "./Components/Residential/AppResidential";
+
+// import Residentails-Properties from "./Components/Residential/Residentails-Properties";
 import EnquireNowForm from "./Components/Investment/EnquireNowForm";
 import { useLocation } from "react-router-dom";
 import MainviewProperty from "../src/Components/viewproperty/MainviewProperty";
@@ -15,7 +18,7 @@ import "flowbite/dist/flowbite.css";
 import "flowbite";
 import Aboutus from "./Components/compabout/Aboutus";
 import PopupForm from "./Components/PopupForm";
-import CommertialApp from "./Components/Commercial/Investment/CommertialApp";
+import CommertialProperties from "./Components/Commercial/Investment/CommertialApp";
 import ContactUs from "./Components/ContactUs";
 import SearchApp from "./Components/Search/SearchApp";
 import filterdata from "./Components/homepage/Homepage_filter_menu";
@@ -82,13 +85,13 @@ function App() {
           {/*  User routes  */}
           <Route path="/" element={<Homepage_filter_menu />} />
           {/* <Route path="/Test" element={<Test />} /> */}
-          <Route path="/Investmentapp" element={<InvestmentApp />} />
-          <Route path="/Commertialapp" element={<CommertialApp />} />
-          <Route path="/Appresidential" element={<AppResidential />} />
-          <Route path="/Investmentapp/Enquire" element={<EnquireNowForm />} />
-          <Route path="/Appresidential/ViewDetail" element={<MainviewProperty />} />
-          <Route path="/Commertialapp/ViewDetail" element={<MainviewProperty />} />
-          <Route path="/Investmentapp/ViewDetail" element={<MainviewProperty />} />
+          <Route path="/AllProperties" element={<AllProperties />} />
+          <Route path="/Commertial-Properties" element={<CommertialProperties />} />
+          <Route path="/Residentails-Properties" element={<ResidentailsProperties />} />
+          <Route path="/AllProperties/Enquire" element={<EnquireNowForm />} />
+          <Route path="/Residentails-Properties/ViewDetail" element={<MainviewProperty />} />
+          <Route path="/Commertial-Properties/ViewDetail" element={<MainviewProperty />} />
+          <Route path="/AllProperties/ViewDetail" element={<MainviewProperty />} />
           <Route path="/Searchapp/ViewDetail" element={<MainviewProperty />} />
           <Route path="/Aboutus" element={<Aboutus />} />
           <Route path="/Blog" element={<Compactblog />} />

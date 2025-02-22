@@ -6,7 +6,7 @@ import axios from "axios";
 import Corespace_navbar from "../Corespace_Navigation/Corespace_navbar";
 import Corespace_footer from "../Corespace_footer/Corespace_footer";
 import ResidentialHeading from "./ResidentialHeading";
-const AppResidential = () => {
+const ResidentailsProperties = () => {
   const [allProperties, setAllProperties] = useState([]);
   const [currentOutput, setCurrentOutput] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -108,4 +108,4 @@ const AppResidential = () => {
   );
 };
 
-export default AppResidential;
+export default ResidentailsProperties;

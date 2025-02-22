@@ -94,7 +94,7 @@ function Corespace_footer() {
         </div>
 
         {/* Social media section */}
-        <div className="bg-yellow-300 py-6 pl-6 pr-6 sm:pl-10">
+        {/* <div className="bg-yellow-300 py-6 pl-6 pr-6 sm:pl-10">
           <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
             <div className="text-xl font-semibold">Follow us</div>
 
@@ -125,7 +125,7 @@ function Corespace_footer() {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Call to action section */}
         <div className="bg-blue-100 py-3 flex flex-col lg:flex-row justify-around items-center pl-6 sm:pl-10">
@@ -141,7 +141,7 @@ function Corespace_footer() {
             <p>Schedule a call with our investment advisor today</p>
           </div>
 
-          <Link to="tel:+91 9146219186">
+          <Link to="tel:+91 7588676464">
             <button className="bg-purple-900 text-white px-6 py-2 rounded-lg flex items-center gap-2">
               <i className="fa-solid fa-phone"></i>
               <span>Schedule Call</span>
@@ -151,7 +151,7 @@ function Corespace_footer() {
 
         {/* Copyright section */}
         <div className="bg-blue-100 text-center py-6 font-semibold">
-          © 2025 Prosperity Shelters designed by Reality-One All Rights Reserved.
+          © 2025 Prosperity Shelters designed by <Link to="https://realityone.in/" target="_blank" className="text-blue-600 hover:text-red-600">Reality-One Solutions</Link> All Rights Reserved.
         </div>
       </footer>
     </>

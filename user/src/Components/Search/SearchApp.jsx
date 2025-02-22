@@ -8,7 +8,7 @@ import PaginationButtonSearch from "./PaginationButtonSearch";
 import { Link, useLocation } from "react-router-dom";
 // import { Homepage_filter_menu } from "../../Components/homepage/Homepage_filter_menu";
 // import axios from "axios";
-import NavBar from "../NavBar";
+import NavBar from "../Corespace_Navigation/Corespace_navbar";
 
 const SearchApp = () => {
   const [allProperties, setAllProperties] = useState([]);
@@ -58,7 +58,7 @@ const SearchApp = () => {
         </button></Link>
       </div>) : (
         <>
-          <NavBar />
+          {/* <NavBar /> */}
           <div className="bg-white flex flex-col justify-center mt-[90px] items-center">
             <div className="items-center justify-center mt-4">
               <HeadingSearch />

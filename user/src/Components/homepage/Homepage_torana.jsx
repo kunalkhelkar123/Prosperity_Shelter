@@ -41,7 +41,7 @@ export default function TornaMoharSection() {
                 </button>
               </Link>
 
-              <Link to="/Contactus">
+              <Link to="tel:+91 7588676464">
                 <button className="px-8 py-3 bg-black text-white rounded-full hover:bg-gray-900 transition-colors">
                   Call Now
                 </button>

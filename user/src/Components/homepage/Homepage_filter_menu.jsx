@@ -37,13 +37,37 @@ function Homepage_filter_menu() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isPopupFill, setIsPopupFill] = useState(false);
   const [isPopupOpen2, setIsPopupOpen2] = useState(false);
+  const [isShowPopupForm, setShowPopupForm] = useState(false);
+  const [isShowOffersPopup, setShowOffersPopup] = useState(false);
+
 
   useEffect(() => {
-    setIsPopupOpen(true);
+
+
+    const value1 = sessionStorage.getItem("isShowPopupForm")
+    const value2 = sessionStorage.getItem("isShowOffersPopup")
+
+
+    if ((!value1) && (!value2)) {
+
+      setIsPopupOpen(true);
+      setIsPopupOpen2(true);
+
+      sessionStorage.setItem("isShowPopupForm", "true")
+      sessionStorage.setItem("isShowOffersPopup", "true")
+    }
+
+
   }, []);
 
   const closePopup = () => {
     setIsPopupOpen(false);
+  };
+
+
+
+  const closePopup2 = () => {
+    setIsPopupOpen2(false);
   };
 
 
@@ -178,13 +202,7 @@ function Homepage_filter_menu() {
       });
   };
 
-  useEffect(() => {
-    setIsPopupOpen2(true);
-  }, []);
 
-  const closePopup2 = () => {
-    setIsPopupOpen2(false);
-  };
   return (
     <>
       <Corespace_navbar />

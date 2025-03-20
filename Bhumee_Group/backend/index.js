@@ -17,7 +17,7 @@ const verifyToken = require("./middleware/verifyToken");
 dotenv.config();
 
 const app = express();
-const port = 8080;
+const port = 8081;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());

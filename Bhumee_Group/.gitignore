@@ -84,8 +84,8 @@ web_modules/
 .parcel-cache
 
 # Next.js build output
-.next
-out
+# .next
+# out
 
 # Nuxt.js build / generate output
 .nuxt
@@ -97,7 +97,7 @@ out
 # public
 
 # vuepress build output
-.vuepress/dist
+# .vuepress/dist
 
 # vuepress v2.x temp and cache directory
 .temp

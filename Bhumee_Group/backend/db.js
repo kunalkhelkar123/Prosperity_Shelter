@@ -16,11 +16,11 @@ const mysql = require("mysql2/promise"); // Use `mysql2/promise` for async/await
 
 
 const connection = mysql.createPool({
-  host: "147.93.110.70",
+  host: "157.173.218.140",
   user: "root",
-  // password: "admin",
+  port: 3306,
   password: "Kunal@2902",
-  database: "homi_grow",
+  database: "bhumi",
 });
 
 // Test the connection

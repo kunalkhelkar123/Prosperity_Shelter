@@ -783,45 +783,58 @@ router.post('/addenquiry', async (req, res) => {
 
 
 router.post("/addDescription", async (req, res) => {
-  console.log("inside addDescription");
-  const { lead_id, lead_description, expected_visit_date, followup_by } = req.body;
-  console.log("lead_id, lead_description, expected_visit_date, followup_by ", lead_id, lead_description, expected_visit_date, followup_by);
+  console.log("Inside addDescription API");
+
+  const { lead_name, lead_id, lead_description, expected_visit_date, followup_by } = req.body;
+
+  console.log("Received data:", { lead_name, lead_id, lead_description, expected_visit_date, followup_by });
 
   // Check for missing required fields
   if (!lead_id || !lead_description || !followup_by) {
-    return res.status(400).send("Missing required fields.");
+    console.log("Missing required fields:", { lead_id, lead_description, followup_by });
+    return res.status(400).json({
+      success: false,
+      message: "Missing required fields: lead_id, lead_description, followup_by.",
+    });
   }
 
   try {
-    // Insert the new description and visit date into the 'lead_descriptions' table
+    // Ensure the database connection is available
+    if (!db || !db.query) {
+      throw new Error("Database connection not available.");
+    }
+
+    // Prepare SQL query
     const query = `
-      INSERT INTO lead_descriptions (lead_id, lead_description, expected_visit_date, followup_by)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO lead_descriptions (lead_name, lead_id, lead_description, expected_visit_date, followup_by)
+      VALUES (?, ?, ?, ?, ?)
     `;
 
-    const values = [lead_id, lead_description, expected_visit_date ? expected_visit_date : null, followup_by];
+    // Set `expected_visit_date` to `null` if not provided
+    const values = [lead_name || null, lead_id, lead_description, expected_visit_date || null, followup_by];
 
     // Execute the query
     const [result] = await db.query(query, values);
 
-    // Send the success response after the query
+    // Send success response
     return res.status(201).json({
       success: true,
-      message: "Lead addDescription added successfully",
-      data: { id: result.insertId }
+      message: "Lead description added successfully.",
+      data: { id: result.insertId },
     });
 
   } catch (error) {
-    console.error("Error adding description:", error);
+    console.error("Error adding description:", error.message);
 
-    // Send the error response if there's an issue
+    // Send error response
     return res.status(500).json({
       success: false,
-      message: "Error adding description",
-      error
+      message: "Error adding lead description.",
+      error: error.message,
     });
   }
 });
+
 
 
 router.get("/getDescriptions/:lead_id", async (req, res) => {

@@ -1,27 +1,27 @@
 const mysql = require("mysql2/promise"); // Use `mysql2/promise` for async/await
 
 // Create a connection pool
-// const connection = mysql.createPool({
-//   host: "prosperityshelters.czu80qkoq99g.ap-south-1.rds.amazonaws.com",   // kunal khelkar
-
-
-//   // host: "prosperityshelters.ct84qiwqoblz.ap-south-1.rds.amazonaws.com", // prosperity shelter live db
-//   user: "admin",
-//   // password: "admin",
-//   password: "kunal29022000",
-//   database: "homi_grow",
-//   // database: "prosperity_shelters",
-
-// });
-
-
 const connection = mysql.createPool({
-  host: "157.173.218.140",
+  host: "localhost",   // kunal khelkar
+
+
+  // host: "prosperityshelters.ct84qiwqoblz.ap-south-1.rds.amazonaws.com", // prosperity shelter live db
   user: "root",
-  port: 3306,
-  password: "Kunal@2902",
-  database: "bhumi",
+  // password: "admin",
+  password: "Kunal@123",
+  database: "homi_grow",
+  // database: "prosperity_shelters",
+
 });
+
+
+// const connection = mysql.createPool({
+//   host: "157.173.218.140",
+//   user: "root",
+//   port: 3306,
+//   password: "Kunal@2902",
+//   database: "bhumi",
+// });
 
 // Test the connection
 async function testConnection() {

@@ -4,7 +4,9 @@ import StaffNavbar from "../Navbar/index";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function DailyScrum() {
-    const [description, setDescription] = useState("");
+    const defaultDescription = `Name              - \nDate                -\nTotal call          - 0\nConnect call    - 0\nIncoming call  - 0\nCNR                 - 0\nDetails send    - 0\nExpected Visit - 0\nToday's expected- 0\nToday's visit     - 0\nToday revisit    - 0\nTotal visit         - 0\nTotal Booking   - 0`;
+
+    const [description, setDescription] = useState(defaultDescription);
     const [date, setDate] = useState("");
     const [message, setMessage] = useState("");
     const [user, setUser] = useState(null);

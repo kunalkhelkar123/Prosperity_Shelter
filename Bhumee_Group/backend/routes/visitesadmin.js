@@ -3,24 +3,26 @@ const router = express.Router();
 
 const db = require('../db');    
 
-// Updated route: Fetch all visits
+
 router.get('/getvisits', async (req, res) => {
     try {
         // Fetch all visits
         const [rows] = await db.execute(
-            `SELECT * FROM visits_master ORDER BY created_at ASC`
+        `SELECT * FROM lead_descriptions WHERE expected_visit_date IS NOT NULL ORDER BY created_at ASC;
+`
         );
 
         // Format the visit_date for each entry
         const formattedRows = rows.map(row => {
-            const formattedDate = row.visit_date
-                ? new Date(row.visit_date).toLocaleDateString('en-GB')
+            const formattedDate = row.expected_visit_date
+                ? new Date(row.expected_visit_date).toLocaleDateString('en-GB')
                 : null;
             return {
                 ...row,
                 visit_date: formattedDate, // Ensure consistent date formatting
             };
         });
+        // console.log("rows ", formattedRows)
 
         res.status(200).json(formattedRows);
     } catch (error) {
@@ -29,7 +31,25 @@ router.get('/getvisits', async (req, res) => {
     }
 });
 
+
+
+
+
+////////////////////////////////////////////////
+// Updated route: Fetch all visits
+
+
+
+
+
+
 // Route to add a new visit
+
+
+
+
+
+
 router.post('/addvisits', async (req, res) => {
     const { visitorName, visitDate, purpose, followupBy, id } = req.body;
 
@@ -84,17 +104,23 @@ router.post('/updateAttend', async (req, res) => {
 
     console.log("check",visiteId, attend)
     // Check if visiteId and attend are provided
-    if (!visiteId && (attend == "false")) {
-        console.log("failed")
-        return res.status(400).json({ message: 'Missing or invalid data' });
-    }
+    // if (!visiteId && (attend == "false")) {
+    //     console.log("failed")
+    //     return res.status(400).json({ message: 'Missing or invalid data' });
+    // }
 
     try {
         // Query to update the 'attend' column in the database
-        const updateQuery = 'UPDATE visits_master SET attend = ? WHERE id = ?';
+        const updateQuery = 'UPDATE lead_descriptions SET attend = ? WHERE id = ?';
 
         // Execute the query to update the attend status
+
+        console.log("updateQuery ",updateQuery )
+        console.log(" attend, visiteId",attend, visiteId )
+
         const [result] = await db.execute(updateQuery, [attend, visiteId]);
+
+        console.log(" result",result)
 
         // Check if the row was updated
         if (result.affectedRows > 0) {

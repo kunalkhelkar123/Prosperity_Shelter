@@ -15,10 +15,11 @@ function LeadContact() {
   const [currentUser, setCurrentUser] = useState("Admin"); // Name of the person adding descriptions
   const [followUpBy, setFollowUpBy] = useState(""); // Follow-up person field
   const navigate = useNavigate();
-  const [staffuser, setStaffuser] = useState("")
+  const [staffuser, setStaffuser] = useState("")  // staff user name 
+  const [searchTerm, setSearchTerm] = useState(""); // Search term state
 
-
-
+ const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(20); // Display only 20 leads per page
   // Static data for old descriptions
   const staticDescriptions = {
     1: [
@@ -27,6 +28,12 @@ function LeadContact() {
     ],
 
   };
+
+
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +45,8 @@ function LeadContact() {
           navigate("/staff");
         } else {
           setStaffuser(user.name);
-          console.log("staffuser ==> ", user.name);
+          
+
         }
       } catch (error) {
         console.error("Error in useEffect:", error);
@@ -55,6 +63,7 @@ function LeadContact() {
       try {
         if (!staffuser) return; // ✅ Prevent API call until staffuser is set
 
+        // console.log("staffuser name ",staffuser)
         const response = await axios.get(`/api/property/getstaffleads/${staffuser}`);
         console.log("Fetched Users:", response.data.data);
         setUsers(response.data.data);
@@ -80,10 +89,11 @@ function LeadContact() {
 
 
       const newDescription = {
+        lead_name :staffuser,
         lead_id: id,
         lead_description: queryInputs,
         expected_visit_date: visitDate,
-        followup_by: followUpBy
+        followup_by: staffuser
       };
 
       console.log("formData ==> ", newDescription)
@@ -161,11 +171,28 @@ function LeadContact() {
     }
   };
 
+   // Filter leads based on search term
+   const filteredLeads = (users || []).filter((user) => {
+
+
+    const areaWords = user.area.toLowerCase().split(" ");
+    const searchWords = searchTerm.toLowerCase().split(" ");
+    return searchWords.every((word, index) => areaWords[index] && areaWords[index].startsWith(word));
+  });
+
 
 
   const closeDescription = () => {
     setActiveRow(null); // Close the "Show Actions" component
   };
+
+
+
+   // Pagination Logic
+   const indexOfLastLead = currentPage * itemsPerPage;
+   const indexOfFirstLead = indexOfLastLead - itemsPerPage;
+   const currentLeads = filteredLeads.slice(indexOfFirstLead, indexOfLastLead);
+   
 
   // if (loading) {
   //   return <div className="text-center text-lg">Loading...</div>;
@@ -183,6 +210,23 @@ function LeadContact() {
       <StaffNavBar />
       <div className="container mx-auto px-4 py-6">
         <h1 className="text-4xl font-bold text-center text-purple-950 mb-4">Lead Details</h1>
+        
+        <div className="flex justify-center mb-4">
+          <input
+            type="text"
+            placeholder="Search by Area..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-1/2 p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        
+        
+        
+        
+        
+        
+        
         <div className="overflow-x-auto">
 
 
@@ -223,7 +267,7 @@ function LeadContact() {
                 <tbody>
 
                   {Array.isArray(users) && users.length > 0 ? (
-                    users.map((user, index) => (
+                    currentLeads.map((user, index) => (
                       <React.Fragment key={user.id}>
                         <tr className="bg-purple-50 text-black">
                           <td className="px-4 py-2 font-medium">{index + 1}</td>
@@ -330,6 +374,23 @@ function LeadContact() {
 
                 </tbody>
               </table>
+
+              <div className="flex justify-center mt-4">
+
+
+                <div className="flex justify-center mt-4 space-x-2">
+                  {[...Array(Math.ceil(filteredLeads.length / itemsPerPage)).keys()].map((number) => (
+                    <button
+                      key={number + 1}
+                      onClick={() => paginate(number + 1)}
+                      className={`px-4 py-2 border rounded-md ${currentPage === number + 1 ? "bg-blue-500 text-white" : "bg-white"}`}
+                    >
+                      {number + 1}
+                    </button>
+                  ))}
+                </div>
+
+              </div>
               <button
                 className="rounded-md p-2 bg-purple-950 text-white fixed bottom-2 right-2"
                 onClick={() => navigate("/staff/dashboard")}

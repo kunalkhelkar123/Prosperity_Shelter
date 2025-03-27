@@ -24,7 +24,7 @@ function DashBoardHomePage() {
     },
     {
       id: 3,
-      title: "Upcoming Visits",
+      title: "Show Visits",
       count: "",
       buttonText: "Show Visits",
       navigateTo: "/staff/upcomingvisits",

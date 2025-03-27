@@ -5,6 +5,16 @@ const db = require('../db')
 
 
 
+
+
+
+
+
+
+
+
+
+
 router.post('/add-booking', async (req, res) => {
 
     // console.log("inside add-booking")
@@ -65,21 +75,21 @@ router.post('/get-bookings', async (req, res) => {
 
 router.post('/getvisits', async (req, res) => {
     try {
-        const { id } = req.body;  // Get the user ID from the request body
-        console.log("idd ==> ", id)
-        if (!id) {
-            return res.status(400).json({ error: 'Staff ID is required' });
+        const { followup_by } = req.body;  // Get the user ID from the request body
+        console.log("followup_by ==> ", followup_by)
+        if (!followup_by) {
+            return res.status(400).json({ error: 'Staff name is required' });
         }
 
         // Query for visits belonging only to the given staff ID
         const [rows] = await db.execute(
-            `SELECT * FROM visits_master WHERE staff_id = ? ORDER BY created_at ASC`,
-            [id] // Pass the staff_id dynamically
+            `SELECT * FROM lead_descriptions WHERE followup_by = ? ORDER BY created_at ASC`,
+            [followup_by] // Pass the staff_id dynamically
         );
 
         // Format the visit_date for each entry
         const formattedRows = rows.map(row => {
-            const formattedDate = row.visit_date ? new Date(row.visit_date).toLocaleDateString('en-GB') : null;
+            const formattedDate = row.expected_visit_date ? new Date(row.expected_visit_date).toLocaleDateString('en-GB') : null;
             return {
                 ...row,
                 visit_date: formattedDate // Ensure consistent date formatting

@@ -64,16 +64,10 @@ function StaffLogIn() {
         className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bgImage})` }}
     >
-       <div className="bg-[#390255] p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md">
-        <div className="text-center mb-6">
-          <Link to={"/"}>
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-16 sm:h-20 mx-auto w-16 sm:w-20 mb-4"
-            />
-          </Link>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white">
+        <div className="bg-[#390255] p-8 rounded-lg shadow-lg mt-36 w-[400px]">
+               <div className="text-center mb-2">
+                 <Link to={"/"} ><img src={logo} alt="Logo" className="h-[100px] mx-auto w-[130px] " /></Link>
+          <h2 className="text-3xl sm:text-3xl lg:text-3xl font-semibold text-white">
             Staff Login
           </h2>
         </div>
@@ -81,7 +75,7 @@ function StaffLogIn() {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-base sm:text-lg text-white font-semibold mb-2"
+              className="block text-base sm:text-sm text-white font-semibold mb-2"
             >
               Email Address
             </label>
@@ -99,7 +93,7 @@ function StaffLogIn() {
           <div className="mb-6 relative">
             <label
               htmlFor="password"
-              className="block text-base sm:text-lg text-white font-semibold mb-2"
+              className="block text-base sm:text-sm text-white font-semibold mb-2"
             >
               Password
             </label>
@@ -124,7 +118,7 @@ function StaffLogIn() {
           </div>
           <button
             type="submit"
-            className={`w-full bg-[#FFF848] text-xl sm:text-2xl font-semibold text-[#390255] py-2 px-1 rounded-lg hover:bg-white hover:text-[#390255] ${
+            className={`w-full bg-[#FFF848] text-xl sm:text-xl font-semibold text-[#390255] py-1 px-1 rounded-lg hover:bg-white hover:text-[#390255] ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}

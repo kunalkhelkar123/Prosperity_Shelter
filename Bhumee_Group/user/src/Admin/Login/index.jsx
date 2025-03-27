@@ -153,14 +153,14 @@ function LogIn() {
       className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="bg-[#390255] p-8 rounded-lg shadow-lg w-[450px]">
-        <div className="text-center mb-6">
-          <Link to={"/"} ><img src={logo} alt="Logo" className="h-20 mx-auto w-20 mb-4" /></Link>
-          <h2 className="text-5xl font-semibold text-white">Admin Login</h2>
+      <div className="bg-[#390255] p-8 rounded-lg shadow-lg mt-36 w-[400px]">
+        <div className="text-center mb-2">
+          <Link to={"/"} ><img src={logo} alt="Logo" className="h-[100px] mx-auto w-[130px] " /></Link>
+          <h2 className="text-3xl font-semibold text-white">Admin Login</h2>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-lg text-white font-semibold mb-2">
+            <label htmlFor="email" className="block text-sm text-white font-semibold mb-2">
               Email Address
             </label>
             <input
@@ -173,7 +173,7 @@ function LogIn() {
             />
           </div>
           <div className="mb-6 relative">
-            <label htmlFor="password" className="block text-lg text-white font-semibold mb-2">
+            <label htmlFor="password" className="block text-sm text-white font-semibold mb-2">
               Password
             </label>
             <input
@@ -194,7 +194,7 @@ function LogIn() {
           </div>
           <button
             type="submit"
-            className={`w-full bg-[#FFF848] text-2xl font-semibold text-[#390255] py-2 px-1 rounded-lg hover:bg-white hover:text-[#390255] ${loading ? "opacity-50 cursor-not-allowed" : ""
+            className={`w-full bg-[#FFF848] text-xl font-semibold text-[#390255] py-1 px-1 rounded-lg hover:bg-white hover:text-[#390255] ${loading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             disabled={loading}  // Disable button while loading
           >

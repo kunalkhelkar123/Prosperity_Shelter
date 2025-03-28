@@ -91,8 +91,8 @@ const AddClient = () => {
             }
         } catch (err) {
             // Handle errors that occurred during the API request
-            console.error("Error adding staff member:", err);
-            alert("An error occurred while adding the staff member.");
+            console.error("Error Adding booking details:", err);
+            alert("An error occurred while Adding booking details.");
         }
     };
 

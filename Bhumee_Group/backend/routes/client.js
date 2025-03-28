@@ -563,9 +563,9 @@ router.post('/addClient', async (req, res) => {
     // console.log("Received Data:", req.body);
 
     // Ensure all required fields are received
-    if (!clientName || !mobileNumber) {
-        return res.status(400).json({ error: 'Client name and mobile number are required.' });
-    }
+    // if (!clientName || !mobileNumber) {
+    //     return res.status(400).json({ error: 'Client name and mobile number are required.' });
+    // }
 
     try {
         // Insert the client data into the database

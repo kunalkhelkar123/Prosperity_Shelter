@@ -461,7 +461,7 @@ router.delete('/deletepropertyDetails/:id', async (req, res) => {
   const propertyId = req.params.id;
 
   try {
-    console.log("here")
+    // console.log("here")
     // Fetch the existing property details
     const query = `SELECT * FROM property_details WHERE _id = ?`
     const [property] = await db.execute(query, [propertyId]);
@@ -565,16 +565,16 @@ router.post('/leads', async (req, res) => {
 router.delete("/deleteLead", async (req, res) => {
   const { leadId } = req.body;
 
-  console.log("id ==>", leadId)
+  // console.log("id ==>", leadId)
   if (!leadId) {
     return res.status(400).json({ success: false, message: "Lead ID is required." });
   }
 
   try {
     // Replace `leads` with your actual table name
-    console.log("deleteing lead")
+    // console.log("deleteing lead")
     const result = await db.query("DELETE FROM leads WHERE id = ?", [leadId]);
-    console.log("lead delted")
+    // console.log("lead delted")
     if (result.affectedRows === 0) {
       return res.status(404).json({ success: false, message: "Lead not found." });
     }
@@ -589,7 +589,7 @@ router.delete("/deleteLead", async (req, res) => {
 
 // Get leads
 router.get('/getleads', async (req, res) => {
-  console.log("Fetching leads...");
+  // console.log("Fetching leads...");
   const { staffuser } = req.params;
   let query = 'SELECT * FROM leads  ORDER BY id DESC;';
   try {
@@ -608,15 +608,18 @@ router.get('/getleads', async (req, res) => {
 router.get('/getstaffleads/:staffuser', async (req, res) => {
   
   const { staffuser } = req.params;
-  console.log("Fetching leads...",staffuser);
-  console.log(" staffuser name  ", staffuser)
-  let query = 'SELECT * FROM leads WHERE assigned = ? ORDER BY id DESC;';
+  // console.log("Fetching leads...",staffuser);
+  // console.log(" staffuser name  ", staffuser)
+  let query = 'SELECT * FROM leads WHERE TRIM(assigned) = ? ORDER BY id DESC;';
+  
   try {
-    const [results] = await db.query(query,[staffuser]);
+    const [results] = await db.execute(query,[staffuser]);
+
+    // console.log(" results",results)
     if (results.length === 0) {
       return res.status(202).json({ success: false, message: "No leads found" });
     }
-    console.log(" result.length  ==>",results.length)
+    // console.log(" result.length  ==>",results.length)
     res.status(200).json({ success: true, data: results });
   } catch (error) {
     console.error("Error executing query: ", error);

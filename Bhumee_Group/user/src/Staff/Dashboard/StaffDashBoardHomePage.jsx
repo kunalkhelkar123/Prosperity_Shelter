@@ -75,7 +75,7 @@ function DashBoardHomePage() {
         console.log("User fetched fullname:", user.name);
 
         const response = await axios.get(
-          `/api/property/getstaffleads/${encodeURIComponent(user.name)}` // ✅ Fixed URL
+          `/api/property/getstaffleads/${user.name}` // ✅ Fixed URL
         );
 
         console.log("Response:", response.data.data.length);

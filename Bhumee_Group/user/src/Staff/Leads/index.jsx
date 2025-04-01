@@ -63,7 +63,7 @@ function LeadContact() {
       try {
         if (!staffuser) return; // ✅ Prevent API call until staffuser is set
 
-        // console.log("staffuser name ",staffuser)
+        console.log("staffuser name user ",staffuser)
         const response = await axios.get(`/api/property/getstaffleads/${staffuser}`);
         console.log("Fetched Users:", response.data.data);
         setUsers(response.data.data);

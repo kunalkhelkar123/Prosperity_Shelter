@@ -11,7 +11,7 @@ const AddLeadForm = () => {
     const puneAreas = [
         "Agarkar Nagar", "Akurdi", "Alandi", "Alandi Road", "Alephata", "Ambarwet", "Ambavane", "Ambegaon", "Ambegaon Budruk", 
         "Ambegaon Khurd", "Amboli", "Aundh", "Aundh Road", "Awhalwadi", "Ashtapur","Alandi-Markal Road", "Alephata", "Ambavane", "Ambegaon Khurd", "Ashtapur", "Bakori", "Balaji Nagar", "Balewadi", "Baner", 
-        "Baner Bypass Highway", "Baner-Pashan Link Road", "Baramati", "Bavdhan", "Bavdhan Khurd", "Bahul", "Bawada", "Bhekrai Nagar", 
+        "Baner Bypass Highway", "Baner-Pashan Link Road", "Baramati", "Bavdhan", "Bavdhan Khurd", "Bahul", "Bawada", "Bhekrai Nagar", "Bharti Vidyapith","Bharti Hospital", 
         "Bhaginghar", "Bhugaon", "Bhusari Colony", "Bhosale Nagar", "Bhosari", "Bhoirwadi", "Bhilarewadi", "Bibwewadi", "Bope", 
         "Bopgaon", "Bopkhel", "Bopodi", "Boripardhi", "BT Kawade Road", "Budhwar Peth", "Bund Garden Road", "Camp", "Central Panchgani", 
         "Chakan", "Chandani Chowk", "Chandan Nagar", "Chande", "Chikhali", "Chimbali", "Chinchwad", "Charholi Budruk", "Charholi Khurd", 
@@ -35,7 +35,7 @@ const AddLeadForm = () => {
         "Paud", "Paud Road", "Pargaon", "Panshet", "Parvati", "Parvati Darshan", "Parvati Gaon", "Pashan", "Pashan Sus Road", 
         "Pate", "Pawna Nagar", "Peth Gaon", "Pimpalgaon Tarf Khed", "Pimpri", "Pimpri Chinchwad", "Pimpri Nilakh", "Pirangut", 
         "Pisoli", "Prabhat Road", "Pradhikaran", "Purandar", "Rahatani", "Rajgurunagar", "Ramtekdi", "Range Hills", "Range Hill Road", 
-        "Rasta Peth", "Raviwar Peth", "Revenue Colony", "Rihe", "Sainath Nagar", "Salisbury Park", "Sambhaji Nagar", "Sanaswadi", 
+        "Rasta Peth", "Raviwar Peth", "Ravet", "Revenue Colony", "Rihe", "Sainath Nagar", "Salisbury Park", "Sambhaji Nagar", "Sanaswadi", 
         "Sangamvadi", "Sangvi", "Sangvi Road", "Sasane Nagar", "Saswad", "Saswad Road", "Satara Road", "Senapati Bapat Road", 
         "Shaniwar Peth", "Shankar Shet Road", "Shastri Nagar", "Shewalwadi", "Shikrapur", "Shinde", "Shinde Chhatri", "Shirgaon", 
         "Shirur", "Shirwal", "Shiroli", "Shivajinagar", "Shivane", "Shreehans Nagar", "Shukrawar Peth", "Sinhagad", "Sinhagad Road", 

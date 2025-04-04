@@ -131,15 +131,15 @@ function Managestaff() {
     return (
         <>
             <NavBar />
-            <div className="flex mt-16">
+            <div className="flex mt-16 h-screen">
                 {/* Left side navigation bar */}
                 <LeftSideNavBar setActiveTab={setActiveTab} activeTab={activeTab} />
 
-                <div className="flex-1 p-4">
+                <div className="flex-1 p-4 text-sm">
                     {activeTab === "allStaff" && (
                         <div className="overflow-x-auto">
-                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gray-300">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                            <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400 border  border-gray-300">
+                                <thead className=" rounded-xl text-xs text-gray-700 uppercase bg-blue-100" >
                                     <tr className="border-b-2 border-gray-400"> {/* Horizontal border for header */}
                                         <th scope="col" className="px-4 py-3 rounded-s-lg border-r border-gray-300">Sr. No</th>
                                         <th scope="col" className="px-4 py-3 border-r border-gray-300">Name</th>
@@ -154,32 +154,37 @@ function Managestaff() {
                                 <tbody>
                                     {users.map((user, index) => (
                                         <>
-                                            <tr key={user.id} className="bg-purple-50 text-black border-b border-gray-300">
+                                            <tr key={user.id} className=" text-black border-b border-gray-300">
                                                 <td className="px-4 py-2 border-r border-gray-300">{index + 1}</td>
-                                                <td className="px-4 py-2 font-medium border-r border-gray-300">{user.name}</td>
+                                                <td className="px-4 py-2  border-r border-gray-300">{user.name}</td>
                                                 <td className="px-4 py-2 border-r border-gray-300">{user.email}</td>
                                                 <td className="px-4 py-2 border-r border-gray-300">{user.phone}</td>
                                                 <td className="px-4 py-2 border-r border-gray-300">{user.password}</td>
                                                 <td className="px-4 py-2 border-r border-gray-300">
                                                     {user.isActive === "true" ? (
                                                         <>
-                                                            <label className="mr-8"> Active </label>
-                                                            <button
-                                                                onClick={() => handleEdit(user.staffid, user.isActive)}
-                                                                className="w-30 px-4 py-2 bg-green-400 text-white rounded-md hover:bg-green-700 mt-4 sm:mt-0"
-                                                            >
-                                                                Inactivate
-                                                            </button>
+                                                            <div className="flex">
+                                                                <label className="mr-8"> Active </label>
+                                                                <button
+                                                                    onClick={() => handleEdit(user.staffid, user.isActive)}
+                                                                    className="w-30 px-4 py-2 bg-green-400 text-white rounded-md hover:bg-green-700 mt-4 sm:mt-0"
+                                                                >
+                                                                    Inactivate
+                                                                </button>
+                                                            </div>
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <label className="mr-6"> Inactive </label>
-                                                            <button
-                                                                onClick={() => handleEdit(user.staffid, user.isActive)}
-                                                                className="w-30 px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-700 mt-4 sm:mt-0"
-                                                            >
-                                                                Activate
-                                                            </button>
+                                                            <div className="flex">
+                                                                <label className="mr-6"> Inactive </label>
+                                                                <button
+                                                                    onClick={() => handleEdit(user.staffid, user.isActive)}
+                                                                    className="w-30 px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-700 mt-4 sm:mt-0"
+                                                                >
+                                                                    Activate
+                                                                </button>
+
+                                                            </div>
                                                         </>
                                                     )}
                                                 </td>

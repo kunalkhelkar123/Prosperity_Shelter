@@ -129,7 +129,7 @@ function Booking() {
     if (!propertyName || !clientName || !date || !month || !count || !price) {
       return "All fields are required.";
     }
-    if (isNaN(count) || isNaN(price)) {
+    if (isNaN(count) ) {
       return "Count and Price must be valid numbers.";
     }
     return null;
@@ -323,7 +323,7 @@ function Booking() {
                 <div>
                   <label className="block text-sm">Price</label>
                   <input
-                    type="number"
+                    type="text"
                     name="price"
                     value={newBooking.price}
                     onChange={handleInputChange}

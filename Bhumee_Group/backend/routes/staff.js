@@ -73,6 +73,46 @@ router.post('/get-bookings', async (req, res) => {
     }
 });
 
+router.post('/get-visits', async (req, res) => {
+
+    const { id } = req.body;
+    let query;
+    if (id) {
+        query = `SELECT * FROM visits_master WHERE staff_id = ${id} ORDER BY id DESC`;
+    }
+    else {
+
+        res.status(500).json({ error: 'Failed to fetch visites' });
+    }
+
+
+    try {
+        const [rows] = await db.query(query); // Execute the query
+        // console.log("result ==> ", rows);
+
+
+        // Format the `date` field for each row
+        const formattedRows = rows.map(row => {
+            const formattedDate = row.visit_date ? new Date(row.visit_date).toLocaleDateString('en-GB') : null; // Handle null/undefined dates
+          
+            return {
+                ...row,
+                date: formattedDate
+            };
+        });
+
+        res.status(200).json(formattedRows); // Send all formatted rows
+        // console.log('Fetched visites successfully');
+
+    } catch (error) {
+        console.error('Error fetching visites:', error);
+        res.status(500).json({ error: 'Failed to fetch visites' });
+    }
+});
+
+
+
+
 router.post('/getvisits', async (req, res) => {
     try {
         const { followup_by } = req.body;  // Get the user ID from the request body
@@ -105,7 +145,8 @@ router.post('/getvisits', async (req, res) => {
 
 // Route to add a new visit
 router.post('/addvisits', async (req, res) => {
-    const { visitorName, visitDate, purpose, followupBy, id } = req.body;
+    const { visitorName, visitDate, purpose, followupBy, id, propertyname } = req.body;
+
 
     if (!visitorName || !visitDate || !purpose || !followupBy || !id) {
 
@@ -117,8 +158,8 @@ router.post('/addvisits', async (req, res) => {
 
     try {
         const [result] = await db.execute(
-            'INSERT INTO visits_master (visitor_name, visit_date, purpose, followup_by, month, staff_id) VALUES (?, ?, ?, ?, ?, ?)',
-            [visitorName, visitDate, purpose, followupBy, visitMonth, id]
+            'INSERT INTO visits_master (visitor_name, visit_date, purpose, followup_by, month, propertyname, staff_id) VALUES (?, ?, ?, ?, ?, ?,?)',
+            [visitorName, visitDate, purpose, followupBy, visitMonth, propertyname, id]
         );
         res.status(201).json({ message: 'Visit added successfully', visitId: result.insertId });
     } catch (error) {
@@ -161,7 +202,7 @@ router.get("/attendance/:user_id/:date", (req, res) => {
     }
 
     const sql = "SELECT status FROM employee_attendance WHERE user_id = ? AND date = ?";
-    
+
     db.query(sql, [user_id, date], (err, results) => {
         if (err) {
             console.error("Database Error:", err);
@@ -174,7 +215,7 @@ router.get("/attendance/:user_id/:date", (req, res) => {
 
         // Extract statuses from results
         const statuses = results.map((row) => row.status);
-        
+
         return res.json({ success: true, statuses });
     });
 });
@@ -199,6 +240,37 @@ router.post('/addattendance', async (req, res) => {
     }
 });
 
+
+router.put("/updateLead", async (req, res) => {
+    const {
+      id,
+      fullName,
+      emailId,
+      contactNumber,
+      area,
+      // add more fields as per your `leads` table
+    } = req.body.data;
+  
+    // console.log("   id,fullName, emailId,contactNumber, area", req.body.data)
+    if (!id) {
+      return res.status(400).json({ message: "Lead ID is required." });
+    }
+  
+    try {
+      const updateQuery = `
+        UPDATE leads
+        SET fullName = ?, emailId = ?, contactNumber = ?, area = ?
+        WHERE id = ?
+      `;
+  
+      await db.execute(updateQuery, [fullName, emailId, contactNumber, area, id]);
+  
+      res.status(200).json({ message: "Lead details updated successfully." });
+    } catch (error) {
+      console.error("Error updating lead:", error);
+      res.status(500).json({ message: "Error updating lead." });
+    }
+  });
 
 
 module.exports = router;

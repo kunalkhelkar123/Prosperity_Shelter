@@ -12,6 +12,7 @@ const Visits = () => {
         visitDate: "",
         purpose: "",
         followupBy: "",
+        propertyname: "",
     });
     const months = [
         "January",
@@ -47,7 +48,7 @@ const Visits = () => {
                 try {
                     console.log("user.staff_id", user);
 
-                    const response = await axios.post('/api/staff/getvisits', {
+                    const response = await axios.post('/api/staff/get-visits', {
                         id: user.id,  // Ensure `user.id` exists
                     });
                     if (response.status === 200) {
@@ -209,8 +210,9 @@ const Visits = () => {
                             <tr className="border-2 border-gray-300">
                                 <th className="px-4 py-3 border-2 border-gray-300">Sr. No</th>
                                 <th className="px-4 py-3 border-2 border-gray-300">Visitor Name</th>
+                                <th className="px-4 py-3 border-2 border-gray-300">Property Name</th>
                                 <th className="px-4 py-3 border-2 border-gray-300">Visit Date</th>
-                                <th className="px-4 py-3 border-2 border-gray-300">Purpose</th>
+                                <th className="px-4 py-3 border-2 border-gray-300">Requirement</th>
                                 <th className="px-4 py-3 border-2 border-gray-300">Followup By</th>
                                 <th className="px-4 py-3 border-2 border-gray-300">Month</th>
                                 <th className="px-4 py-3 border-2 border-gray-300">Action</th> {/* New Action Column */}
@@ -221,8 +223,10 @@ const Visits = () => {
                                 <tr key={visit.id || index} className="border-2 border-gray-300">
                                     <td className="px-4 py-3 border-2 border-gray-300">{index + 1}</td>
                                     <td className="px-4 py-3 border-2 text-l text-black border-gray-300"><strong>{visit.visitor_name}</strong></td>
-                                    <td className="px-4 py-3 border-2 border-gray-300">{visit.visit_date}</td>
+                                    <td className="px-4 py-3 border-2 border-gray-300">{visit.propertyname}</td>
+                                    <td className="px-4 py-3 border-2 border-gray-300">{visit.date}</td>
                                     <td className="px-4 py-3 border-2 border-gray-300">{visit.purpose}</td>
+
                                     <td className="px-4 py-3 border-2 border-gray-300">{visit.followup_by}</td>
                                     <td className="px-4 py-3 border-2 border-gray-300">{visit.month}</td>
                                     <td className="px-4 py-3 border-2 border-gray-300">
@@ -243,57 +247,85 @@ const Visits = () => {
             {/* Add Visit Form */}
             <div className="mt-6 p-4 bg-gray-100 rounded-md">
                 <h3 className="text-lg font-bold mb-4">Add New Visit</h3>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                    {/* Visitor Name */}
                     <div>
-                        <label className="block">Visitor Name</label>
+                        <label className="block text-sm font-medium mb-1">Visitor Name</label>
                         <input
                             type="text"
                             name="visitorName"
                             value={newVisit.visitorName}
                             onChange={handleInputChange}
                             className="w-full p-2 border rounded-md"
+                            required
                         />
                     </div>
+
+                    {/* Visit Date */}
                     <div>
-                        <label className="block">Visit Date</label>
+                        <label className="block text-sm font-medium mb-1">Visit Date</label>
                         <input
                             type="date"
                             name="visitDate"
                             value={newVisit.visitDate}
                             onChange={handleInputChange}
                             className="w-full p-2 border rounded-md"
+                            required
                         />
                     </div>
+
+                    {/* Requirement */}
                     <div>
-                        <label className="block">Purpose</label>
+                        <label className="block text-sm font-medium mb-1">Requirement</label>
                         <input
                             type="text"
                             name="purpose"
                             value={newVisit.purpose}
                             onChange={handleInputChange}
                             className="w-full p-2 border rounded-md"
+                            required
                         />
                     </div>
+
+                    {/* Property Name */}
                     <div>
-                        <label className="block">Followup By</label>
+                        <label className="block text-sm font-medium mb-1">Property Name</label>
+                        <input
+                            type="text"
+                            name="propertyname"
+                            value={newVisit.propertyname}
+                            onChange={handleInputChange}
+                            className="w-full p-2 border rounded-md"
+                            required
+                        />
+                    </div>
+
+                    {/* Follow-up By */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Followup By</label>
                         <input
                             type="text"
                             name="followupBy"
                             value={user ? user.name : ""}
                             disabled
-                            className="w-full p-2 border rounded-md"
+                            className="w-full p-2 border rounded-md bg-gray-200 cursor-not-allowed"
+                            required
                         />
                     </div>
-                    <div className="col-span-3">
+
+                    {/* Submit Button */}
+                    <div className="sm:col-span-2 lg:col-span-3">
                         <button
                             onClick={handleAddVisit}
-                            className="w-full sm:w-auto px-6 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800"
+                            className="w-full sm:w-auto px-6 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800 transition"
                         >
                             Add Visit
                         </button>
                     </div>
                 </div>
             </div>
+
         </div>
     );
 };

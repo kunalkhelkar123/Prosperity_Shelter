@@ -101,29 +101,29 @@ function Upcomingvisits() {
         <>
             <NavBar />
             <div className="p-6 bg-purple-100 h-[1000px]">
-                <h1 className="text-4xl font-bold flex justify-center items-center mt-[-10px] p-2 text-purple-9500">
+                <h1 className="sm:text-4xl text-lg font-bold flex justify-center items-center mt-[-10px] p-2 text-purple-9500">
                     Upcoming Visit Details
                 </h1>
 
                 <div className="flex justify-between items-center my-4">
-                    <div className="p-4 bg-teal-500 text-white rounded-md">
-                        <h3 className="font-bold">Total Visits</h3>
-                        <p>{totalVisits}</p>
+                    <div className="p-1 bg-teal-500 text-white rounded-md sm:px-4">
+                        <h3 className="  sm:text-xl text-sm ">Total Visits</h3>
+                        <p className="text-center sm:text-xl text-sm " > {totalVisits}</p>
                     </div>
                     <div>
-                        <label className="block font-bold text-gray-700 mb-2">Select Date:</label>
+                        <label className="block sm:text-xl text-sm  text-center text-gray-700 mb-2">Select Date:</label>
                         <input
                             type="date"
                             value={selectedDate.toISOString().slice(0, 10)}
                             onChange={handleDateChange}
-                            className="border rounded-md px-4 py-2"
+                            className="border rounded-md px-4 py-2 sm:text-lg text-sm "
                         />
                     </div>
                 </div>
 
                 <div className="relative overflow-auto">
                     <table className="w-full text-sm text-left text-gray-500 border-collapse border border-gray-300">
-                        <thead className="text-xs text-black uppercase bg-gray-400">
+                        <thead className="sm:text-xs text-[10px] text-black uppercase bg-gray-400">
                             <tr className="border-b border-gray-300">
                                 <th className="px-4 py-3 border-r border-gray-300">Sr. No</th>
                                 <th className="px-4 py-3 border-r border-gray-300">Client Name</th>
@@ -135,7 +135,7 @@ function Upcomingvisits() {
                         </thead>
                         <tbody>
                             {visites.map((visite, index) => (
-                                <tr key={index} className="bg-white border-b border-gray-300">
+                                <tr key={index} className="bg-white border-b border-gray-300 ">
                                     <td className="px-4 py-2 w-20 border-r">{index + 1}</td>
                                     <td className="px-4 py-3 w-80 text-black border-r font-bold break-words">
                                         {visite.lead_name}

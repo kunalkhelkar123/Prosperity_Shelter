@@ -17,8 +17,11 @@ function LeadContact() {
   const navigate = useNavigate();
   const [staffuser, setStaffuser] = useState("")  // staff user name 
   const [searchTerm, setSearchTerm] = useState(""); // Search term state
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editLead, setEditLead] = useState(null); // Current lead to edit
 
- const [currentPage, setCurrentPage] = useState(1);
+
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(20); // Display only 20 leads per page
   // Static data for old descriptions
   const staticDescriptions = {
@@ -29,6 +32,84 @@ function LeadContact() {
 
   };
 
+  const puneAreas = [
+    "Agarkar Nagar", "Akurdi", "Alandi", "Alandi Road", "Alephata", "Ambarwet", "Ambavane", "Ambegaon", "Ambegaon Budruk",
+    "Ambegaon Khurd", "Amboli", "Aundh", "Aundh Road", "Awhalwadi", "Ashtapur", "Alandi-Markal Road", "Alephata", "Ambavane", "Ambegaon Khurd", "Ashtapur", "Bakori", "Balaji Nagar", "Balewadi", "Baner",
+    "Baner Bypass Highway", "Baner-Pashan Link Road", "Baramati", "Bavdhan", "Bavdhan Khurd", "Bahul", "Bawada", "Bhekrai Nagar", "Bharti Vidyapith", "Bharti Hospital",
+    "Bhaginghar", "Bhugaon", "Bhusari Colony", "Bhosale Nagar", "Bhosari", "Bhoirwadi", "Bhilarewadi", "Bibwewadi", "Bope",
+    "Bopgaon", "Bopkhel", "Bopodi", "Boripardhi", "BT Kawade Road", "Budhwar Peth", "Bund Garden Road", "Camp", "Central Panchgani",
+    "Chakan", "Chandani Chowk", "Chandan Nagar", "Chande", "Chikhali", "Chimbali", "Chinchwad", "Charholi Budruk", "Charholi Khurd",
+    "Church Road", "Dange Chowk", "Dapodi", "Dattavadi", "Daund", "Deccan", "Deccan Gymkhana", "Dehu", "Dehu Road", "Dhanori",
+    "Dhangarwadi", "Dhankawdi", "Dhayari", "Dighi", "Dive", "Donaje", "Dhole Patil Road", "East Khadki", "Empress Gardens", "Erandwane", "Factory Road",
+    "FC Road", "Fatima Nagar", "Fursungi", "Ganesh Nagar", "Ganesh Peth", "Ganesh Road", "Ganeshkhind", "Ganga Dham", "Gavhane Vasti",
+    "Ghorpadi", "Ghotawade", "Gokhale Nagar", "Gokhale Road", "Gudhe", "Gultekdi", "Guru Nanak Nagar", "Guruganesh Nagar", "Guruwar Peth",
+    "Hadapsar", "Handewadi", "Handewadi Road", "Hinjawadi", "Hinjawadi Phase 1", "Hinjawadi Phase 2", "Hinjawadi Phase 3", "Holewadi", "Ideal Colony", "Indapur", "Indira Nagar",
+    "Induri", "Ins Shivaji Lonavale", "Ingale Nagar", "Jalochi", "J M Road", "Jambhul", "Jejuri", "Junnar", "Kalas", "Kalyani Nagar",
+    "Kaman", "Kamshet", "Kanhe", "Kanhur Mesai", "Karjat", "Karve Road", "Karvenagar", "Kasarsai", "Kasba Peth", "Kasar Amboli",
+    "Kasarwadi", "Kavade Mala", "Kelawade", "Ketkawale", "Keshav Nagar", "Kesnand", "Khadakwasla", "Khadki", "Khamla", "Khamundi", "Katraj",
+    "Kirkatwadi", "Kiwale", "Kondhapuri", "Kondhawe Dhawade", "Kondhwa", "Kondhwa Budruk", "Kondhwa Khurd", "Kondhwa-Pisoli Road",
+    "Kodawadi", "Kolvan", "Kolwadi", "Kondanpur", "Koregaon", "Koregaon Bhima", "Koregaon Park", "Kothrud", "Kothrud Road", "Kudje",
+    "Kukatpally", "Kurkumbh", "Lohagad", "Loni Kalbhor", "Lonikand", "Lokamanya Nagar", "Lulla Nagar", "Maan", "Magarpatta",
+    "Magarpatta Road", "Mahatma Phule Peth", "Mahalunge", "Mahalunge Ingale", "Malegaon", "Malshiras", "Malkapur", "Mamurdi",
+    "Mandai", "Mangalwar Peth", "Manjri", "Manchar", "Markal", "Market Yard", "Masulkar Colony", "Medankarwadi", "Midhila Nagar",
+    "Misalwadi", "Model Colony", "Mohari BK", "Mohammadwadi", "Morgaon", "Moshi", "Moshi Phata", "Moshi Pradhikaran", "Mukund Nagar",
+    "Mulshi", "Mumbai-Pune Expressway", "Mundhwa", "Mundhwa Road", "Nagar Road", "Nana Peth", "Nanekarwadi", "Narayan Peth", "Narayanpur",
+    "Narhe", "Narayangaon", "NDA Road", "Nerhe", "Nerul", "Nigdi", "Nighoje", "NIBM", "NIBM Annexe", "NIBM Road", "Nilakh",
+    "Nimgaon Mhalungi", "Nanded", "Naylar Road", "Nerul MIDC", "Old Mumbai Pune Highway", "Otur", "Padmavati", "Padvi",
+    "Paud", "Paud Road", "Pargaon", "Panshet", "Parvati", "Parvati Darshan", "Parvati Gaon", "Pashan", "Pashan Sus Road",
+    "Pate", "Pawna Nagar", "Peth Gaon", "Pimpalgaon Tarf Khed", "Pimpri", "Pimpri Chinchwad", "Pimpri Nilakh", "Pirangut",
+    "Pisoli", "Prabhat Road", "Pradhikaran", "Purandar", "Rahatani", "Rajgurunagar", "Ramtekdi", "Range Hills", "Range Hill Road",
+    "Rasta Peth", "Raviwar Peth", "Ravet", "Revenue Colony", "Rihe", "Sainath Nagar", "Salisbury Park", "Sambhaji Nagar", "Sanaswadi",
+    "Sangamvadi", "Sangvi", "Sangvi Road", "Sasane Nagar", "Saswad", "Saswad Road", "Satara Road", "Senapati Bapat Road",
+    "Shaniwar Peth", "Shankar Shet Road", "Shastri Nagar", "Shewalwadi", "Shikrapur", "Shinde", "Shinde Chhatri", "Shirgaon",
+    "Shirur", "Shirwal", "Shiroli", "Shivajinagar", "Shivane", "Shreehans Nagar", "Shukrawar Peth", "Sinhagad", "Sinhagad Road",
+    "Somatane", "Somatne Phata", "Somwar Peth", "Sopan Bag Road", "Sopan Baug", "Spine Road", "Swargate", "Talawade", "Talegaon",
+    "Talegaon Dabhade", "Talegaon MIDC Road", "Taljai", "Tathawade", "Thergaon", "Theur", "Tingre Nagar", "Tingarli", "Vadgaon Budruk",
+    "Vadgaon MIDC", "Viman Nagar", "Vishrant Wadi", "Wadgaon Sheri", "Wakad", "Wakadewadi", "Wai", "Wanwadi", "Warje",
+    "Yashvant Nagar", "Yavat", "Yewalewadi"
+  ];
+
+
+
+
+  const openEditModal = (lead) => {
+    setEditLead(lead);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setEditLead(null);
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditLead((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdateLead = async () => {
+    try {
+
+      console.log(" editLead ", editLead)
+      const response = await axios.put(`/api/staff/updateLead`, {
+        data: editLead,
+      });
+
+      // Update the local users state
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => (user.id === editLead.id ? editLead : user))
+      );
+
+      alert("Lead updated successfully");
+      closeEditModal();
+    } catch (err) {
+      console.error("Error updating lead:", err);
+      alert("Failed to update lead.");
+    }
+  };
 
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -45,7 +126,7 @@ function LeadContact() {
           navigate("/staff");
         } else {
           setStaffuser(user.name);
-          
+
 
         }
       } catch (error) {
@@ -63,7 +144,7 @@ function LeadContact() {
       try {
         if (!staffuser) return; // ✅ Prevent API call until staffuser is set
 
-        console.log("staffuser name user ",staffuser)
+        console.log("staffuser name user ", staffuser)
         const response = await axios.get(`/api/property/getstaffleads/${staffuser}`);
         console.log("Fetched Users:", response.data.data);
         setUsers(response.data.data);
@@ -89,7 +170,7 @@ function LeadContact() {
 
 
       const newDescription = {
-        lead_name :staffuser,
+        lead_name: staffuser,
         lead_id: id,
         lead_description: queryInputs,
         expected_visit_date: visitDate,
@@ -151,10 +232,10 @@ function LeadContact() {
   };
 
   const handleDeleteLead = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this lead?",id)) return;
+    if (!window.confirm("Are you sure you want to delete this lead?", id)) return;
 
     try {
-      console.log("user id ",id)
+      console.log("user id ", id)
       const response = await axios.put("/api/property/deleteLead", {
         data: { leadId: id },
       });
@@ -171,8 +252,8 @@ function LeadContact() {
     }
   };
 
-   // Filter leads based on search term
-   const filteredLeads = (users || []).filter((user) => {
+  // Filter leads based on search term
+  const filteredLeads = (users || []).filter((user) => {
 
 
     const areaWords = user.area.toLowerCase().split(" ");
@@ -188,11 +269,11 @@ function LeadContact() {
 
 
 
-   // Pagination Logic
-   const indexOfLastLead = currentPage * itemsPerPage;
-   const indexOfFirstLead = indexOfLastLead - itemsPerPage;
-   const currentLeads = filteredLeads.slice(indexOfFirstLead, indexOfLastLead);
-   
+  // Pagination Logic
+  const indexOfLastLead = currentPage * itemsPerPage;
+  const indexOfFirstLead = indexOfLastLead - itemsPerPage;
+  const currentLeads = filteredLeads.slice(indexOfFirstLead, indexOfLastLead);
+
 
   // if (loading) {
   //   return <div className="text-center text-lg">Loading...</div>;
@@ -210,7 +291,7 @@ function LeadContact() {
       <StaffNavBar />
       <div className="container mx-auto px-4 py-6">
         <h1 className="text-4xl font-bold text-center text-purple-950 mb-4">Lead Details</h1>
-        
+
         <div className="flex justify-center mb-4">
           <input
             type="text"
@@ -220,13 +301,13 @@ function LeadContact() {
             className="w-1/2 p-2 border border-gray-300 rounded-md"
           />
         </div>
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         <div className="overflow-x-auto">
 
 
@@ -277,7 +358,7 @@ function LeadContact() {
                             <a href={`tel:+91${user.contactNumber}`}>{user.contactNumber}</a>
                           </td>
                           <td className="px-4 py-2">{user.area}</td>
-                          <td className="px-4 py-2">
+                          <td className="px-4 py-2 flex gap-2">
                             <button
                               onClick={() => toggleRow(user.id)}
                               className="px-2 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
@@ -290,6 +371,13 @@ function LeadContact() {
                             >
                               Delete
                             </button>
+                            <button
+                              onClick={() => openEditModal(user)}
+                              className=" ml-2  px-2 py-1  bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition-all"
+                            >
+                              Edit
+                            </button>
+
                           </td>
                         </tr>
 
@@ -378,7 +466,7 @@ function LeadContact() {
               <div className="flex justify-center mt-4">
 
 
-                <div className="flex justify-center mt-4 space-x-2">
+                <div className="flex justify-center mt-4  mb-6  space-x-2">
                   {[...Array(Math.ceil(filteredLeads.length / itemsPerPage)).keys()].map((number) => (
                     <button
                       key={number + 1}
@@ -403,6 +491,68 @@ function LeadContact() {
             </>)}
 
         </div>
+        {isEditModalOpen && editLead && (
+          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+              <h2 className="text-xl font-semibold mb-4">Edit Lead</h2>
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  name="fullName"
+                  value={editLead.fullName}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                  placeholder="Full Name"
+                />
+                <input
+                  type="text"
+                  name="emailId"
+                  value={editLead.emailId}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                  placeholder="Email"
+                />
+                <input
+                  type="text"
+                  name="contactNumber"
+                  value={editLead.contactNumber}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                  placeholder="Phone Number"
+                />
+                <select
+                  name="area"
+                  value={editLead.area}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="">Select Area</option>
+                  {puneAreas.map((area, idx) => (
+                    <option key={idx} value={area}>
+                      {area}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mt-6 flex justify-end space-x-3">
+                <button
+                  onClick={closeEditModal}
+                  className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdateLead}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
 
       </div>
     </>

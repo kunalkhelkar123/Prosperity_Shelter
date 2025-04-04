@@ -75,7 +75,7 @@ function Visites() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 h-screen">
       <h1 className="text-2xl font-bold mb-4">Visites</h1>
 
       {/* Total Visits Block */}
@@ -112,7 +112,7 @@ function Visites() {
       </div>
 
       {/* Visites Table */}
-      <div className="relative overflow-auto">
+      <div className="relative overflow-autoc">
         <table className="w-full text-sm text-left text-gray-500 border">
           <thead className="text-xs text-gray-700 uppercase bg-gray-200">
             <tr>

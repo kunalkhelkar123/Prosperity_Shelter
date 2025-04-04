@@ -18,7 +18,7 @@ function LeftSideNavBar({ setActiveTab, activeTab }) {
   }, [navigate]);
 
   return (
-    <div className="w-60 h-screen bg-gray-200 p-4 flex flex-col justify-between lg:w-1/6 md:w-1/4 sm:w-1/3"> {/* Added responsive width classes */}
+    <div className="w-60 text-sm h-screen bg-gray-200 p-4 flex flex-col justify-between lg:w-1/6 md:w-1/4 sm:w-1/3"> {/* Added responsive width classes */}
       <ul className="space-y-4">
         <li>
           <button

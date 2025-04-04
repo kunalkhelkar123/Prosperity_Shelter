@@ -480,14 +480,14 @@ function Home() {
                 className="w-full p-2 border rounded"
                 placeholder="Full Name"
               />
-              <input
+              {/* <input
                 type="text"
                 name="emailId"
                 value={editLead.emailId}
                 onChange={handleEditChange}
                 className="w-full p-2 border rounded"
                 placeholder="Email"
-              />
+              /> */}
               <input
                 type="text"
                 name="contactNumber"
@@ -509,7 +509,18 @@ function Home() {
                   </option>
                 ))}
               </select>
+              <input
+                  type="date"
+                  name="visitDate"
+                  value={editLead.visitDate}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                  placeholder="Date"
+                />
+
+
             </div>
+            
 
             <div className="mt-6 flex justify-end space-x-3">
               <button

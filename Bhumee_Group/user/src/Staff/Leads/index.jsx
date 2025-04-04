@@ -517,14 +517,14 @@ function LeadContact() {
                   className="w-full p-2 border rounded"
                   placeholder="Full Name"
                 />
-                <input
+                {/* <input
                   type="text"
                   name="emailId"
                   value={editLead.emailId}
                   onChange={handleEditChange}
                   className="w-full p-2 border rounded"
                   placeholder="Email"
-                />
+                /> */}
                 <input
                   type="text"
                   name="contactNumber"

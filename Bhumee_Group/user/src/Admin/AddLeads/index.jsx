@@ -77,7 +77,7 @@ const AddLeadForm = () => {
         configuration: "",
         budget: "",
         area: "",
-        date:"",
+        date: "",
         assigned: "NOT ASSIGNED",
     });
 
@@ -114,99 +114,128 @@ const AddLeadForm = () => {
 
     return (
         <>
+
             <NavBar />
-            <div className="p-4 max-w-md mx-auto mt-20 bg-white shadow-lg rounded-lg">
-                <h2 className="text-xl font-semibold mb-4">Add Lead</h2>
-                <form onSubmit={handleSubmit} className="space-y-3">
-                    <label className="block text-sm font-medium">Name</label>
-                    <input
-                        type="text"
-                        name="fullName"
-                        placeholder="Enter Name"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                    />
+            
+            <div className="p-4 max-w-6xl mx-auto  mt-20  shadow-lg rounded-lg">
+                <h2 className="text-2xl font-semibold mb-6 text-center">Add Lead</h2>
+                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-                    <label className="block text-sm font-medium">Number</label>
-                    <input
-                        type="text"
-                        name="contactNumber"
-                        placeholder="Enter Number"
-                        value={formData.contactNumber}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                    />
+                    {/* Name */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Name</label>
+                        <input
+                            type="text"
+                            name="fullName"
+                            placeholder="Enter Name"
+                            value={formData.fullName}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            required
+                        />
+                    </div>
 
-                    <label className="block text-sm font-medium">Configuration</label>
-                    <input
-                        type="text"
-                        name="configuration"
-                        placeholder="Enter Configuration"
-                        value={formData.configuration}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                    />
+                    {/* Number */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Number</label>
+                        <input
+                            type="text"
+                            name="contactNumber"
+                            placeholder="Enter Number"
+                            value={formData.contactNumber}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            required
+                        />
+                    </div>
 
-                    <label className="block text-sm font-medium">Budget</label>
-                    <input
-                        type="text"
-                        name="budget"
-                        placeholder="Enter Budget"
-                        value={formData.budget}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                    />
+                    {/* Configuration */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Configuration</label>
+                        <input
+                            type="text"
+                            name="configuration"
+                            placeholder="Enter Configuration"
+                            value={formData.configuration}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            required
+                        />
+                    </div>
 
-                    <label className="block text-sm font-medium">Location</label>
-                    <select
-                        name="area"
-                        value={formData.area}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                    >
-                        <option value="">Select the Location</option>
-                        {puneAreas.map((area, index) => (
-                            <option key={index} value={area}>{area}</option>
-                        ))}
-                    </select>
+                    {/* Budget */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Budget</label>
+                        <input
+                            type="text"
+                            name="budget"
+                            placeholder="Enter Budget"
+                            value={formData.budget}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            required
+                        />
+                    </div>
 
-                    <label className="block text-sm font-medium">Select Employee</label>
-                    <select
-                        name="assigned"
-                        value={formData.assigned}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                    >
-                        <option value="NOT ASSIGNED">Select an Employee</option>
-                        {staffnames.map((staff, index) => (
-                            <option key={index} value={staff.name}>{staff.name}</option>
-                        ))}
-                    </select>
-                    <label className="block text-sm font-medium">Date</label>
-                    <input
-                        type="date"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                        required
-                    />
+                    {/* Area */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Location</label>
+                        <select
+                            name="area"
+                            value={formData.area}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            required
+                        >
+                            <option value="">Select the Location</option>
+                            {puneAreas.map((area, index) => (
+                                <option key={index} value={area}>{area}</option>
+                            ))}
+                        </select>
+                    </div>
 
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-                    >
-                        Add/Submit
-                    </button>
+                    {/* Assigned */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Select Employee</label>
+                        <select
+                            name="assigned"
+                            value={formData.assigned}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            required
+                        >
+                            <option value="NOT ASSIGNED">Select an Employee</option>
+                            {staffnames.map((staff, index) => (
+                                <option key={index} value={staff.name}>{staff.name}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Date */}
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Date</label>
+                        <input
+                            type="date"
+                            name="date"
+                            value={formData.date}
+                            onChange={handleChange}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            required
+                        />
+                    </div>
+
+                    {/* Button - Full width */}
+                    <div className="md:col-span-3">
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mt-4"
+                        >
+                            Add / Submit
+                        </button>
+                    </div>
                 </form>
             </div>
+
         </>
     );
 };

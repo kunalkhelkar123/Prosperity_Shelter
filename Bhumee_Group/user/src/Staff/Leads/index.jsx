@@ -254,12 +254,12 @@ function LeadContact() {
 
   const filteredLeads = (users || []).filter((user) => {
     const search = searchTerm.toLowerCase();
-  
+
     // Prepare fields
     const area = user.area?.toLowerCase() || "";
     const fullName = user.fullName?.toLowerCase() || "";
     const contactNumber = user.contactNumber?.toLowerCase() || "";
-  
+
     // Return true if search term matches any of the fields
     return (
       area.startsWith(search) ||
@@ -267,7 +267,7 @@ function LeadContact() {
       contactNumber.startsWith(search)
     );
   });
-  
+
 
 
 
@@ -347,7 +347,7 @@ function LeadContact() {
                     <th scope="col" className="px-4 py-3">Refer</th> */}
                     {/* <th scope="col" className="px-4 py-3">Preferred Location</th> */}
                     {/* <th scope="col" className="px-4 py-3">Visit Date</th>*/}
-                   
+
 
                     <th scope="col" className="px-4 py-3">Area</th>
                     <th scope="col" className="px-4 py-3">Configuration</th>
@@ -367,7 +367,7 @@ function LeadContact() {
                           <td className="px-4 py-2 text-blue-600">
                             <a href={`tel:+91${user.contactNumber}`}>{user.contactNumber}</a>
                           </td>
-                    
+
                           <td className="px-4 py-2">{user.area}</td>
                           <td className="px-4 py-2">{user.configuration}</td>
                           <td className="px-4 py-2">{user.visitDate}</td>
@@ -509,53 +509,64 @@ function LeadContact() {
             <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
               <h2 className="text-xl font-semibold mb-4">Edit Lead</h2>
               <div className="space-y-4">
-                <input
-                  type="text"
-                  name="fullName"
-                  value={editLead.fullName}
-                  onChange={handleEditChange}
-                  className="w-full p-2 border rounded"
-                  placeholder="Full Name"
-                />
-                {/* <input
-                  type="text"
-                  name="emailId"
-                  value={editLead.emailId}
-                  onChange={handleEditChange}
-                  className="w-full p-2 border rounded"
-                  placeholder="Email"
-                /> */}
-                <input
-                  type="text"
-                  name="contactNumber"
-                  value={editLead.contactNumber}
-                  onChange={handleEditChange}
-                  className="w-full p-2 border rounded"
-                  placeholder="Phone Number"
-                />
-                <select
-                  name="area"
-                  value={editLead.area}
-                  onChange={handleEditChange}
-                  className="w-full p-2 border rounded"
-                >
-                  <option value="">Select Area</option>
-                  {puneAreas.map((area, idx) => (
-                    <option key={idx} value={area}>
-                      {area}
-                    </option>
-                  ))}
-                </select>
 
-                <input
-                  type="date"
-                  name="visitDate"
-                  value={editLead.visitDate}
-                  onChange={handleEditChange}
-                  className="w-full p-2 border rounded"
-                  placeholder="Date"
-                />
+                {/* Full Name */}
+                <div>
+                  <label htmlFor="edit-fullName" className="block text-sm font-medium mb-1">Full Name</label>
+                  <input
+                    id="edit-fullName"
+                    type="text"
+                    name="fullName"
+                    value={editLead.fullName}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border rounded"
+                    placeholder="Enter Full Name"
+                  />
+                </div>
 
+                {/* Contact Number */}
+                <div>
+                  <label htmlFor="edit-contactNumber" className="block text-sm font-medium mb-1">Phone Number</label>
+                  <input
+                    id="edit-contactNumber"
+                    type="text"
+                    name="contactNumber"
+                    value={editLead.contactNumber}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border rounded"
+                    placeholder="Enter Phone Number"
+                  />
+                </div>
+
+                {/* Area */}
+                <div>
+                  <label htmlFor="edit-area" className="block text-sm font-medium mb-1">Area</label>
+                  <select
+                    id="edit-area"
+                    name="area"
+                    value={editLead.area}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border rounded"
+                  >
+                    <option value="">Select Area</option>
+                    {puneAreas.map((area, idx) => (
+                      <option key={idx} value={area}>{area}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Visit Date */}
+                <div>
+                  <label htmlFor="edit-visitDate" className="block text-sm font-medium mb-1"> Date</label>
+                  <input
+                    id="edit-visitDate"
+                    type="date"
+                    name="visitDate"
+                    value={editLead.visitDate}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border rounded"
+                  />
+                </div>
 
               </div>
 
@@ -575,6 +586,7 @@ function LeadContact() {
               </div>
             </div>
           </div>
+
         )}
 
 

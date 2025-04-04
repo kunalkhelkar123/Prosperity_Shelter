@@ -469,34 +469,43 @@ function Home() {
 
       {isEditModalOpen && editLead && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-xl font-semibold mb-4">Edit Lead</h2>
-            <div className="space-y-4">
+        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+          <h2 className="text-xl font-semibold mb-4">Edit Lead</h2>
+          <div className="space-y-4">
+      
+            {/* Full Name */}
+            <div>
+              <label htmlFor="edit-fullName" className="block text-sm font-medium mb-1">Full Name</label>
               <input
+                id="edit-fullName"
                 type="text"
                 name="fullName"
                 value={editLead.fullName}
                 onChange={handleEditChange}
                 className="w-full p-2 border rounded"
-                placeholder="Full Name"
+                placeholder="Enter Full Name"
               />
-              {/* <input
-                type="text"
-                name="emailId"
-                value={editLead.emailId}
-                onChange={handleEditChange}
-                className="w-full p-2 border rounded"
-                placeholder="Email"
-              /> */}
+            </div>
+      
+            {/* Contact Number */}
+            <div>
+              <label htmlFor="edit-contactNumber" className="block text-sm font-medium mb-1">Phone Number</label>
               <input
+                id="edit-contactNumber"
                 type="text"
                 name="contactNumber"
                 value={editLead.contactNumber}
                 onChange={handleEditChange}
                 className="w-full p-2 border rounded"
-                placeholder="Phone Number"
+                placeholder="Enter Phone Number"
               />
+            </div>
+      
+            {/* Area */}
+            <div>
+              <label htmlFor="edit-area" className="block text-sm font-medium mb-1">Area</label>
               <select
+                id="edit-area"
                 name="area"
                 value={editLead.area}
                 onChange={handleEditChange}
@@ -504,40 +513,43 @@ function Home() {
               >
                 <option value="">Select Area</option>
                 {puneAreas.map((area, idx) => (
-                  <option key={idx} value={area}>
-                    {area}
-                  </option>
+                  <option key={idx} value={area}>{area}</option>
                 ))}
               </select>
+            </div>
+      
+            {/* Visit Date */}
+            <div>
+              <label htmlFor="edit-visitDate" className="block text-sm font-medium mb-1"> Date</label>
               <input
-                  type="date"
-                  name="visitDate"
-                  value={editLead.visitDate}
-                  onChange={handleEditChange}
-                  className="w-full p-2 border rounded"
-                  placeholder="Date"
-                />
-
-
+                id="edit-visitDate"
+                type="date"
+                name="visitDate"
+                value={editLead.visitDate}
+                onChange={handleEditChange}
+                className="w-full p-2 border rounded"
+              />
             </div>
-            
-
-            <div className="mt-6 flex justify-end space-x-3">
-              <button
-                onClick={closeEditModal}
-                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleUpdateLead}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                Save Changes
-              </button>
-            </div>
+      
+          </div>
+      
+          <div className="mt-6 flex justify-end space-x-3">
+            <button
+              onClick={closeEditModal}
+              className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleUpdateLead}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Save Changes
+            </button>
           </div>
         </div>
+      </div>
+      
       )}
 
 

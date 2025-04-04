@@ -107,8 +107,8 @@ function DashBoardHomePage() {
         {/* Show leads  */}
         <div className="border border-gray-100 bg-[#390255] text-white p-2 h-44 flex justify-center items-center relative">
           <div className="flex flex-col justify-center items-center pr-[150px]">
-            <p className="text-[29px] ml-[60px]  ">{lead.totalLeads}</p>
-            <p className="sm:text-base text-[13px] ml-16">Leads</p>
+            <p className="text-[20px] ml-[60px]  ">{lead.totalLeads}</p>
+            <p className="sm:text-sm text-[13px] ml-16">Leads</p>
             <button
               onClick={() => navigate("/admin/LeadDashboard")}
               className="text-[#FFF848] p-[-6px]  mt-2 ml-16 text-[13px]  rounded-[10px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
@@ -126,7 +126,7 @@ function DashBoardHomePage() {
         <div className="border border-gray-100 bg-[#390255] text-white p-2 h-44 flex justify-center items-center relative">
           <div className="flex flex-col justify-center items-center pr-[150px]">
             {/* <p className="text-3xl mt-8">{lead.totalLeads}</p> */}
-            <p className="sm:text-base text-[13px] ml-14">Add Leads</p>
+            <p className="sm:text-sm text-[13px] ml-14">Add Leads</p>
             <button
               onClick={() => navigate("/admin/addnewlead")}
               className="text-[#FFF848] p-[-6px] mt-2 ml-[60px]  mt-4 rounded-[10px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
@@ -166,7 +166,7 @@ function DashBoardHomePage() {
           <div className="flex justify-center items-center">
             <div className="flex flex-col justify-center items-center  pr-[150px]">
               {/* <p className="text-3xl">0</p> */}
-              <p className=" sm:text-base text-[13px] ml-16 sm:ml-0">Show Visits</p>
+              <p className=" sm:text-sm text-[13px] ml-16 sm:ml-0">Show Visits</p>
               <button
                 onClick={() => navigate("/admin/upcomingvisits")}
                 className="text-[#FFF848] p-[-6px]  mt-2 ml-16 sm:ml-0 rounded-[10px] text-[13px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
@@ -187,7 +187,7 @@ function DashBoardHomePage() {
           <div className="flex justify-center items-center">
             <div className="flex flex-col justify-center items-center  pr-[150px]">
               {/* <p className="text-3xl">0</p> */}
-              <p className="sm:text-base text-[13px] sm:ml-[70px] ml-12 sm:ml-0">Daily Scrums</p>
+              <p className="sm:text-sm text-[13px] sm:ml-[70px] ml-12 sm:ml-0">Daily Scrums</p>
               <button
                 onClick={() => navigate("/admin/DailyScrum")}
                 className="text-[#FFF848] p-[-6px]  mt-2 ml-16 rounded-[10px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"
@@ -207,7 +207,7 @@ function DashBoardHomePage() {
         <div className="border border-gray-100 bg-[#390255] text-white p-2 h-44 flex justify-center items-center relative">
           <div className="flex flex-col justify-center items-center pr-[150px]">
             {/* <p className="text-3xl mt-8">{lead.totalLeads}</p> */}
-            <p className="sm:text-base text-[13px] ml-14">Todays Birthday & Aniversary</p>
+            <p className="sm:text-sm text-[13px] ml-14">Todays Birthday & Aniversary</p>
             <button
               onClick={() => navigate("/admin/events")}
               className="text-[#FFF848] p-[-6px] mt-2 ml-[60px]  mt-4 rounded-[10px] bg-[#FFF848] text-black hover:bg-[#FFF848] hover:text-[#390255]"

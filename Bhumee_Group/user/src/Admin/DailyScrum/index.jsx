@@ -113,15 +113,15 @@ function DailyScrumsList() {
     return (
         <>
             <NavBar />
-            <div className="p-6 bg-purple-100 min-h-screen">
-                <h1 className="text-4xl font-bold text-center mb-4 mt-10 text-teal-950">
+            <div className="p-6  min-h-screen w-screen">
+                <h1 className="text-4xl font-bold text-center w-screen mb-4 mt-10 text-teal-950">
                     Daily Scrum List
                 </h1>
 
                 {/* Filters Section */}
                 <div className="flex flex-col sm:flex-row items-center justify-between mb-4">
-                    <div className="flex items-center space-x-4">
-                        <div>
+                    <div className="flex items-center space-x-4 px-2">
+                        <div >
                             <label htmlFor="date" className="text-gray-700 font-medium">
                                 Filter by Date:
                             </label>
@@ -136,7 +136,7 @@ function DailyScrumsList() {
 
                         <button
                             onClick={handleSearch}
-                            className="ml-4 bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600"
+                            className="ml-8 bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600"
                         >
                             Search
                         </button>
@@ -145,15 +145,15 @@ function DailyScrumsList() {
 
                 {message && <p className="text-center text-red-600">{message}</p>}
 
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left text-gray-500 border-collapse border border-gray-300">
+                <div className="overflow-x-auto w-screen">
+                    <table className="min-w-full text-sm text-left text-gray-500 border-collapse border border-gray-300">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-500">
                             <tr className="border-b border-gray-300">
                                 <th className="px-4 py-3 border-r text-white border-gray-300">Sr. No</th>
                                 <th className="px-4 py-3 border-r text-white border-gray-300">Name</th>
-                                <th className="px-4 py-3 border-r text-white border-gray-300">Description</th>
-                                <th className="px-4 py-3 border-r text-white border-gray-300">Date</th>
-                                <th className="px-4 py-3 border-r text-white border-gray-300">Post Date and Time</th>
+                                <th className="px-4 py-3 border-r text-white border-gray-300">Work_______Description________________</th>
+                                <th className="px-4 py-3 border-r text-white border-gray-300">_______Date________</th>
+                                <th className="px-4 py-3 border-r text-white border-gray-300">________Post Date and Time________</th>
                             </tr>
                         </thead>
                         <tbody>

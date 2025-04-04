@@ -249,9 +249,11 @@ function Home() {
 
   return (
     <>
+
+    
       <NavBar />
       <div className="container overflow-x-auto max-w-full px-2  mt-16">
-        <h1 className="text-2xl md:text-4xl font-bold text-center my-4 text-purple-950">
+        <h1 className="text-2xl md:text-3xl font-bold text-center my-4 text-purple-950">
           Lead Details
         </h1>
 
@@ -320,8 +322,8 @@ function Home() {
           {!loading && !error && (
             <>
               <table className="min-w-full text-sm text-left text-gray-600 dark:text-gray-400 border border-gray-300 shadow-md rounded-lg">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
-                  <tr>
+                <thead className="text-[12px] text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+                  <tr >
                     <th scope="col" className="px-4 py-3">Sr. No</th>
                     <th scope="col" className="px-4 py-3">Name</th>
                     <th scope="col" className="px-4 py-3">Budget</th>
@@ -337,9 +339,9 @@ function Home() {
                 <tbody>
                   {currentLeads.map((user, index) => (
                     <React.Fragment key={user.id}>
-                      <tr className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-600">
+                      <tr className="bg-white dark:bg-gray-800 hover:bg-gray-100 text-[13px] dark:hover:bg-gray-600">
                         <td className="px-4 py-3">{indexOfFirstLead + index + 1}</td>
-                        <td className="px-4 py-3">{user.fullName}</td>
+                        <td className="px-4 py-3 ">{user.fullName}</td>
                         <td className="px-4 py-3">{user.budget}</td>
                         <td className="px-4 py-3 text-blue-600">
                           <a href={`tel:+91${user.contactNumber}`}>{user.contactNumber}</a>
@@ -353,7 +355,7 @@ function Home() {
                           <select
                             value={user.assigned === "NOT ASSIGNED" ? "NOT ASSIGNED" : user.assigned}
                             onChange={(e) => handleAssignChange(user.id, e.target.value)}
-                            className="px-2 py-1 border rounded-md bg-white"
+                            className="px-2 py-1 border text-[13px] rounded-md bg-white"
                           >
                             {/* Ensure "NOT ASSIGNED" is always an option */}
                             <option value="NOT ASSIGNED">NOT ASSIGNED</option>
@@ -369,10 +371,10 @@ function Home() {
 
 
 
-                        <td className="px-4 py-3 flex gap-2">
+                        <td className="px-4 py-3 flex gap-2 text-[13px]">
                           <button
                             onClick={() => toggleRow(user.id)}
-                            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all"
+                            className="px-4 py-2 bg-blue-500 text-white text-[13px] whitespace-nowrap rounded-md hover:bg-blue-600 transition-all"
                           >
                             Follow-up
                           </button>

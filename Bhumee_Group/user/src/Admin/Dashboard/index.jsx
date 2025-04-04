@@ -30,40 +30,40 @@ function DashBoradSliderBar() {
     // useEffect(() => {
     //     const token = sessionStorage.getItem("token");
     //     const encryptedAdmin = sessionStorage.getItem("admin");
-    
+
     //     // If there's no token or encryptedAdmin data, or if the token is invalid, redirect to login
     //     if (!token || !encryptedAdmin) {
     //         navigate("/admin");
     //         return;
     //     }
-    
+
     //     try {
     //         // Decode the token to check if it's expired
     //         // const decodedToken = jwt_decode.decode(token);
-    
+
     //         // if (!decodedToken || decodedToken.exp * 1000 < Date.now()) {
     //         //     // If the token is expired or invalid, redirect to login
     //         //     navigate("/admin");
     //         //     return;
     //         // }
-    
+
     //         // Decrypt the admin data if encrypted
     //         const bytes = CryptoJS.AES.decrypt(encryptedAdmin, "kunaljdsdbfhdsbf765havsd78@jhasdvr64646%#%#%^");
     //         const decryptedAdmin = bytes.toString(CryptoJS.enc.Utf8);
-    
+
     //         // If decryption fails or the decrypted data is empty, redirect to login
     //         if (!decryptedAdmin) {
     //             navigate("/admin");
     //             return;
     //         }
-    
+
     //         const admin = JSON.parse(decryptedAdmin);
-    
+
     //         // Check if the admin role is valid
     //         if (admin && admin.role !== "admin") {
     //             navigate("/admin");
     //         }
-    
+
     //         console.log("admin ==> ", admin);
     //     } catch (error) {
     //         // Handle any errors, such as invalid token format or decryption failure
@@ -129,26 +129,43 @@ function DashBoradSliderBar() {
                             </div>
                         </div>
                     </div>
+                    <div className="hidden sm:block mt-auto mt-60 text-center text-gray-300 text-xs">
+                        <Link target="_blank" to="https://realityone.in/">
+                            <p>Powered By RealityOne</p>
+                        </Link>
+                    </div>
+
                 </div>
 
                 {isOpen && (
-                    <div className="sm:hidden lg:h-screen">
-                        <div className="px-2 pt-2 pb-3 ">
-                            {menus.map((menu, index) => (
-                                <a key={index} href={menu.link} className="text-[#FFF848] block px-0 py-2 rounded-md sm:text-base text-[14px] font-base">
-                                    {menu.icons && <span className="material-symbols-outlined text-lg">{menu.icons}</span>}
-                                    <span className='p-2'>{menu.name}</span>
-                                </a>
-                            ))}
+
+                    <>
+                        <div className="sm:hidden lg:h-screen">
+                            <div className="px-2 pt-2 pb-3 ">
+                                {menus.map((menu, index) => (
+                                    <a key={index} href={menu.link} className="text-[#FFF848] block px-0 py-2 rounded-md sm:text-base text-[14px] font-base">
+                                        {menu.icons && <span className="material-symbols-outlined text-lg">{menu.icons}</span>}
+                                        <span className='p-2'>{menu.name}</span>
+                                    </a>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                        <div className="mt-auto md:hidden text-center mt-60 text-gray-300 text-xs">
+                            <Link target="_blank" to='https://realityone.in/'>
+
+                                <p>Powred By<br /> RealityOne</p>
+                            </Link>
+                        </div>
+                    </>
                 )}
+
             </nav>
 
             <div className='p-p-7 text-2xl  font-semibold flex-1  bg-purple-100'>
                 <NavBar />
 
                 <DashBoardHomePage />
+
             </div>
         </div>
     );

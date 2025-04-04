@@ -22,7 +22,7 @@ function LeadContact() {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(20); // Display only 20 leads per page
+  const [itemsPerPage] = useState(200); // Display only 20 leads per page
   // Static data for old descriptions
   const staticDescriptions = {
     1: [
@@ -252,14 +252,22 @@ function LeadContact() {
     }
   };
 
-  // Filter leads based on search term
   const filteredLeads = (users || []).filter((user) => {
-
-
-    const areaWords = user.area.toLowerCase().split(" ");
-    const searchWords = searchTerm.toLowerCase().split(" ");
-    return searchWords.every((word, index) => areaWords[index] && areaWords[index].startsWith(word));
+    const search = searchTerm.toLowerCase();
+  
+    // Prepare fields
+    const area = user.area?.toLowerCase() || "";
+    const fullName = user.fullName?.toLowerCase() || "";
+    const contactNumber = user.contactNumber?.toLowerCase() || "";
+  
+    // Return true if search term matches any of the fields
+    return (
+      area.startsWith(search) ||
+      fullName.startsWith(search) ||
+      contactNumber.startsWith(search)
+    );
   });
+  
 
 
 
@@ -289,13 +297,13 @@ function LeadContact() {
   return (
     <>
       <StaffNavBar />
-      <div className="container mx-auto px-4 py-6">
+      <div className="container overflow-x-auto max-w-full px-4 py-6">
         <h1 className="text-4xl font-bold text-center text-purple-950 mb-4">Lead Details</h1>
 
         <div className="flex justify-center mb-4">
           <input
             type="text"
-            placeholder="Search by Area..."
+            placeholder="Area, Name, Number..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-1/2 p-2 border border-gray-300 rounded-md"
@@ -338,10 +346,12 @@ function LeadContact() {
                     <th scope="col" className="px-4 py-3">Message</th>
                     <th scope="col" className="px-4 py-3">Refer</th> */}
                     {/* <th scope="col" className="px-4 py-3">Preferred Location</th> */}
-                    {/* <th scope="col" className="px-4 py-3">Visit Date</th>
-                    <th scope="col" className="px-4 py-3">Budget</th>
-                    <th scope="col" className="px-4 py-3">Configuration</th> */}
+                    {/* <th scope="col" className="px-4 py-3">Visit Date</th>*/}
+                   
+
                     <th scope="col" className="px-4 py-3">Area</th>
+                    <th scope="col" className="px-4 py-3">Configuration</th>
+                    <th scope="col" className="px-4 py-3">Date</th>
                     <th scope="col" className="px-4 py-3 rounded-e-lg">Action</th>
                   </tr>
                 </thead>
@@ -357,7 +367,10 @@ function LeadContact() {
                           <td className="px-4 py-2 text-blue-600">
                             <a href={`tel:+91${user.contactNumber}`}>{user.contactNumber}</a>
                           </td>
+                    
                           <td className="px-4 py-2">{user.area}</td>
+                          <td className="px-4 py-2">{user.configuration}</td>
+                          <td className="px-4 py-2">{user.visitDate}</td>
                           <td className="px-4 py-2 flex gap-2">
                             <button
                               onClick={() => toggleRow(user.id)}
@@ -533,6 +546,17 @@ function LeadContact() {
                     </option>
                   ))}
                 </select>
+
+                <input
+                  type="date"
+                  name="visitDate"
+                  value={editLead.visitDate}
+                  onChange={handleEditChange}
+                  className="w-full p-2 border rounded"
+                  placeholder="Date"
+                />
+
+
               </div>
 
               <div className="mt-6 flex justify-end space-x-3">

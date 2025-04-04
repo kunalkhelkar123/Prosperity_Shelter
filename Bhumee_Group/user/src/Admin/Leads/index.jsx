@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../Navbar/NavBar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as XLSX from 'xlsx';
 function Home() {
   const [users, setUsers] = useState([]);
   const [staffnames, setStaffnames] = useState([]);
@@ -12,7 +13,7 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState(""); // Search term state
   // Pagination States
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(20); // Display only 20 leads per page
+  const [itemsPerPage] = useState(200); // Display only 20 leads per page
 
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -178,13 +179,22 @@ function Home() {
 
 
   // Filter leads based on search term
+
   const filteredLeads = (users || []).filter((user) => {
-    const areaWords = user.area.toLowerCase().split(" ");
-    const searchWords = searchTerm.toLowerCase().split(" ");
-    return searchWords.every((word, index) => areaWords[index] && areaWords[index].startsWith(word));
+    const search = searchTerm.toLowerCase();
+
+    // Prepare fields
+    const area = user.area?.toLowerCase() || "";
+    const fullName = user.fullName?.toLowerCase() || "";
+    const contactNumber = user.contactNumber?.toLowerCase() || "";
+
+    // Return true if search term matches any of the fields
+    return (
+      area.startsWith(search) ||
+      fullName.startsWith(search) ||
+      contactNumber.startsWith(search)
+    );
   });
-
-
 
   const handleAssignChange = async (leadId, newAssigned) => {
     try {
@@ -212,27 +222,86 @@ function Home() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 
+    const generateEXCEL = () => {
+          const tableData = filteredLeads.map((client, index) => [
+              index + 1,
+              client.fullName,
+              client.contactNumber,
+              // formatDate(client.bookingDate),
+              client.budget,
+              client.configuration,
+              client.area,
+
+          ]);
+          // Excel Export
+          const ws = XLSX.utils.aoa_to_sheet([
+              ["SR. No", "Name", "Number", "Budget", "Configuration", "Area"],
+              ...tableData
+          ]);
+  
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, "Client List");
+          XLSX.writeFile(wb, "Client_List.xlsx");
+      };
+
+
+
 
   return (
     <>
       <NavBar />
-      <div className="container mx-auto mt-16">
+      <div className="container overflow-x-auto max-w-full px-2  mt-16">
         <h1 className="text-2xl md:text-4xl font-bold text-center my-4 text-purple-950">
           Lead Details
         </h1>
 
 
+        {/*  */}
+
+        {/* <div className="flex justify-between mb-4"> */}
+        {/* <input
+            type="text"
+            placeholder="Search by Client Name, Co-Applicant Name, or Property Name..."
+            className="px-4 py-2 w-full border border-gray-300 rounded-lg mr-4"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button
+            className="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded"
+            onClick={generatePDF}
+          >
+            Download Client list PDF
+          </button> */}
+        {/* <button
+            className="px-4 ml-2 py-2 text-white bg-green-500 hover:bg-green-600 rounded"
+            // onClick={generateEXCEL}
+          >
+            Download Client list Excelsheet
+          </button> */}
+        {/* </div> */}
 
 
 
+
+
+
+
+
+        {/*  */}
         <div className="flex justify-center mb-4">
           <input
             type="text"
-            placeholder="Search by Area..."
+            placeholder="Search by Area, Name & Number..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-1/2 p-2 border border-gray-300 rounded-md"
           />
+          <button
+            className="px-4 ml-2 py-2 text-white bg-green-500 hover:bg-green-600 rounded"
+          onClick={generateEXCEL}
+          >
+            Download Excelsheet
+          </button>
         </div>
 
 
@@ -258,6 +327,8 @@ function Home() {
                     <th scope="col" className="px-4 py-3">Budget</th>
                     <th scope="col" className="px-4 py-3">Phone No</th>
                     <th scope="col" className="px-4 py-3">Area</th>
+                    <th scope="col" className="px-4 py-3">Configuration</th>
+                    <th scope="col" className="px-4 py-3">Date</th>
                     <th scope="col" className="px-4 py-3">Assigned</th>
                     <th scope="col" className="px-4 py-3">Update Assigned</th>
                     <th scope="col" className="px-4 py-3">Actions</th>
@@ -274,6 +345,8 @@ function Home() {
                           <a href={`tel:+91${user.contactNumber}`}>{user.contactNumber}</a>
                         </td>
                         <td className="px-4 py-3">{user.area}</td>
+                        <td className="px-4 py-3">{user.configuration}</td>
+                        <td className="px-4 py-3">{user.visitDate}</td>
                         <td className="px-4 py-3 font-semibold">{user.assigned || "Not Assigned"}</td>
                         {/* New Column - Update Assigned */}
                         <td className="px-4 py-3">
@@ -455,6 +528,9 @@ function Home() {
           </div>
         </div>
       )}
+
+
+
     </>
   );
 }

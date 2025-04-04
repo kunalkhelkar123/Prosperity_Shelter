@@ -159,6 +159,7 @@ function AddStaff({ onClose }) {
       Cancel
     </button>
     <button
+       onClick={handleSubmit}
       type="submit"
       className="w-full sm:w-auto px-6 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-800"
     >

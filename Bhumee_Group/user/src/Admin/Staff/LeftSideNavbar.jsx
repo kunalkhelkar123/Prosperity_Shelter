@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function LeftSideNavBar({ setActiveTab, activeTab }) {
   const navigate = useNavigate();
@@ -63,8 +63,11 @@ function LeftSideNavBar({ setActiveTab, activeTab }) {
       </ul>
 
       {/* You can add any footer or additional content here */}
-      <div className="mt-auto text-center text-gray-600 text-sm">
+      <div className="mt-auto text-center text-blue-600 text-sm">
+        <Link target="_blank" to='https://realityone.in/'>
+        
         <p>© 2025 RealityOne</p>
+        </Link>
       </div>
     </div>
   );

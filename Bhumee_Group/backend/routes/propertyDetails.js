@@ -240,7 +240,7 @@ router.get('/hotproperties', async (req, res) => {
 });
 
 router.get('/properties/:id', async (req, res) => {
-  
+
   const propertyId = req.params.id; // Get property ID from the URL parameter
   const query = 'SELECT * FROM property_details WHERE _id = ? ORDER BY _id DESC'; // SQL query to fetch the property by ID
 
@@ -527,7 +527,7 @@ router.post('/leads', async (req, res) => {
     message,
     Refer,
     preferredLocation,
-    visitDate,
+    date,
     budget,
     configuration,
     area,
@@ -542,8 +542,8 @@ router.post('/leads', async (req, res) => {
   `;
 
   const values = [
-    fullName, emailId, contactNumber, subject, message, Refer, preferredLocation, visitDate,
-    budget, configuration, area,assigned,
+    fullName, emailId, contactNumber, subject, message, Refer, preferredLocation, date,
+    budget, configuration, area, assigned,
   ];
 
   const response = await db.query(query, values)
@@ -597,7 +597,32 @@ router.get('/getleads', async (req, res) => {
     if (results.length === 0) {
       return res.status(202).json({ success: false, message: "No leads found" });
     }
-    res.status(200).json({ success: true, data: results });
+
+    const formattedRows = results.map(row => {
+      const rawDate = row.visitDate;
+    
+      // Check for null, "null", empty string, or invalid date
+      const isDateValid = rawDate && rawDate !== "null" && !isNaN(new Date(rawDate).getTime());
+    
+      if (isDateValid) {
+        const visitDate = new Date(rawDate);
+        const formattedDate = visitDate.toLocaleDateString('en-GB'); // dd/mm/yyyy
+        return {
+          ...row,
+          visitDate: formattedDate,
+        };
+      } else {
+        return {
+          ...row,
+          visitDate: "Date Not Available",
+        };
+      }
+    });
+    
+
+
+
+    res.status(200).json({ success: true, data: formattedRows });
   } catch (error) {
     console.error("Error executing query: ", error);
     res.status(500).json({ success: false, message: "Error retrieving lead data", error });
@@ -606,21 +631,45 @@ router.get('/getleads', async (req, res) => {
 
 
 router.get('/getstaffleads/:staffuser', async (req, res) => {
-  
+
   const { staffuser } = req.params;
   // console.log("Fetching leads...",staffuser);
   // console.log(" staffuser name  ", staffuser)
   let query = 'SELECT * FROM leads WHERE TRIM(assigned) = ? ORDER BY id DESC;';
-  
+
   try {
-    const [results] = await db.execute(query,[staffuser]);
+    const [results] = await db.execute(query, [staffuser]);
 
     // console.log(" results",results)
     if (results.length === 0) {
       return res.status(202).json({ success: false, message: "No leads found" });
     }
+
+
+    const formattedRows = results.map(row => {
+      const rawDate = row.visitDate;
+    
+      // Check for null, "null", empty string, or invalid date
+      const isDateValid = rawDate && rawDate !== "null" && !isNaN(new Date(rawDate).getTime());
+    
+      if (isDateValid) {
+        const visitDate = new Date(rawDate);
+        const formattedDate = visitDate.toLocaleDateString('en-GB'); // dd/mm/yyyy
+        return {
+          ...row,
+          visitDate: formattedDate,
+        };
+      } else {
+        return {
+          ...row,
+          visitDate: "Date Not Available",
+        };
+      }
+    });
+
+
     // console.log(" result.length  ==>",results.length)
-    res.status(200).json({ success: true, data: results });
+    res.status(200).json({ success: true, data: formattedRows });
   } catch (error) {
     console.error("Error executing query: ", error);
     res.status(500).json({ success: false, message: "Error retrieving lead data", error });
@@ -1122,7 +1171,7 @@ router.get('/getstaff', async (req, res) => {
 });
 
 router.put('/updateAssigned', async (req, res) => {
-  const { leadId, assigned} = req.body;
+  const { leadId, assigned } = req.body;
   console.log("leadId, assigned", leadId, assigned)
   try {
     // Update the user details in the database
@@ -1131,7 +1180,7 @@ router.put('/updateAssigned', async (req, res) => {
       SET assigned = ? 
       WHERE id = ?
     `;
-    const values = [assigned,leadId];
+    const values = [assigned, leadId];
 
     // Execute the query
     const result = await db.query(query, values);
@@ -1150,8 +1199,8 @@ router.put('/updateAssigned', async (req, res) => {
 });
 
 router.put('/deleteLead', async (req, res) => {
-  const { leadId,data } = req.body;
-  console.log("leadId", leadId,data.leadId)
+  const { leadId, data } = req.body;
+  console.log("leadId", leadId, data.leadId)
   try {
     // Update the user details in the database
     const query = `
@@ -1159,7 +1208,7 @@ router.put('/deleteLead', async (req, res) => {
       SET assigned = ? 
       WHERE id = ?
     `;
-    const values = ['NOT ASSIGNED',data.leadId];
+    const values = ['NOT ASSIGNED', data.leadId];
 
     // Execute the query
     const result = await db.query(query, values);

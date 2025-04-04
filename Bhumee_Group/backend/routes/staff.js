@@ -248,10 +248,11 @@ router.put("/updateLead", async (req, res) => {
       emailId,
       contactNumber,
       area,
+      visitDate,
       // add more fields as per your `leads` table
     } = req.body.data;
   
-    // console.log("   id,fullName, emailId,contactNumber, area", req.body.data)
+    console.log("   visitDate", req.body.data)
     if (!id) {
       return res.status(400).json({ message: "Lead ID is required." });
     }
@@ -259,11 +260,11 @@ router.put("/updateLead", async (req, res) => {
     try {
       const updateQuery = `
         UPDATE leads
-        SET fullName = ?, emailId = ?, contactNumber = ?, area = ?
+        SET fullName = ?, emailId = ?, contactNumber = ?, area = ?, visitDate = ? 
         WHERE id = ?
       `;
   
-      await db.execute(updateQuery, [fullName, emailId, contactNumber, area, id]);
+      await db.execute(updateQuery, [fullName, emailId, contactNumber, area,visitDate, id]);
   
       res.status(200).json({ message: "Lead details updated successfully." });
     } catch (error) {

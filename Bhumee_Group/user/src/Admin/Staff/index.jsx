@@ -131,11 +131,11 @@ function Managestaff() {
     return (
         <>
             <NavBar />
-            <div className="flex mt-16 h-screen">
+            <div className="flex mt-16 h-screen mb-20">
                 {/* Left side navigation bar */}
                 <LeftSideNavBar setActiveTab={setActiveTab} activeTab={activeTab} />
 
-                <div className="flex-1 p-4 text-sm">
+                <div className="flex-1 p-4 text-sm max-w-full mb-10">
                     {activeTab === "allStaff" && (
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400 border  border-gray-300">

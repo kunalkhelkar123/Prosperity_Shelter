@@ -13,7 +13,7 @@ function Visites() {
   useEffect(() => {
     const fetchVisites = async () => {
       try {
-        const response = await axios.get("/api/adminstaffvisites/getvisits");
+        const response = await axios.get("/api/adminstaffvisites/getstaffvisits");
 
         if (response.status === 200 && response.data.length > 0) {
           const total = response.data.length;
@@ -52,6 +52,7 @@ function Visites() {
       const userVisites = visites.filter((visite) => visite.followup_by === followUp);
       setShowAllFor(followUp);
       setExpandedVisites(userVisites);
+      console.log(" userVisites",userVisites )
     }
   };
 
@@ -79,13 +80,13 @@ function Visites() {
       <h1 className="text-2xl font-bold mb-4">Visites</h1>
 
       {/* Total Visits Block */}
-      <div className="mb-4 bg-teal-100 p-4 rounded-md">
-        <h2 className="text-lg font-semibold">Total Visits</h2>
-        <p className="text-teal-700 text-xl font-bold">{totalVisits}</p>
+      <div className="mb-4 w-40 text-center bg-teal-800 p-4 rounded-md">
+        <h2 className="text-lg  text-white font-semibold">Total Visits</h2>
+        <p className="text-white  text-xl font-bold">{totalVisits}</p>
       </div>
 
       {/* Month Filter */}
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label htmlFor="monthFilter" className="mr-2 font-medium">
           Filter by Month:
         </label>
@@ -109,12 +110,12 @@ function Visites() {
           <option value="11">November</option>
           <option value="12">December</option>
         </select>
-      </div>
+      </div> */}
 
       {/* Visites Table */}
       <div className="relative overflow-autoc">
         <table className="w-full text-sm text-left text-gray-500 border">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+          <thead className="text-xs text-gray-700 uppercase bg-blue-200">
             <tr>
               <th className="px-4 py-3">Sr. No</th>
               <th className="px-4 py-3">Follow-Up By</th>
@@ -125,7 +126,7 @@ function Visites() {
           <tbody>
             {filteredVisites.map((visite, index) => (
               <React.Fragment key={index}>
-                <tr className="bg-gray-100">
+                <tr className="bg-white">
                   <td className="px-4 py-3">{index + 1}</td>
                   <td className="px-4 py-3 text-black">{visite.followup_by}</td>
                   <td className="px-4 py-3">{visite.count}</td>
@@ -146,6 +147,7 @@ function Visites() {
                           <tr>
                             <th className="px-4 py-3">Sr. No</th>
                             <th className="px-4 py-3">Client Name</th>
+                            <th className="px-4 py-3">Property</th>
                             <th className="px-4 py-3">Lead Description</th>
                             <th className="px-4 py-3">Visit Date</th>
                           </tr>
@@ -153,10 +155,11 @@ function Visites() {
                         <tbody>
                           {expandedVisites.map((detail, detailIndex) => (
                             <tr key={detailIndex} className="bg-white">
-                              <td className="px-4 py-3">{detailIndex + 1}</td>
+                              <td className="px-4 py-3 text-black">{detailIndex + 1}</td>
                               <td className="px-4 py-3 text-black">{detail.visitor_name}</td>
+                              <td className="px-4 py-3 text-black">{detail.propertyname}</td>
                               <td className="px-4 py-3 text-black">{detail.purpose}</td>
-                              <td className="px-4 py-3">{detail.visit_date}</td>
+                              <td className="px-4 py-3 text-black">{detail.visit_date}</td>
                             </tr>
                           ))}
                         </tbody>

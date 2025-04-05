@@ -133,33 +133,33 @@ function LeadContact() {
 
         const token = sessionStorage.getItem("token");
         const storedUser = JSON.parse(sessionStorage.getItem("user"));
-    
+
         if (!token || !storedUser || storedUser.role !== "staff") {
-            navigate("/staff");
-            return;
-        }
-    
-        try {
-            // Decode the payload of the token (middle part)
-            const payloadBase64 = token.split('.')[1];
-            const decodedPayload = JSON.parse(atob(payloadBase64));
-            // Check if token is expired
-            if (decodedPayload.exp * 1000 < Date.now()) {
-                console.log("Token expired");
-                sessionStorage.clear();
-                navigate("/staff");
-                return;
-            }
-    
-            // If valid and not expired
-            setStaffuser(storedUser.name);
-        } catch (err) {
-            console.error("Invalid token format", err);
-            sessionStorage.clear();
-            navigate("/staff");
+          navigate("/staff");
+          return;
         }
 
-        
+        try {
+          // Decode the payload of the token (middle part)
+          const payloadBase64 = token.split('.')[1];
+          const decodedPayload = JSON.parse(atob(payloadBase64));
+          // Check if token is expired
+          if (decodedPayload.exp * 1000 < Date.now()) {
+            console.log("Token expired");
+            sessionStorage.clear();
+            navigate("/staff");
+            return;
+          }
+
+          // If valid and not expired
+          setStaffuser(storedUser.name);
+        } catch (err) {
+          console.error("Invalid token format", err);
+          sessionStorage.clear();
+          navigate("/staff");
+        }
+
+
       } catch (error) {
         console.error("Error in useEffect:", error);
         navigate("/staff");
@@ -191,7 +191,7 @@ function LeadContact() {
   }, [staffuser]); // ✅ Runs only when `staffuser` is set, preventing infinite loop
 
 
-  const handleAddDescription = async (id) => {
+  const handleAddDescription = async (user) => {
     if (!queryInputs.trim()) return alert("Description cannot be empty.");
     // if (!visitDate.trim()) return alert("Please enter a visit date.");
     // if (!followUpBy.trim()) return alert("Please specify the follow-up person.");
@@ -201,8 +201,8 @@ function LeadContact() {
 
 
       const newDescription = {
-        lead_name: staffuser,
-        lead_id: id,
+        lead_name: user.fullName,
+        lead_id: user.id,
         lead_description: queryInputs,
         expected_visit_date: visitDate,
         followup_by: staffuser
@@ -216,6 +216,7 @@ function LeadContact() {
       // alert("Description added successfully:.");
 
       // Update state with the new description (local state update)
+      const id = user.id
       setDescriptions((prev) => ({
         ...prev,
         [id]: [
@@ -481,7 +482,7 @@ function LeadContact() {
                                       className="w-full sm:w-40 px-2 py-1 border border-gray-300 rounded-md mb-2"
                                     />
                                     <button
-                                      onClick={() => handleAddDescription(user.id)}
+                                      onClick={() => handleAddDescription(user)}
                                       className="w-50 ml-4 sm:w-auto px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
                                     >
                                       Add New Description

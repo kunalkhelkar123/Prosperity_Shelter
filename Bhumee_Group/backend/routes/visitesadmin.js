@@ -4,6 +4,35 @@ const router = express.Router();
 const db = require('../db');    
 
 
+router.get('/getstaffvisits', async (req, res) => {
+    try {
+        // Fetch all visits
+        const [rows] = await db.execute(
+        `SELECT * FROM visits_master  ORDER BY created_at ASC;
+`
+        );
+
+        // Format the visit_date for each entry
+        const formattedRows = rows.map(row => {
+            const formattedDate = row.visit_date
+                ? new Date(row.visit_date).toLocaleDateString('en-GB')
+                : null;
+            return {
+                ...row,
+                visit_date: formattedDate, // Ensure consistent date formatting
+            };
+        });
+        // console.log("rows ", formattedRows)
+
+        res.status(200).json(formattedRows);
+    } catch (error) {
+        console.error('Error fetching visits:', error);
+        res.status(500).json({ error: 'Failed to fetch visits data' });
+    }
+});
+
+
+
 router.get('/getvisits', async (req, res) => {
     try {
         // Fetch all visits

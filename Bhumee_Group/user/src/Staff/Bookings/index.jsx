@@ -61,7 +61,8 @@ function Booking() {
         if (userId) {
           const response = await axios.post("/api/staff/get-bookings", { id: userId });
 
-          if (response.status === 200) {
+          console.log("response.status  ", response.status)
+          if (response.status == "200") {
             if (response.data.length > 0) {
               console.log("Bookings ==> ", response.data);
 
@@ -81,7 +82,7 @@ function Booking() {
             }
           }
           else {
-            setError("Failed to load bookings. Please try again later.");
+            setError("Fail ed to load bookings. Please try again later.");
           }
         } else {
           setError("User ID is not available.");
@@ -129,7 +130,7 @@ function Booking() {
     if (!propertyName || !clientName || !date || !month || !count || !price) {
       return "All fields are required.";
     }
-    if (isNaN(count) ) {
+    if (isNaN(count)) {
       return "Count and Price must be valid numbers.";
     }
     return null;
@@ -173,199 +174,199 @@ function Booking() {
 
   return (<>
     <div className="flex flex-col h-screen">
-    {/* Top Navigation */}
-    <div className="w-full">
-      <StaffNavBar />
-      <StaffLeftTopNavBar setActiveTab={setActiveTab} activeTab={activeTab}/>
-      {/* <div className="w-full sm:w-1/6 bg-gray-200 h-auto sm:h-full sm:block">
+      {/* Top Navigation */}
+      <div className="w-full">
+        <StaffNavBar />
+        <StaffLeftTopNavBar setActiveTab={setActiveTab} activeTab={activeTab} />
+        {/* <div className="w-full sm:w-1/6 bg-gray-200 h-auto sm:h-full sm:block">
         <StaffLeftSideNavBar setActiveTab={setActiveTab} activeTab={activeTab} />
       </div> */}
-    </div>
-    
-    
-    <div className="flex flex-grow flex-col mt-[-35px] sm:mt-[-10] sm:flex-row">
-      {/* Left Navigation (Collapsible on mobile) */}
-      
-  
-      {/* Main Content */}
-      <div className="flex-grow p-4 overflow-auto ">
-        {activeTab === "bookings" && (
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-center mt-6 p-2 text-purple-950">
-              Booking Details
-            </h1>
-  
-            {/* Error Message */}
-            {error && (
-              <div className="text-red-500 mb-4 text-center text-sm sm:text-base">
-                {error}
-              </div>
-            )}
-  
-            {/* Month Filter */}
-            <div className="flex flex-col sm:flex-row mt-[0px] sm:mt-[-10] justify-end items-center gap-4 my-4">
-              <label className="text-sm sm:text-base   sm:mt-38">Filter by Month:</label>
-              <select
-                value={selectedMonth}
-                onChange={handleMonthFilterChange}
-                className="p-2 border rounded-md w-full sm:w-auto"
-              >
-                {months.map((month, index) => (
-                  <option key={index} value={month}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-            </div>
-  
-            {/* Booking Summary */}
-            <div className="flex justify-center sm:justify-between items-center my-4 gap-4 flex-wrap">
-              <div className="p-4 bg-teal-500 text-white rounded-md  sm:mt-[-100px] w-full sm:w-auto">
-                <h3 className="font-bold">Total Bookings</h3>
-                <p>{bookingcount}</p>
-              </div>
-            </div>
-  
-            {/* Table (Responsive) */}
-            <div className="relative overflow-x-auto">
-              <table className="w-full text-sm text-left text-gray-500 border">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-200">
-                  <tr className="border-2 border-gray-300">
-                    <th className="px-4 py-3 border-2 border-gray-300">Sr. No</th>
-                    <th className="px-4 py-3 border-2 border-gray-300">Property Name</th>
-                    <th className="px-4 py-3 border-2 border-gray-300">Month</th>
-                    <th className="px-4 py-3 border-2 border-gray-300">Count</th>
-                    <th className="px-4 py-3 border-2 border-gray-300">Date</th>
-                    <th className="px-4 py-3 border-2 border-gray-300">Client Name</th>
-                    <th className="px-4 py-3 border-2 border-gray-300">Price</th>
-                    <th className="px-4 py-3 border-2 border-gray-300">Book By</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredBookings.map((booking, index) => (
-                    <tr key={index} className="border-2 border-gray-300">
-                      <td className="px-4 py-3 border-2 border-gray-300">{index + 1}</td>
-                      <td className="px-4 py-3 border-2 border-gray-300">{booking.property_name}</td>
-                      <td className="px-4 py-3 border-2 border-gray-300">{booking.month}</td>
-                      <td className="px-4 py-3 border-2 border-gray-300">{booking.count}</td>
-                      <td className="px-4 py-3 border-2 border-gray-300">{booking.date}</td>
-                      <td className="px-4 py-3 border-2 border-gray-300">{booking.client_name}</td>
-                      <td className="px-4 py-3 border-2 border-gray-300">{booking.price}</td>
-                      <td className="px-4 py-3 border-2 border-gray-300">{booking.book_by}</td>
-                    </tr>
+      </div>
+
+
+      <div className="flex flex-grow flex-col mt-[-35px] sm:mt-[-10] sm:flex-row">
+        {/* Left Navigation (Collapsible on mobile) */}
+
+
+        {/* Main Content */}
+        <div className="flex-grow p-4 overflow-auto ">
+          {activeTab === "bookings" && (
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-center mt-6 p-2 text-purple-950">
+                Booking Details
+              </h1>
+
+              {/* Error Message */}
+              {error && (
+                <div className="text-red-500 mb-4 text-center text-sm sm:text-base">
+                  {error}
+                </div>
+              )}
+
+              {/* Month Filter */}
+              <div className="flex flex-col sm:flex-row mt-[0px] sm:mt-[-10] justify-end items-center gap-4 my-4">
+                <label className="text-sm sm:text-base   sm:mt-38">Filter by Month:</label>
+                <select
+                  value={selectedMonth}
+                  onChange={handleMonthFilterChange}
+                  className="p-2 border rounded-md w-full sm:w-auto"
+                >
+                  {months.map((month, index) => (
+                    <option key={index} value={month}>
+                      {month}
+                    </option>
                   ))}
-                </tbody>
-              </table>
-            </div>
-  
-            {/* Add New Booking Form */}
-            <div className="mt-6 p-4 bg-gray-100 rounded-md">
-              <h3 className="text-lg sm:text-xl font-bold mb-4">
-                Add New Booking
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm">Property Name</label>
-                  <input
-                    type="text"
-                    name="propertyName"
-                    value={newBooking.propertyName}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-md"
-                  />
+                </select>
+              </div>
+
+              {/* Booking Summary */}
+              <div className="flex justify-center sm:justify-between items-center my-4 gap-4 flex-wrap">
+                <div className="p-4 bg-teal-500 text-white rounded-md  sm:mt-[-100px] w-full sm:w-auto">
+                  <h3 className="font-bold">Total Bookings</h3>
+                  <p>{bookingcount}</p>
                 </div>
-                <div>
-                  <label className="block text-sm">Count</label>
-                  <input
-                    type="number"
-                    name="count"
-                    value={newBooking.count}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-md"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm">Date</label>
-                  <input
-                    type="date"
-                    name="date"
-                    value={newBooking.date}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-md"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm">Month</label>
-                  <select
-                    name="month"
-                    value={newBooking.month}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-md"
-                  >
-                    <option value="">Select Month</option>
-                    {months.map((month, index) => (
-                      <option key={index} value={month}>
-                        {month}
-                      </option>
+              </div>
+
+              {/* Table (Responsive) */}
+              <div className="relative overflow-x-auto">
+                <table className="w-full text-sm text-left text-gray-500 border">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-200">
+                    <tr className="border-2 border-gray-300">
+                      <th className="px-4 py-3 border-2 border-gray-300">Sr. No</th>
+                      <th className="px-4 py-3 border-2 border-gray-300">Property Name</th>
+                      <th className="px-4 py-3 border-2 border-gray-300">Month</th>
+                      <th className="px-4 py-3 border-2 border-gray-300">Count</th>
+                      <th className="px-4 py-3 border-2 border-gray-300">Date</th>
+                      <th className="px-4 py-3 border-2 border-gray-300">Client Name</th>
+                      <th className="px-4 py-3 border-2 border-gray-300">Price</th>
+                      <th className="px-4 py-3 border-2 border-gray-300">Book By</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredBookings.map((booking, index) => (
+                      <tr key={index} className="border-2 border-gray-300">
+                        <td className="px-4 py-3 border-2 border-gray-300">{index + 1}</td>
+                        <td className="px-4 py-3 border-2 border-gray-300">{booking.property_name}</td>
+                        <td className="px-4 py-3 border-2 border-gray-300">{booking.month}</td>
+                        <td className="px-4 py-3 border-2 border-gray-300">{booking.count}</td>
+                        <td className="px-4 py-3 border-2 border-gray-300">{booking.date}</td>
+                        <td className="px-4 py-3 border-2 border-gray-300">{booking.client_name}</td>
+                        <td className="px-4 py-3 border-2 border-gray-300">{booking.price}</td>
+                        <td className="px-4 py-3 border-2 border-gray-300">{booking.book_by}</td>
+                      </tr>
                     ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm">Client Name</label>
-                  <input
-                    type="text"
-                    name="clientName"
-                    value={newBooking.clientName}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-md"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm">Price</label>
-                  <input
-                    type="text"
-                    name="price"
-                    value={newBooking.price}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded-md"
-                  />
-                </div>
-                <div className="col-span-1 sm:col-span-2 md:col-span-3">
-                  <button
-                    onClick={handleAddBooking}
-                    className="w-full sm:w-auto px-6 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800"
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Add New Booking Form */}
+              <div className="mt-6 p-4 bg-gray-100 rounded-md">
+                <h3 className="text-lg sm:text-xl font-bold mb-4">
+                  Add New Booking
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm">Property Name</label>
+                    <input
+                      type="text"
+                      name="propertyName"
+                      value={newBooking.propertyName}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm">Count</label>
+                    <input
+                      type="number"
+                      name="count"
+                      value={newBooking.count}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm">Date</label>
+                    <input
+                      type="date"
+                      name="date"
+                      value={newBooking.date}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm">Month</label>
+                    <select
+                      name="month"
+                      value={newBooking.month}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-md"
+                    >
+                      <option value="">Select Month</option>
+                      {months.map((month, index) => (
+                        <option key={index} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm">Client Name</label>
+                    <input
+                      type="text"
+                      name="clientName"
+                      value={newBooking.clientName}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-md"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm">Price</label>
+                    <input
+                      type="text"
+                      name="price"
+                      value={newBooking.price}
+                      onChange={handleInputChange}
+                      className="w-full p-2 border rounded-md"
+                    />
+                  </div>
+                  <div className="col-span-1 sm:col-span-2 md:col-span-3">
+                    <button
+                      onClick={handleAddBooking}
+                      className="w-full sm:w-auto px-6 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800"
 
                     // className="w-full px-4 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800"
-                  >
-                    Add Details
-                  </button>
+                    >
+                      Add Details
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-  
-        {activeTab === "visits" && (
-          <div>
-            <StaffVisites />
-          </div>
-        )}
-      </div>
-    </div>
-  
-    {/* Back Button */}
-    <button
-      className="rounded-md p-2 bg-purple-950 text-white fixed bottom-4 right-4 shadow-md hover:bg-purple-800"
-      onClick={() => navigate(-1)}
-    >
-      <span className="material-symbols-outlined font-extrabold text-3xl">
-        arrow_circle_left
-      </span>
-    </button>
-  </div>
- 
+          )}
 
-</>
+          {activeTab === "visits" && (
+            <div>
+              <StaffVisites />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Back Button */}
+      <button
+        className="rounded-md p-2 bg-purple-950 text-white fixed bottom-4 right-4 shadow-md hover:bg-purple-800"
+        onClick={() => navigate(-1)}
+      >
+        <span className="material-symbols-outlined font-extrabold text-3xl">
+          arrow_circle_left
+        </span>
+      </button>
+    </div>
+
+
+  </>
   );
 }
 

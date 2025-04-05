@@ -11,20 +11,39 @@ function DashBoradSliderBar() {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    const user = JSON.parse(sessionStorage.getItem("user"));
-    function check(menus) {
-        if (menus.name === 'Logout') {
-            // console.log("logout == ")
-            sessionStorage.removeItem("token");
-            sessionStorage.removeItem("user");
-            sessionStorage.removeItem("admin");
-        }
-    // Check if the token exists and user has the role 'staff'
-    if (!token || !user || user.role !== "staff") {
-      navigate("/staff");
+    const storedUser = JSON.parse(sessionStorage.getItem("user"));
+
+    if (!token || !storedUser || storedUser.role !== "staff") {
+        navigate("/staff");
+        return;
     }
-  }
+
+    try {
+        // Decode the payload of the token (middle part)
+        const payloadBase64 = token.split('.')[1];
+        const decodedPayload = JSON.parse(atob(payloadBase64));
+        // Check if token is expired
+        if (decodedPayload.exp * 1000 < Date.now()) {
+            console.log("Token expired");
+            sessionStorage.clear();
+            navigate("/staff");
+            return;
+        }
+
+        // If valid and not expired
+        // setUser(storedUser);
+    } catch (err) {
+        console.error("Invalid token format", err);
+        sessionStorage.clear();
+        navigate("/staff");
+    }
 }, [navigate]);
+
+
+
+
+
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);

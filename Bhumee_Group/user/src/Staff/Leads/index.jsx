@@ -119,16 +119,47 @@ function LeadContact() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // const token = sessionStorage.getItem("token");
+        // const user = JSON.parse(sessionStorage.getItem("user"));
+
+        // if (!token || !user || user.role !== "staff") {
+        //   navigate("/staff");
+        // } else {
+        //   setStaffuser(user.name);
+
+
+        // }
+
+
         const token = sessionStorage.getItem("token");
-        const user = JSON.parse(sessionStorage.getItem("user"));
-
-        if (!token || !user || user.role !== "staff") {
-          navigate("/staff");
-        } else {
-          setStaffuser(user.name);
-
-
+        const storedUser = JSON.parse(sessionStorage.getItem("user"));
+    
+        if (!token || !storedUser || storedUser.role !== "staff") {
+            navigate("/staff");
+            return;
         }
+    
+        try {
+            // Decode the payload of the token (middle part)
+            const payloadBase64 = token.split('.')[1];
+            const decodedPayload = JSON.parse(atob(payloadBase64));
+            // Check if token is expired
+            if (decodedPayload.exp * 1000 < Date.now()) {
+                console.log("Token expired");
+                sessionStorage.clear();
+                navigate("/staff");
+                return;
+            }
+    
+            // If valid and not expired
+            setStaffuser(storedUser.name);
+        } catch (err) {
+            console.error("Invalid token format", err);
+            sessionStorage.clear();
+            navigate("/staff");
+        }
+
+        
       } catch (error) {
         console.error("Error in useEffect:", error);
         navigate("/staff");

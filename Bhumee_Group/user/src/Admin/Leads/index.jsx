@@ -34,6 +34,9 @@ function Home() {
       navigate("/admin");
     }
   }, [navigate]);
+
+
+  
   const fetchDescriptions = async (leadId) => {
     try {
       const response = await axios.get(`/api/property/getDescriptions/${leadId}`);

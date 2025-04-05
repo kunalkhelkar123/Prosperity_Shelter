@@ -109,7 +109,7 @@ router.post("/login", async (req, res) => {
           email: user.email,
         },
         process.env.JWT_SECRET,
-        { expiresIn: "6hr" }
+        { expiresIn: "8hr" }
       );
 
       const data = {
@@ -172,7 +172,8 @@ router.post("/stafflogin", async (req, res) => {
         email: user.email,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "6hr" }
+      { expiresIn: "8hr" }
+
     );
 
 

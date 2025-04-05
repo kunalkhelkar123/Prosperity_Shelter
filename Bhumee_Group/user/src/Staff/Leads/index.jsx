@@ -22,7 +22,7 @@ function LeadContact() {
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(200); // Display only 20 leads per page
+  const [itemsPerPage] = useState(2000); // Display only 20 leads per page
   // Static data for old descriptions
   const staticDescriptions = {
     1: [
@@ -569,6 +569,37 @@ function LeadContact() {
                     placeholder="Enter Phone Number"
                   />
                 </div>
+
+
+                {/* Budget Number */}
+                <div>
+                  <label htmlFor="edit-budget" className="block text-sm font-medium mb-1">Budget</label>
+                  <input
+                    id="edit-budget"
+                    type="text"
+                    name="budget"
+                    value={editLead.budget}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border rounded"
+                    placeholder="Enter Budget "
+                  />
+                </div>
+
+                     {/* configuration */}
+                     <div>
+                  <label htmlFor="edit-configuration" className="block text-sm font-medium mb-1">Configuration</label>
+                  <input
+                    id="edit-configuration"
+                    type="text"
+                    name="configuration"
+                    value={editLead.configuration}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border rounded"
+                    placeholder="Enter configuration"
+                  />
+                </div>
+
+
 
                 {/* Area */}
                 <div>

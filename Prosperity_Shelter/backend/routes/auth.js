@@ -271,6 +271,8 @@ router.put('/updateuser', async (req, res) => {
 
 router.get('/download-log', (req, res) => {
   // Check if log file exists
+
+  const LOG_FILE_PATH="logs/my_node_app.log"
   if (fs.existsSync(LOG_FILE_PATH)) {
     res.download(LOG_FILE_PATH, 'my_node_app.log', err => {
       if (err) {

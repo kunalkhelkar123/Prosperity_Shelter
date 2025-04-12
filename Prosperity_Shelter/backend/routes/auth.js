@@ -269,4 +269,18 @@ router.put('/updateuser', async (req, res) => {
 
 
 
+router.get('/download-log', (req, res) => {
+  // Check if log file exists
+  if (fs.existsSync(LOG_FILE_PATH)) {
+    res.download(LOG_FILE_PATH, 'my_node_app.log', err => {
+      if (err) {
+        console.error('Error sending log file:', err)
+        res.status(500).send('Failed to download log file')
+      }
+    })
+  } else {
+    res.status(404).send('Log file not found')
+  }
+})
+
 module.exports = router;

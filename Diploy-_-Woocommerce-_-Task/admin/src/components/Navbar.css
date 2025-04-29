@@ -1,0 +1,47 @@
+
+.navbar {
+    background-color: #2563eb; 
+    padding: 16px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Limit width */
+    margin: 0 auto; /* Center the container */
+  }
+  
+  /* Logo styles */
+  .navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-logo:hover {
+    color: #e5e7eb; /* Tailwind's hover:text-gray-200 */
+  }
+  
+  /* Navbar links container */
+  .navbar-links {
+    display: flex;
+    gap: 24px; /* Spacing between links */
+  }
+  
+  .navbar-link {
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-link:hover {
+    color: #e5e7eb; /* Tailwind's hover:text-gray-200 */
+  }
+  

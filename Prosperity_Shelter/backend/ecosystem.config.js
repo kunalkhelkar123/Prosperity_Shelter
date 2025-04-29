@@ -3,7 +3,7 @@ module.exports = {
       {
         name: 'Prosperity_Shelter', // Change to your preferred name
         script: './index.js', // Replace with your entry point file
-        args: 'start', // Optional: any CLI arguments
+        // args: 'start', // Optional: any CLI arguments
         log_file: 'logs/my_node_app.log', // Combined log file (stdout + stderr)
         out_file: 'logs/my_node_app_out.log', // Only stdout
         error_file: 'logs/my_node_app_error.log', // Only stderr
